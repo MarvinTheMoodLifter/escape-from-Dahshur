@@ -1,2 +1,2 @@
-# escape-from-Dahshur
-Progetto finale per il corso di Elementi di Ingegneria del Software
+# Escape from Dahshur
+A text adventure game set in the pyramid complex of Dahshur, Egypt.
