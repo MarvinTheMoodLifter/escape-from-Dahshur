@@ -41,7 +41,7 @@ public class Entity
 
     public void setPower(int power) { this.power = power; }
 
-    public void addItem(String item) { items.add(item); }
+    public void addItem(Item item) { items.add(item); }
 
     public void setMaxWeight(int maxWeight) { this.maxWeight = maxWeight; }
 
@@ -61,4 +61,3 @@ public class Entity
 
     public void moveWest(int maxX) { if (currentPosition[0] > 0) currentPosition[0]--; }
 }
-
