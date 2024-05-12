@@ -1,0 +1,57 @@
+
+import java.util.*;
+//non so fare le include guards aiuto
+public class Room {
+    
+//vector dinamico di oggetti generici 
+private ArrayList<Items> roomItems = new Vector<Items>(10,1);
+private HashMap<String, Boolean> walls = new HashMap<String, Boolean>();
+private ArrayList<Entity> roomnpc = new ArrayList<Entity>();
+public Room(){
+    walls.put("up",false);
+    walls.put("right",false);
+    walls.put("down",false);
+    walls.put("left",false);
+}
+public void addItem(Items groundItem){
+   roomItems.addElement(groundItem);
+}
+public void deleteItem(int i){
+    roomItems.remove(i);
+}
+public void clearItem(){
+    roomItems.clear();
+}
+public boolean hasItem(){
+
+    if(roomItems.isEmpty()==true){
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+public boolean getWall(String wallpos){
+    if(walls.containsKey(wallpos.toLowerCase())){
+        walls.get(wallpos);
+ } 
+}
+public void setWall(String direction,boolean setting){
+    if(walls.containsKey(direction.toLowerCase())){
+        walls.replace(direction.toLowerCase(),setting);
+ } 
+}
+public boolean hasWall(){
+   return walls.containsValue(true);
+ }
+ public boolean lisrwall(){
+    System.out.println(walls);
+ }
+ public boolean hasEntity(){
+    return !roomnpc.isEmpty();
+  }
+  public void addEntity(Entity addednpc){
+    roomnpc.add(addednpc);
+  }
+}
+ 
