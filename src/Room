@@ -44,7 +44,7 @@ public void setWall(String direction,boolean setting){
 public boolean hasWall(){
    return walls.containsValue(true);
  }
- public boolean lisrwall(){
+ public boolean listwall(){
     System.out.println(walls);
  }
  public boolean hasEntity(){
@@ -53,7 +53,7 @@ public boolean hasWall(){
   public void addEntity(Entity addednpc){
     roomnpc.add(addednpc);
   }
-  public void removeEntity(int target){
+  public void removeEntity(Entity target){
     roomnpc.remove(target);
   }
   public boolean isOpen(){
