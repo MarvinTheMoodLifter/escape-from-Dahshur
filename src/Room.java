@@ -3,7 +3,7 @@ public class Room {
     
 //vector dinamico di oggetti generici 
 private boolean roomstat;
-private ArrayList<Items> roomItems = new ArrayList<Items>();
+private ArrayList<Item> roomItems = new ArrayList<Item>();
 private HashMap<String, Boolean> walls = new HashMap<String, Boolean>();
 private ArrayList<Entity> roomnpc = new ArrayList<Entity>();
 public Room(){
@@ -13,22 +13,23 @@ public Room(){
     walls.put("left",false);
     roomstat = true;
 }
-public void addItem(Items groundItem){
-   roomItems.addElement(groundItem);
+public void addItem(Item groundItem){
+   roomItems.add(groundItem);
 }
-public void deleteItem(Items target){
+public void deleteItem(Item target){
     roomItems.remove(target);
 }
 public void clearItem(){
     roomItems.clear();
 }
 public boolean hasItem(){
-return !roomItems.isEpmty();
+return !roomItems.isEmpty();
 }
 public boolean getWall(String wallpos){
     if(walls.containsKey(wallpos.toLowerCase())){
-        walls.get(wallpos);
+        return walls.get(wallpos);
  } 
+ return false;
 }
 public void setWall(String direction,boolean setting){
     if(walls.containsKey(direction.toLowerCase())){
@@ -38,7 +39,7 @@ public void setWall(String direction,boolean setting){
 public boolean hasWall(){
    return walls.containsValue(true);
  }
- public boolean listwall(){
+ public void listwall(){
     System.out.println(walls);
  }
  public boolean hasEntity(){
