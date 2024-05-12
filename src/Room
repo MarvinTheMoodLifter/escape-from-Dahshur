@@ -1,9 +1,8 @@
-
 import java.util.*;
-//non so fare le include guards aiuto
 public class Room {
     
 //vector dinamico di oggetti generici 
+private boolean roomstat;
 private ArrayList<Items> roomItems = new Vector<Items>(10,1);
 private HashMap<String, Boolean> walls = new HashMap<String, Boolean>();
 private ArrayList<Entity> roomnpc = new ArrayList<Entity>();
@@ -12,6 +11,7 @@ public Room(){
     walls.put("right",false);
     walls.put("down",false);
     walls.put("left",false);
+    roomstat = true;
 }
 public void addItem(Items groundItem){
    roomItems.addElement(groundItem);
@@ -52,6 +52,15 @@ public boolean hasWall(){
   }
   public void addEntity(Entity addednpc){
     roomnpc.add(addednpc);
+  }
+  public void removeEntity(int target){
+    roomnpc.remove(target);
+  }
+  public boolean isOpen(){
+    return roomstat;
+  }
+  public void setRoomStat(Boolean setting){
+    roomstat= setting;
   }
 }
  
