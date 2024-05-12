@@ -3,12 +3,12 @@ import java.util.*;
 public class Pyramid {
     private Room[][] gamemap;
 
-    public Pyramid() {
+    public Pyramid() 
+    {
         gamemap = new Room[3][3];
-        for (int i = 0; i < gamemap.length; i++) {
-            for (int j = 0; j < gamemap[i].length; j++) {
-                gamemap[i][j] = new Room();
-            }
+        for (int i = 0; i < gamemap.length; i++) 
+        {
+            for (int j = 0; j < gamemap[i].length; j++) { gamemap[i][j] = new Room(); }
         }
     }
 
