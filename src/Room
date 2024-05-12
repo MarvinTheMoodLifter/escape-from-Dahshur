@@ -3,7 +3,7 @@ public class Room {
     
 //vector dinamico di oggetti generici 
 private boolean roomstat;
-private ArrayList<Items> roomItems = new Vector<Items>(10,1);
+private ArrayList<Items> roomItems = new ArrayList<Items>();
 private HashMap<String, Boolean> walls = new HashMap<String, Boolean>();
 private ArrayList<Entity> roomnpc = new ArrayList<Entity>();
 public Room(){
