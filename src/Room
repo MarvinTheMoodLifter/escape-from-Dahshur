@@ -16,20 +16,14 @@ public Room(){
 public void addItem(Items groundItem){
    roomItems.addElement(groundItem);
 }
-public void deleteItem(int i){
-    roomItems.remove(i);
+public void deleteItem(Items target){
+    roomItems.remove(target);
 }
 public void clearItem(){
     roomItems.clear();
 }
 public boolean hasItem(){
-
-    if(roomItems.isEmpty()==true){
-        return false;
-    }
-    else{
-        return true;
-    }
+return !roomItems.isEpmty();
 }
 public boolean getWall(String wallpos){
     if(walls.containsKey(wallpos.toLowerCase())){
