@@ -46,7 +46,7 @@ The project makes extensive use of Java's native functionalities; however, some 
 
 ## Credits
 ### Development Team
-- [Davide](Saffottiglia)
+- [Davide](https://github.com/Saffottiglia)
 - [Marco](https://github.com/MarvinTheMoodLifter)
-- [Roberto](RobertoLupuC)
-- [Simone](acquanaturaleminerale)
+- [Roberto](https://github.com/RobertoLupuC)
+- [Simone](https://github.com/acquanaturaleminerale)
