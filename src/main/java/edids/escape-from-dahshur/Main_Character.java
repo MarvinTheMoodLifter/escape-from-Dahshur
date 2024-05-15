@@ -1,3 +1,5 @@
+package edids.escape_from_dahshur;
+
 import java.util.List;
 
 public class Main_Character extends Entity 

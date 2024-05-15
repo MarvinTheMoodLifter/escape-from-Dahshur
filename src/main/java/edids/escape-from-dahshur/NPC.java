@@ -1,3 +1,5 @@
+package edids.escape_from_dahshur;
+
 public class NPC extends Entity 
 {
     private int health;

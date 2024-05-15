@@ -1,3 +1,5 @@
+package edids.escape_from_dahshur;
+
 import java.util.Scanner;
 
 public class Game

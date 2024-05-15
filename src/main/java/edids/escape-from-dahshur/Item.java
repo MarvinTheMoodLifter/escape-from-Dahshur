@@ -1,3 +1,5 @@
+package edids.escape_from_dahshur;
+
 public class Item {
     private String name;
     private int score;
