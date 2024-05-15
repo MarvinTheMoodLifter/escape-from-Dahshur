@@ -4,7 +4,7 @@ public class Room {
     private boolean roomstat;
     private ArrayList<Item> roomItems = new ArrayList<Item>();
     private HashMap<String, Boolean> walls = new HashMap<String, Boolean>();
-    private ArrayList<Entity> roomnpc = new ArrayList<Entity>();
+    private ArrayList<NPC> roomnpc = new ArrayList<NPC>();
 
     public Room() {
         walls.put("up", false);
@@ -50,11 +50,11 @@ public class Room {
         return !roomnpc.isEmpty();
     }
 
-    public void addEntity(Entity addednpc) {
+    public void addEntity(NPC addednpc) {
         roomnpc.add(addednpc);
     }
 
-    public void removeEntity(Entity target) {
+    public void removeEntity(NPC target) {
         roomnpc.remove(target);
     }
 
@@ -76,4 +76,49 @@ public class Room {
         }
     }
 
+    public List<Item> getRoomItems() { return roomItems; }
+
+    public void describeEntities()
+    {
+        if (roomnpc.isEmpty()) { System.out.println("There are no characters in the room."); }
+        else
+        {
+            for (Entity entity : roomnpc)
+            {
+                if (entity instanceof NPC) { ((NPC) entity).describe(); }
+                else { System.out.println(entity.getName() + " is here."); }
+            }
+        }
+    }
+
+    public void talkToNPC(String npcName)
+    {
+        for (Entity entity : roomnpc)
+        {
+            if (entity instanceof NPC && entity.getName().equalsIgnoreCase(npcName))
+            {
+                System.out.println(npcName + " says: 'Hello, I am the " + npcName + ". " + ((NPC) entity).getDescription() + "'");
+                return;
+            }
+        }
+        System.out.println("No NPC named '" + npcName + "' found in the room.");
+    }
+
+    public NPC findNPCByName(String name)
+    {
+        for (NPC npc : roomnpc)
+        {
+            if (npc.getName().equalsIgnoreCase(name)) { return npc; }
+        }
+        return null;
+    }
+
+    public Item findItemByName(String name)
+    {
+        for (Item item : roomItems)
+        {
+            if (item.getName().equalsIgnoreCase(name)) { return item; }
+        }
+        return null;
+    }
 }
