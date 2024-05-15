@@ -5,7 +5,7 @@ public class Entity
     private String name;
     private int health;
     private int power;
-    private List<Item> items; // bisogna prima creare Item per gestirla meglio
+    private List<Item> item; // bisogna prima creare Item per gestirla meglio
     private int maxWeight;
     private int score;
     private int[] currentPosition;
@@ -16,7 +16,7 @@ public class Entity
         this.health = health;
         this.power = power;
         this.maxWeight = maxWeight;
-        this.items = new ArrayList<Item>(); // dopo lo sviluppiamo
+        this.item = new ArrayList<>(); // dopo lo sviluppiamo
         this.score = 0;
         this.currentPosition = new int[]{startX, startY}; // Usando la matrice bidimensionale
     }
@@ -27,7 +27,7 @@ public class Entity
 
     public int getPower() { return power; }
 
-    public List<Item> getItems() { return items; }
+    public List<Item> getItem() { return item; }
 
     public double getMaxWeight() { return maxWeight; }
 
@@ -41,7 +41,7 @@ public class Entity
 
     public void setPower(int power) { this.power = power; }
 
-    public void addItem(String item) { items.add(item); }
+    public void addItem(Item item) { this.item.add(item); }
 
     public void setMaxWeight(int maxWeight) { this.maxWeight = maxWeight; }
 
@@ -61,4 +61,3 @@ public class Entity
 
     public void moveWest(int maxX) { if (currentPosition[0] > 0) currentPosition[0]--; }
 }
-
