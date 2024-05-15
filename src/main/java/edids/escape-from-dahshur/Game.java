@@ -13,6 +13,15 @@ public class Game
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
+    private final GameSaver gameSaver;
+    private final GameLoader gameLoader;
+
+    public Game(String accessKeyId, String secretAccessKey, String region, String bucketName) {
+        S3Manager s3Manager = new S3Manager(accessKeyId, secretAccessKey, region, bucketName);
+        this.gameSaver = new GameSaver(s3Manager);
+        this.gameLoader = new GameLoader(s3Manager);
+    }
+
     public static void main(String[] args)
     {
         Scanner scanner = new Scanner(System.in);
@@ -20,6 +29,13 @@ public class Game
         Room room = pyramid.getRoom(0, 0);
         Main_Character hero = new Main_Character("Hero", 100, 50, 100, 0, 0);
         boolean inCombat = false;
+
+        // Configurazione per Amazon S3
+        String accessKeyId = "";
+        String secretAccessKey = "";
+        String region = "";
+        String bucketName = "";
+        Game game = new Game(accessKeyId, secretAccessKey, region, bucketName);
 
         if (room != null)
         {
@@ -118,12 +134,36 @@ public class Game
                     }
                     else { System.out.println("You are not in combat."); }
                 }
+                else if (input.toLowerCase().startsWith("save ")) {
+                    String saveFileName = input.substring(5).trim(); // Rimuove 'save ' dalla stringa di input
+                    // Serializza lo stato del gioco (es. converti a JSON)
+                    String gameData = serializeGameState(hero, room, pyramid);
+                    game.gameSaver.saveGame(saveFileName, gameData);
+                    System.out.println("Game saved as '" + saveFileName + "'.");
+                }
+                else if (input.toLowerCase().startsWith("load ")) {
+                    String saveFileName = input.substring(5).trim(); // Rimuove 'load ' dalla stringa di input
+                    String loadedData = game.gameLoader.loadGame(saveFileName);
+                    // Deserializza lo stato del gioco (es. da JSON)
+                    deserializeGameState(loadedData, hero, room, pyramid);
+                    System.out.println("Game loaded from '" + saveFileName + "'.");
+                }
                 else { System.out.println("Unknown command. Please try again."); }
             }
         }
         else { System.out.println("No room found at the specified coordinates."); }
 
         scanner.close();
+    }
+
+    private static String serializeGameState(Main_Character hero, Room room, Pyramid pyramid) {
+        // TODO: Implementa la serializzazione del gioco
+        return "Serialized game state";
+    }
+    
+    private static void deserializeGameState(String gameData, Main_Character hero, Room room, Pyramid pyramid) {
+        // TODO: Implementa la deserializzazione del gioco
+        System.out.println("Deserialized game state");
     }
 
 }
