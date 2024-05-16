@@ -12,6 +12,7 @@ public class Pyramid {
         {
             for (int j = 0; j < gamemap[i].length; j++) { gamemap[i][j] = new Room(); }
         }
+        wallInitializer();
     }
 
     public Room getRoom(int posx, int posy) 
@@ -22,4 +23,12 @@ public class Pyramid {
     public String getPyramidDesc(){return pyramidDescription;}
     public void setPyramidDesc(String desc){ pyramidDescription=desc;}
     public void printPyramidDesc(){System.out.println(pyramidDescription) ;}
+        public void wallInitializer(){
+        gamemap[0][0].setWall("right",true);
+        gamemap[0][1].setWall("left",true);gamemap[1][0].setWall("right",true);
+        gamemap[0][2].setWall("left",true);
+        gamemap[0][1].setWall("up",true);
+        gamemap[2][0].setWall("down",true);
+        gamemap[2][1].setWall("right",true);
+    }
 }
