@@ -27,7 +27,7 @@ public class Pyramid {
         gamemap[0][0].setWall("right",true);
         gamemap[0][1].setWall("left",true);gamemap[1][0].setWall("right",true);
         gamemap[0][2].setWall("left",true);
-        gamemap[0][1].setWall("up",true);
+        gamemap[1][0].setWall("up",true);
         gamemap[2][0].setWall("down",true);
         gamemap[2][1].setWall("right",true);
     }
