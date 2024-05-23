@@ -5,6 +5,7 @@ public class Room {
   private ArrayList<Item> roomItems = new ArrayList<Item>();
   private HashMap<String, Boolean> walls = new HashMap<String, Boolean>();
   private ArrayList<NPC> roomnpc = new ArrayList<NPC>();
+  private Boolean isEntrance;
 
   public Room() {
       walls.put("up", false);
@@ -13,6 +14,7 @@ public class Room {
       walls.put("left", false);
       roomstat = true;
       roomdescription="";
+      isEntrance=false;
   }
 
   public void addItem(Item groundItem) {
@@ -130,5 +132,12 @@ public class Room {
   }
   public void printRoomDesc(String desc){
     System.out.println(roomdescription);
+  }
+}
+  public void setEntrance(Boolean newEntrance){
+    isEntrance= newEntrance;
+  }
+  public Boolean getEntrance(){
+    return isEntrance;
   }
 }
