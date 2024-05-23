@@ -1,3 +1,5 @@
+package firstinstance;
+
 public class NPC extends Entity 
 {
     private int health;
