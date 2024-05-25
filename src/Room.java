@@ -5,6 +5,7 @@ public class Room {
   private ArrayList<Item> roomItems = new ArrayList<Item>();
   private HashMap<String, Boolean> walls = new HashMap<String, Boolean>();
   private ArrayList<NPC> roomnpc = new ArrayList<NPC>();
+  private ArrayList<Landscape_Entity> landmarks = new ArrayList<>();
   private Boolean isEntrance;
 
   public Room() {
@@ -34,7 +35,7 @@ public class Room {
   }
 
   public Boolean getWall(String wallpos) {
-      return walls.getOrDefault(wallpos.toLowerCase(), null);
+      return walls.getOrDefault(wallpos.toLowerCase(),null);
   }
 
   public void setWall(String direction, boolean setting) {
@@ -60,7 +61,17 @@ public class Room {
   public void removeEntity(NPC target) {
       roomnpc.remove(target);
   }
+  public boolean hasLandmark() {
+    return !landmarks.isEmpty();
+}
 
+public void addLandmark(Landscape_Entity addedlandmark) {
+    landmarks.add(addedlandmark);
+}
+
+public void removeLandmark(Landscape_Entity target) {
+    landmarks.remove(target);
+}
   public boolean isOpen() {
       return roomstat;
   }
@@ -93,6 +104,18 @@ public class Room {
           }
       }
   }
+  public void describeLandmarks()
+  {
+      if (landmarks.isEmpty()) { System.out.println("There is no interesting structure in the room."); }
+      else
+      {
+          for (Entity entity : landmarks)
+          {
+              if (entity instanceof Landscape_Entity) { ((Landscape_Entity) entity).describeLandscape(); }
+              else { System.out.println(entity.getName() + " is here."); }
+          }
+      }
+  }
 
   public void talkToNPC(String npcName)
   {
@@ -115,6 +138,14 @@ public class Room {
       }
       return null;
   }
+  public Landscape_Entity findLandmarkByName(String name)
+  {
+      for (Landscape_Entity target : landmarks)
+      {
+          if (target.getName().equalsIgnoreCase(name)) { return target; }
+      }
+      return null;
+  }
 
   public Item findItemByName(String name)
   {
@@ -133,7 +164,6 @@ public class Room {
   public void printRoomDesc(String desc){
     System.out.println(roomdescription);
   }
-}
   public void setEntrance(Boolean newEntrance){
     isEntrance= newEntrance;
   }
