@@ -5,6 +5,7 @@ public class NPC extends Entity
     private int health;
     private String description;
     private boolean isAlive;
+    private boolean isFriendly;
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
@@ -14,15 +15,21 @@ public class NPC extends Entity
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
-    public NPC(String name, int health, int power, int maxWeight, int startX, int startY, String description) 
+    public NPC(String name, int health, int power, int maxWeight, int startX, int startY, String description,Boolean isfriend) 
     {
         super(name, health, power, maxWeight, startX, startY);
         this.health = health;
         this.description = description;
         this.isAlive = true;
+        setCanMove(true);
+        isFriendly=isfriend;
     }
 
     public boolean isAlive() { return isAlive; }
+
+    public boolean isFriendly() { return isFriendly; }
+
+    public boolean setIsFriendly(Boolean setting) { return isFriendly=setting; }
 
     public String getDescription() { return description; }
 
@@ -51,6 +58,14 @@ public class NPC extends Entity
     }
 
 
+    public void describe() { System.out.println(getName() + " is here. " + getDescription()); }
+
+    public void NpcInteraction(NPC target,String interaction){
+        // interazione semplice, se npc is friendly allora puoi fare questo senno combatti e basta
+         //in base al npc scelto e all'interazione facciamo cose
+         //evitiamo di esagerare con le interazioni senno  diventa pesante
+        }
+}
     public void describe() { System.out.println(getName() + " is here. " + getDescription()); }
 
 }
