@@ -25,20 +25,15 @@ public class Game
             pyramid.describeRoom(currentPosition[0], currentPosition[1]);
 
             // Menu per interazione utente
-            System.out.println("Available actions:\n inspect [item_name]\n take [item_name] \n equip [item_name]\n talk to [npc_name]\n attack [npc_name]\n move [direction]\n type 'exit' to quit.");
+            System.out.println("Available actions:\n inspect [item_name]\n take [item_name] \n equip [item_name]\n talk to [npc_name]\n attack [npc_name]\n move [direction]\n view inventory\n type 'exit' to quit.");
             System.out.print("Enter action: ");
             String input = scanner.nextLine();
 
-            if (input.equalsIgnoreCase("exit"))
-            {
-                break;
-            }
+            if (input.equalsIgnoreCase("exit")) { break; }
+            else if (input.equalsIgnoreCase("view inventory")) { hero.printInventory(); }
             else if (input.toLowerCase().startsWith("inspect "))
             {
-                if (inCombat)
-                {
-                    System.out.println(ANSI_YELLOW + "You cannot inspect items during combat. You must 'attack' or 'flee'." + ANSI_RESET);
-                }
+                if (inCombat) { System.out.println(ANSI_YELLOW + "You cannot inspect items during combat. You must 'attack' or 'flee'." + ANSI_RESET); }
                 else
                 {
                     String itemName = input.substring(8).trim();
@@ -59,9 +54,7 @@ public class Game
             else if (input.toLowerCase().startsWith("equip "))
             {
                 String itemName = input.substring(6).trim();
-                Item item = pyramid.getRoom(currentPosition[0], currentPosition[1]).findItemByName(itemName);
-                if (item != null) { hero.equipItem(item); }
-                else { System.out.println("No item named '" + itemName + "' found in the room."); }
+                hero.equipItem(itemName);
             }
             else if (input.toLowerCase().startsWith("talk to "))
             {
