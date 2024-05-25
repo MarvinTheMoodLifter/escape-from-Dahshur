@@ -1,19 +1,20 @@
 import java.util.*;
 
-public class Main_Character extends Entity 
+public class Main_Character extends Entity
 {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_RESET = "\u001B[0m";
 
     private Item equippedItem;
-    private Boolean hasEquippedItem;
-    private HashMap<String,Item> inventory;
+    private boolean hasEquippedItem;
+    private HashMap<String, Item> inventory;
 
     public Main_Character(String name, int health, int power, int maxWeight, int startX, int startY)
     {
         super(name, health, power, maxWeight, startX, startY);
         this.equippedItem = null;
-        inventory= new HashMap<>();
+        this.hasEquippedItem = false;
+        this.inventory = new HashMap<>();
     }
 
     public void inspectItemByName(Room room, String itemName)
@@ -33,7 +34,7 @@ public class Main_Character extends Entity
     public void attack(NPC npc)
     {
         int damage = this.getPower();
-        if(equippedItem != null) { damage += equippedItem.getDamage(); }
+        if (equippedItem != null) { damage += equippedItem.getDamage(); }
         if (npc.isAlive()) { npc.takeDamage(damage); }
         else { System.out.println(npc.getName() + " is already dead and cannot be attacked."); }
     }
@@ -45,72 +46,99 @@ public class Main_Character extends Entity
         if (this.getHealth() <= 0) { die(); }
     }
 
-    public void equipItem(Item item)
+    public void equipItem(String itemName)
     {
-        if(hasEquippedItem){
-        this.equippedItem = item;
-        hasEquippedItem=true;
-        System.out.println(item.getName() + " equipped. Your damage increased by " + item.getDamage() );
-    }else{
-        System.out.println("you are already holding an item");
-    }
+        Item item = inventory.get(itemName.toLowerCase());
+
+        if (item != null)
+        {
+            if (!hasEquippedItem)
+            {
+                this.equippedItem = item;
+                this.hasEquippedItem = true;
+                System.out.println(item.getName() + " equipped. Your damage increased by " + item.getDamage());
+                inventory.remove(item.getName().toLowerCase());
+            }
+            else { System.out.println("You are already holding an item. Unequip the current item first."); }
+        }
+        else { System.out.println("Item not found in inventory."); }
     }
 
     public boolean isAlive() { return this.getHealth() > 0; }
 
     private void die() { System.out.println(this.getName() + " has died."); }
-  
-    public void takeItem(Item item,Room room){
-    if(getInvWeight()<getMaxWeight()){
-        inventory.put(item.getName(),item);
-        room.deleteItem(item);
-    }else{
-        System.out.println("your backpack is too heavy");
-    } 
-    }
-     public void dropItem(Item item,Room room){
-        room.addItem(item);
-        inventory.remove(item.getName());
-    }
-    public int getInvWeight(){
-        int s=0;
-        for(String entry : inventory.keySet()) {
-            s=inventory.get(entry).getWeight()+s;
-            }
-         return s;
-    }
-    public int getInvScore(){
-        int s=0;
-        for(String entry : inventory.keySet()) {
-            s=inventory.get(entry).getItemScore()+s;
-            }
-         return s;
-    }
-    public void equipInvItem(Item item){
-        if(hasEquippedItem){
-        equipItem(item);
-        inventory.remove(item.getName());
-    }
-    }
-    public void setHasEqItem(Boolean setting){
-    hasEquippedItem=setting;
-    }
-    public Boolean getHasEqItem(){
-        return hasEquippedItem;
-    }
-    public void unequipItem(Item item,Room room){
-        hasEquippedItem=false;
-        if(getInvWeight()<getMaxWeight()){
-            inventory.put(item.getName(),item);
-            equippedItem=null;
-        }else{
-            dropItem(item,room);
+
+    public void takeItem(Item item, Room room)
+    {
+        if (getInvWeight() + item.getWeight() <= getMaxWeight())
+        {
+            inventory.put(item.getName().toLowerCase(), item);
+            room.deleteItem(item);
+            System.out.println(item.getName() + " taken.");
         }
+        else { System.out.println("Your backpack is too heavy."); }
     }
-    public Item getInvItem(String name){
-        return inventory.get(name);
+
+    public void dropItem(Item item, Room room)
+    {
+        room.addItem(item);
+        inventory.remove(item.getName().toLowerCase());
+        System.out.println(item.getName() + " dropped.");
     }
-    public Item setInvItem(Item item){
-        return inventory.replace(item.getName(),item);
+
+    public int getInvWeight()
+    {
+        int totalWeight = 0;
+        for (Item item : inventory.values()) { totalWeight += item.getWeight(); }
+        return totalWeight;
+    }
+
+    public int getInvScore()
+    {
+        int totalScore = 0;
+        for (Item item : inventory.values()) { totalScore += item.getItemScore(); }
+        return totalScore;
+    }
+
+    public void setHasEqItem(boolean setting) { hasEquippedItem = setting; }
+
+    public boolean getHasEqItem() { return hasEquippedItem; }
+
+    public void unequipItem(Room room)
+    {
+        if (hasEquippedItem && equippedItem != null)
+        {
+            if (getInvWeight() + equippedItem.getWeight() <= getMaxWeight())
+            {
+                inventory.put(equippedItem.getName().toLowerCase(), equippedItem);
+                System.out.println(equippedItem.getName() + " unequipped.");
+                equippedItem = null;
+                hasEquippedItem = false;
+            }
+            else
+            {
+                dropItem(equippedItem, room);
+                equippedItem = null;
+                hasEquippedItem = false;
+            }
+        }
+        else { System.out.println("No item is equipped."); }
+    }
+
+    public Item getInvItem(String name) { return inventory.get(name.toLowerCase()); }
+
+    public Item setInvItem(Item item) { return inventory.replace(item.getName().toLowerCase(), item); }
+
+    public void printInventory()
+    {
+        if (inventory.isEmpty()) { System.out.println("Your inventory is empty."); }
+        else
+        {
+            System.out.println("Your inventory:");
+            for (Item item : inventory.values()) { System.out.println("- " + item.getName()); }
+        }
+
+        if (hasEquippedItem && equippedItem != null) { System.out.println("Equipped item: " + equippedItem.getName()); }
+        else { System.out.println("No item equipped."); }
     }
 }
