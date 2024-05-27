@@ -135,11 +135,11 @@ public class Main_Character extends Entity
         if (inventory.isEmpty()) { System.out.println("Your inventory is empty."); }
         else
         {
-            System.out.println("Your inventory:");
+            System.out.println(ANSI_PURPLE+"Your inventory:");
             for (Item item : inventory.values()) { System.out.println("- " + item.getName()); }
         }
 
-        if (hasEquippedItem && equippedItem != null) { System.out.println("Equipped item: " + equippedItem.getName()); }
-        else { System.out.println("No item equipped."); }
+        if (hasEquippedItem && equippedItem != null) { System.out.println(ANSI_PURPLE +"Equipped item: " + equippedItem.getName()); }
+        else { System.out.println(ANSI_PURPLE +"No item equipped."); }
     }
 }
