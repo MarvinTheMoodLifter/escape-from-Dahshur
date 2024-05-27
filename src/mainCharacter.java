@@ -59,9 +59,15 @@ public class Main_Character extends Entity
                 System.out.println(item.getName() + " equipped. Your damage increased by " + item.getDamage());
                 inventory.remove(item.getName().toLowerCase());
             }
-            else { System.out.println("You are already holding an item. Unequip the current item first."); }
+            else
+            {
+                System.out.println("You are already holding an item. Unequip the current item first.");
+            }
         }
-        else { System.out.println("Item not found in inventory."); }
+        else
+        {
+            System.out.println("Item not found in inventory.");
+        }
     }
 
     public boolean isAlive() { return this.getHealth() > 0; }
@@ -76,7 +82,10 @@ public class Main_Character extends Entity
             room.deleteItem(item);
             System.out.println(item.getName() + " taken.");
         }
-        else { System.out.println("Your backpack is too heavy."); }
+        else
+        {
+            System.out.println("Your backpack is too heavy.");
+        }
     }
 
     public void dropItem(Item item, Room room)
@@ -89,20 +98,32 @@ public class Main_Character extends Entity
     public int getInvWeight()
     {
         int totalWeight = 0;
-        for (Item item : inventory.values()) { totalWeight += item.getWeight(); }
+        for (Item item : inventory.values())
+        {
+            totalWeight += item.getWeight();
+        }
         return totalWeight;
     }
 
     public int getInvScore()
     {
         int totalScore = 0;
-        for (Item item : inventory.values()) { totalScore += item.getItemScore(); }
+        for (Item item : inventory.values())
+        {
+            totalScore += item.getItemScore();
+        }
         return totalScore;
     }
 
-    public void setHasEqItem(boolean setting) { hasEquippedItem = setting; }
+    public void setHasEqItem(boolean setting)
+    {
+        hasEquippedItem = setting;
+    }
 
-    public boolean getHasEqItem() { return hasEquippedItem; }
+    public boolean getHasEqItem()
+    {
+        return hasEquippedItem;
+    }
 
     public void unequipItem(Room room)
     {
@@ -122,23 +143,44 @@ public class Main_Character extends Entity
                 hasEquippedItem = false;
             }
         }
-        else { System.out.println("No item is equipped."); }
+        else
+        {
+            System.out.println("No item is equipped.");
+        }
     }
 
-    public Item getInvItem(String name) { return inventory.get(name.toLowerCase()); }
+    public Item getInvItem(String name)
+    {
+        return inventory.get(name.toLowerCase());
+    }
 
-    public Item setInvItem(Item item) { return inventory.replace(item.getName().toLowerCase(), item); }
+    public Item setInvItem(Item item)
+    {
+        return inventory.replace(item.getName().toLowerCase(), item);
+    }
 
     public void printInventory()
     {
-        if (inventory.isEmpty()) { System.out.println("Your inventory is empty."); }
+        if (inventory.isEmpty())
+        {
+            System.out.println("Your inventory is empty.");
+        }
         else
         {
-            System.out.println("Your inventory:");
-            for (Item item : inventory.values()) { System.out.println("- " + item.getName()); }
+            System.out.println(ANSI_PURPLE + "Your inventory:");
+            for (Item item : inventory.values())
+            {
+                System.out.println("- " + item.getName() + ANSI_RESET);
+            }
         }
 
-        if (hasEquippedItem && equippedItem != null) { System.out.println("Equipped item: " + equippedItem.getName()); }
-        else { System.out.println("No item equipped."); }
+        if (hasEquippedItem && equippedItem != null)
+        {
+            System.out.println(ANSI_PURPLE + "Equipped item: " + equippedItem.getName() + ANSI_RESET);
+        }
+        else
+        {
+            System.out.println(ANSI_PURPLE + "No item equipped." + ANSI_RESET);
+        }
     }
 }
