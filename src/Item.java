@@ -8,12 +8,12 @@ public class Item {
   public static final String ANSI_RESET = "\u001B[0m";
   public static final String ANSI_PURPLE = "\u001B[35m";
 
-  public Item(String name, int score, int weight, int damage) {
+  public Item(String name, int score, int weight, int damage, String itemdesc) {
       this.name = name;
       this.score = score;
       this.weight = weight;
       this.damage = damage;
-      itemDescription= "";
+      itemDescription= itemdesc;
   }
 
   public String getName() { return name; }
