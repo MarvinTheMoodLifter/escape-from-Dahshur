@@ -1,5 +1,3 @@
-package edids.escape_from_dahshur;
-
 import java.util.Scanner;
 
 public class Game
@@ -13,157 +11,197 @@ public class Game
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
-    private final GameSaver gameSaver;
-    private final GameLoader gameLoader;
+    private static final int CONSOLE_WIDTH = 80;  // Larghezza della console
 
-    public Game(String accessKeyId, String secretAccessKey, String region, String bucketName) {
-        S3Manager s3Manager = new S3Manager(accessKeyId, secretAccessKey, region, bucketName);
-        this.gameSaver = new GameSaver(s3Manager);
-        this.gameLoader = new GameLoader(s3Manager);
+    private static void clearScreen() { for (int i = 0; i < 20; ++i) System.out.println(); }
+
+    private static void printCentered(String text)
+    {
+        int padding = (CONSOLE_WIDTH - text.length()) / 2;
+        for (int i = 0; i < padding; i++) System.out.print(" ");
+        System.out.println(text);
+    }
+
+    private static void printCentered(String text, String color)
+    {
+        int padding = (CONSOLE_WIDTH - text.length()) / 2;
+        for (int i = 0; i < padding; i++) System.out.print(" ");
+        System.out.println(color + text + ANSI_RESET);
     }
 
     public static void main(String[] args)
     {
         Scanner scanner = new Scanner(System.in);
         Pyramid pyramid = new Pyramid();
-        Room room = pyramid.getRoom(0, 0);
         Main_Character hero = new Main_Character("Hero", 100, 50, 100, 0, 0);
         boolean inCombat = false;
 
-        // Configurazione per Amazon S3
-        String accessKeyId = "";
-        String secretAccessKey = "";
-        String region = "";
-        String bucketName = "";
-        Game game = new Game(accessKeyId, secretAccessKey, region, bucketName);
-
-        if (room != null)
+        while (true)
         {
-            System.out.print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-            // Aggiunta di oggetti alla stanza per dimostrazione
-            room.addItem(new Item("Sword", 10, 5, 20));
-            room.addItem(new Item("Shield", 15, 10, 5));
-            room.addItem(new Item("Potion", 5, 1, 0));
-
-            // Aggiunta di un NPC alla stanza
-            NPC guardian = new NPC("Osiris", 100, 75, 150, 0, 0, "A creepy, ancient mummy that watches over the tomb.");
-            room.addEntity(guardian);
-
-            // Iniziale descrizione degli NPC e oggetti nella stanza
-            room.describeEntities();
-            if (room.hasItem())
-            {
-                System.out.print("You can see ");
-                int count = room.getRoomItems().size();
-                for (int i = 0; i < count; i++)
-                {
-                    Item item = room.getRoomItems().get(i);
-                    if (i > 0 && i == count - 1) { System.out.print(" and a " + item.getName()); }
-                    else if (i > 0) { System.out.print(", a " + item.getName()); }
-                    else { System.out.print("a " + item.getName()); }
-                }
-                System.out.println(".");
-            }
+            int[] currentPosition = hero.getCurrentPosition();
+            pyramid.describeRoom(currentPosition[0], currentPosition[1]);
 
             // Menu per interazione utente
-            System.out.println("Available actions: 'inspect [item_name]', 'equip [item_name]', 'talk to [npc_name]', 'attack [npc_name]', or type 'exit' to quit.");
-            while (true)
+            printCentered("Available actions:", ANSI_YELLOW);
+            printCentered("inspect [item_name]", ANSI_GREEN);
+            printCentered("talk to [npc_name]", ANSI_GREEN);
+            printCentered("attack [npc_name]", ANSI_GREEN);
+            printCentered("move [direction]", ANSI_GREEN);
+            printCentered("view inventory", ANSI_GREEN);
+            printCentered("type 'exit' to quit.", ANSI_RED);
+            System.out.print("Enter action: ");
+            String input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("exit")) { break; }
+            else if (input.equalsIgnoreCase("view inventory"))
             {
-                if (inCombat) { System.out.println("You are in combat! You can '" + ANSI_RED + "attack [npc_name]" + ANSI_RESET + "' or '" + ANSI_BLUE + "flee" + ANSI_RESET + "'."); }
-                else { System.out.print("Enter action: "); }
+                hero.printInventory();
 
-                String input = scanner.nextLine();
-                if (input.equalsIgnoreCase("exit")) { break; }
-                else if (input.toLowerCase().startsWith("inspect "))
-                {
-                    if (inCombat) { System.out.println(ANSI_YELLOW + "You cannot inspect items during combat. You must 'attack' or 'flee'." + ANSI_RESET); }
-                    else
-                    {
-                        String itemName = input.substring(8).trim();  // Rimuove 'inspect the ' dalla stringa di input
-                        hero.inspectItemByName(room, itemName);
-                    }
-                }
-                else if (input.toLowerCase().startsWith("equip ")) {
-                    String itemName = input.substring(6).trim(); // Rimuove 'equip ' dalla stringa di input
-                    Item item = room.findItemByName(itemName);
-                    if (item != null) { hero.equipItem(item); }
-                    else { System.out.println("No item named '" + itemName + "' found in the room."); }
-                }
-                else if (input.toLowerCase().startsWith("talk to "))
-                {
-                    if (inCombat) { System.out.println(ANSI_YELLOW + "You cannot talk during combat. You must 'attack' or 'flee'." + ANSI_RESET); }
-                    else
-                    {
-                        String npcName = input.substring(8).trim(); // Rimuove 'talk to ' dalla stringa di input
-                        room.talkToNPC(npcName);
-                    }
-                }
-                else if (input.toLowerCase().startsWith("attack "))
-                {
-                    String npcName = input.substring(7).trim(); // Estrae il nome dell'NPC dall'azione
-                    NPC npc = room.findNPCByName(npcName);
-                    if (npc != null && npc.isAlive())
-                    {
-                        hero.attack(npc); // Assume fixed damage for simplicity
+                // Sottomenu per l'inventario
+                System.out.println();
+                printCentered("You are viewing your inventory.", ANSI_RED);
+                printCentered("What would you like to do next?", ANSI_RED);
+                printCentered("equip [item_name]", ANSI_GREEN);
+                printCentered("back", ANSI_BLUE);
+                System.out.print("Enter action: ");
+                String subInput = scanner.nextLine();
 
-                        inCombat = true; // Setta lo stato di combattimento a true
-                        if (npc.isAlive())
-                        {
-                            npc.attack(hero, 10); // NPC contrattacca con danno fisso
-                            if (!hero.isAlive())
-                            {
-                                System.out.println(ANSI_RED + "You have died." + ANSI_RESET);
-                                break; // End the game if the hero dies
-                            }
-                        }
-                    }
-                    else if (npc != null && !npc.isAlive())
-                    {
-                        System.out.println(npc.getName() + " is already dead and cannot be attacked.");
-                        inCombat = false; // Fine del combattimento se l'NPC è morto
-                    }
-                    else { System.out.println("No NPC named '" + npcName + "' found in the room."); }
-                }
-                else if (input.equalsIgnoreCase("flee"))
+                if (subInput.toLowerCase().startsWith("equip "))
                 {
-                    if (inCombat)
-                    {
-                        System.out.println(ANSI_BLUE + "You flee from the combat!" + ANSI_RESET);
-                        System.out.println("Available actions: 'inspect the [item_name]', 'equip [item_name]', 'talk to [npc_name]', 'attack [npc_name]', or type 'exit' to quit.");
-                        inCombat = false; // Resetta lo stato di combattimento a false
-                    }
-                    else { System.out.println("You are not in combat."); }
+                    String itemName = subInput.substring(6).trim();
+                    hero.equipItem(itemName);
                 }
-                else if (input.toLowerCase().startsWith("save ")) {
-                    String saveFileName = input.substring(5).trim(); // Rimuove 'save ' dalla stringa di input
-                    // Serializza lo stato del gioco (es. converti a JSON)
-                    String gameData = serializeGameState(hero, room, pyramid);
-                    game.gameSaver.saveGame(saveFileName, gameData);
-                    System.out.println("Game saved as '" + saveFileName + "'.");
+                else if (subInput.equalsIgnoreCase("back"))
+                {
+                    System.out.println(ANSI_CYAN + "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n" + ANSI_RESET);
+                    continue; // Ritorna al menu principale
                 }
-                else if (input.toLowerCase().startsWith("load ")) {
-                    String saveFileName = input.substring(5).trim(); // Rimuove 'load ' dalla stringa di input
-                    String loadedData = game.gameLoader.loadGame(saveFileName);
-                    // Deserializza lo stato del gioco (es. da JSON)
-                    deserializeGameState(loadedData, hero, room, pyramid);
-                    System.out.println("Game loaded from '" + saveFileName + "'.");
-                }
-                else { System.out.println("Unknown command. Please try again."); }
+                else { printCentered("Unknown command. Returning to main menu."); }
             }
+            else if (input.toLowerCase().startsWith("inspect "))
+            {
+                if (inCombat) { printCentered(ANSI_YELLOW + "You cannot inspect items during combat. You must 'attack' or 'flee'." + ANSI_RESET); }
+                else
+                {
+                    String itemName = input.substring(8).trim();
+                    hero.inspectItemByName(pyramid.getRoom(currentPosition[0], currentPosition[1]), itemName);
+
+                    // Sottomenu per l'oggetto ispezionato
+                    System.out.println();
+                    printCentered("You inspected the " + itemName + ".", ANSI_RED);
+                    printCentered("What would you like to do next?", ANSI_RED);
+                    printCentered("take " + itemName, ANSI_GREEN);
+                    printCentered("back", ANSI_BLUE);
+                    System.out.print("Enter action: ");
+                    String subInput = scanner.nextLine();
+
+                    if (subInput.toLowerCase().startsWith("take "))
+                    {
+                        String takeItemName = subInput.substring(5).trim();
+                        if (takeItemName.equalsIgnoreCase(itemName))
+                        {
+                            Item item = pyramid.getRoom(currentPosition[0], currentPosition[1]).findItemByName(takeItemName);
+                            if (item != null) { hero.takeItem(item, pyramid.getRoom(currentPosition[0], currentPosition[1])); }
+                            else { printCentered("No item named '" + takeItemName + "' found in the room."); }
+                        }
+                        else { printCentered("Item name does not match the inspected item."); }
+                    }
+                    else if (subInput.equalsIgnoreCase("back"))
+                    {
+                        System.out.println(ANSI_CYAN + "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n" + ANSI_RESET);
+                        continue; // Ritorna al menu principale
+                    }
+                    else { printCentered("Unknown command. Returning to main menu."); }
+                }
+            }
+            else if (input.toLowerCase().startsWith("talk to "))
+            {
+                if (inCombat) { printCentered(ANSI_YELLOW + "You cannot talk during combat. You must 'attack' or 'flee'." + ANSI_RESET); }
+                else
+                {
+                    String npcName = input.substring(8).trim();
+                    pyramid.getRoom(currentPosition[0], currentPosition[1]).talkToNPC(npcName);
+
+                    // Sottomenu per l'NPC
+                    System.out.println();
+                    printCentered("You talked to " + npcName + ".", ANSI_RED);
+                    printCentered("What would you like to do next?", ANSI_RED);
+                    printCentered("attack " + npcName, ANSI_GREEN);
+                    printCentered("back", ANSI_BLUE);
+                    System.out.print("Enter action: ");
+                    String subInput = scanner.nextLine();
+
+                    if (subInput.toLowerCase().startsWith("attack "))
+                    {
+                        String attackNPCName = subInput.substring(7).trim();
+                        if (attackNPCName.equalsIgnoreCase(npcName))
+                        {
+                            NPC npc = pyramid.getRoom(currentPosition[0], currentPosition[1]).findNPCByName(attackNPCName);
+                            if (npc != null && npc.isAlive())
+                            {
+                                hero.attack(npc);
+                                inCombat = true;
+                                if (npc.isAlive())
+                                {
+                                    npc.attack(hero, 10);
+                                    if (!hero.isAlive())
+                                    {
+                                        printCentered(ANSI_RED + "You have died." + ANSI_RESET);
+                                        break;
+                                    }
+                                }
+                            }
+                            else if (npc != null && !npc.isAlive())
+                            {
+                                printCentered(npc.getName() + " is already dead and cannot be attacked.");
+                                inCombat = false;
+                            }
+                            else { printCentered("No NPC named '" + attackNPCName + "' found in the room."); }
+                        }
+                        else { printCentered("NPC name does not match the talked NPC."); }
+                    }
+                    else if (subInput.equalsIgnoreCase("back"))
+                    {
+                        System.out.println(ANSI_CYAN + "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n" + ANSI_RESET);
+                        continue; // Ritorna al menu principale
+                    }
+                    else { printCentered("Unknown command. Returning to main menu."); }
+                }
+            }
+            else if (input.equalsIgnoreCase("flee"))
+            {
+                if (inCombat)
+                {
+                    printCentered(ANSI_BLUE + "You flee from the combat!" + ANSI_RESET);
+                    printCentered("Available actions: 'inspect the [item_name]', 'equip [item_name]', 'talk to [npc_name]', 'attack [npc_name]', or type 'exit' to quit.");
+                    inCombat = false;
+                }
+                else { printCentered("You are not in combat."); }
+            }
+            else if (input.toLowerCase().startsWith("move "))
+            {
+                String direction = input.substring(5).trim();
+                int[] previousPosition = hero.getCurrentPosition().clone();
+                hero.move(pyramid, direction);
+                if (hero.getHasMoved())
+                {
+                    int[] newPosition = hero.getCurrentPosition();
+                    if (previousPosition[0] != newPosition[0] || previousPosition[1] != newPosition[1]) { printCentered("You moved " + direction + "."); }
+                    else { printCentered("You hit a wall. You are still in the same room."); }
+                }
+                else { printCentered("You cannot move " + direction + "."); }
+            }
+            else { printCentered("Unknown command. Please try again."); }
+
+            // Pausa dopo ogni azione
+            printCentered("Press Enter to continue...", ANSI_RED);
+            scanner.nextLine();
+            System.out.println(ANSI_CYAN + "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n" + ANSI_RESET);
+
+            // Descrizione della stanza corrente aggiornata
+            pyramid.describeRoom(currentPosition[0], currentPosition[1]);
         }
-        else { System.out.println("No room found at the specified coordinates."); }
 
         scanner.close();
     }
-
-    private static String serializeGameState(Main_Character hero, Room room, Pyramid pyramid) {
-        // TODO: Implementa la serializzazione del gioco
-        return "Serialized game state";
-    }
-    
-    private static void deserializeGameState(String gameData, Main_Character hero, Room room, Pyramid pyramid) {
-        // TODO: Implementa la deserializzazione del gioco
-        System.out.println("Deserialized game state");
-    }
-
 }
