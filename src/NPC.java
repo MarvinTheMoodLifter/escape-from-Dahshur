@@ -58,11 +58,12 @@ public class NPC extends Entity
 
     public void describe() { System.out.println(getName() + " is here. " + getDescription()); }
 
-    public void NpcInteraction(NPC target,String interaction,Main_Character hero){
+    public void NpcInteraction(NPC target,String interaction,Main_Character hero,Room room){
          if(target.isFriendly()&&target.getName().equals("lost explorer")){
          if(interaction.equals("free")&&hero.getEqItem().getName().equals("book of the dead")){
          System.out.println("as you free the aventurer his form begins to vanish and the book you are holding goes up in flames. Your heart tightens at the loss of such precious knowledge, however the adventurer before disappearing places an item in your hand");
          hero.setEqItem(new Item("mysterious idol", 20, 10, 0, "you can't quite tell wether or not it belongs to a diety or some sort of demon, all you know is that it emanates a powerful aura. It is probably safe to keep now that the curse is gona you think"));
+         room.removeEntity(target);
          }else{
         System.out.println("as you hold"+target.getName()+"nothing happens, peraphs you could try looking for an ancient tome");
          }
