@@ -28,10 +28,11 @@ switch(target.getName()){
     }
     case "chest": if(interaction.toLowerCase().equals("open")&&(hero.getEqItem().getName().equals("key"))){
     target.setLandscapeDesc("the chest has been opened it is of no use now");
-
+    System.out.println("you pick up a golden bracelet");
+    hero.setEqItem(new Item("golden bracelet", 10, 5, 0, "a golden bracelet with intricate patters and precious gems"));
     break;
     }else{
-        System.out.print("you can't open the chest");
+        System.out.println("you can't open the chest");
     break;    
     }
     }
