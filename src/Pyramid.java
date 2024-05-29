@@ -79,7 +79,7 @@ public class Pyramid {
     private void NPCIinitializer(){
        gamemap[2][2].addEntity(new NPC("Osiris", 100, 75, 150, 2, 2, "A creepy ancient mummy, the owner of the tomb. Now that you have desecrated its home it seeks vengance.", false));
        gamemap[0][2].addEntity(new NPC("mummy", 50, 25, 150, 0, 2, "A shadow stands in front of you, as you try to illuminate it with the torch you realize it is a humanoid being wrapped in bandages wearing typical Egyptian funeral clothes adorned with jewels and fine dyed linen. ", false));
-       gamemap[0][0].addEntity(new NPC("lost explorer", 100, 10, 150, 0, 0, "A lost explorer that's now stuck inside of the ruins cursed to be unable to leave.If you were to help him he would surely repay your kindness", true));
+       gamemap[0][0].addEntity(new NPC("lost explorer", 100, 10, 150, 0, 0, "A lost explorer that's now stuck inside of the ruins cursed to be unable to leave. Altough he speaks with you, you can barely tell wether or not he's still alive, he seems almost like a ghost.If you were to help him he would surely repay your kindness", true));
     }
     private void landscapeInitializer(){
         gamemap[1][2].addLandmark(new Landscape_Entity("chest", 0, 1, 2, "a massive stone chestdecorated with several incisions on the surface, an odd lock you've never seen before prevents you from opening it. It seems you need some sort of key "));
