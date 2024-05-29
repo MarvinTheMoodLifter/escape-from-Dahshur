@@ -107,6 +107,8 @@ public class Main_Character extends Entity
 
     public Item getEqItem() { return equippedItem; }
 
+    public void setEqItem(Item item) { equippedItem=item; }
+
     public void unequipItem(Room room)
     {
         if (hasEquippedItem && equippedItem != null)
