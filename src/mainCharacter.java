@@ -105,6 +105,8 @@ public class Main_Character extends Entity
 
     public boolean getHasEqItem() { return hasEquippedItem; }
 
+    public Item getEqItem() { return equippedItem; }
+
     public void unequipItem(Room room)
     {
         if (hasEquippedItem && equippedItem != null)
@@ -126,8 +128,8 @@ public class Main_Character extends Entity
         else { System.out.println("No item is equipped."); }
     }
 
-    public Item getInvItem(String name) { return inventory.get(name.toLowerCase()); }
-
+    public Item getInvItem(String name) { return inventory.getOrDefault(name.toLowerCase(),null); }
+    
     public Item setInvItem(Item item) { return inventory.replace(item.getName().toLowerCase(), item); }
 
     public void printInventory()
