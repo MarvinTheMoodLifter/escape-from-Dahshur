@@ -18,8 +18,8 @@ public void damageCharacter(Main_Character victim)
     victim.takeDamage(landmarkpower);
 }
 public void describeLandscape() { System.out.println(getName() + " is here. " + getLandscapeDesc()); }
-public void landmarkInteraction(Landscape_Entity target,String interaction, Main_Character hero){
-switch(target.getName()){
+public void landmarkInteraction(String target,String interaction, Main_Character hero,Room room){
+switch(room.findLandmarkByName(target).getName()){
     case"hole":if(interaction.toLowerCase().equals("jump")){
     //game over instantaneo
     break;
@@ -27,7 +27,7 @@ switch(target.getName()){
     break;    
     }
     case "chest": if(interaction.toLowerCase().equals("open")&&(hero.getEqItem().getName().equals("key"))){
-    target.setLandscapeDesc("as you open the chest the key becomes one with the lock. The chest has been opened it is of no use now");
+    room.findLandmarkByName(target).setLandscapeDesc("as you open the chest the key becomes one with the lock. The chest has been opened it is of no use now");
     System.out.println("you pick up a golden bracelet");
     hero.setEqItem(new Item("golden bracelet", 10, 5, 0, "a golden bracelet with intricate patters and precious gems"));
     break;
