@@ -1,5 +1,3 @@
-package firstinstance;
-
 public class NPC extends Entity 
 {
     private int health;
@@ -60,12 +58,14 @@ public class NPC extends Entity
 
     public void describe() { System.out.println(getName() + " is here. " + getDescription()); }
 
-    public void NpcInteraction(NPC target,String interaction){
+    public void NpcInteraction(NPC target,String interaction,Main_Character hero){
         // interazione semplice, se npc is friendly allora puoi fare questo senno combatti e basta
          //in base al npc scelto e all'interazione facciamo cose
          //evitiamo di esagerare con le interazioni senno  diventa pesante
+         if(target.isFriendly()&&target.getName().equals("lost explorer")){
+         if(interaction.equals("free")){
+         //placeholder, da cambiare in futuro, richede un hasInv Item
+         }
+         }
         }
-}
-    public void describe() { System.out.println(getName() + " is here. " + getDescription()); }
-
 }
