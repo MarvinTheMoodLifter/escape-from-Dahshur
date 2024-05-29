@@ -17,9 +17,20 @@ public void damageCharacter(Main_Character victim)
 }
 public void describeLandscape() { System.out.println(getName() + " is here. " + getLandscapeDesc()); }
 public void landmarkInteraction(Landscape_Entity target,String interaction){
-// in base al nome dell'entità questa funzione farà una cosa diversa, utilizzeremo uno switch eg:
-// se target è buco e interaction è jump , tu muori
-//implementeremo quando abbiamo tutte le entità pronte
- //evitiamo di esagerare con le interazioni senno  diventa pesante
+switch(target.getName()){
+    case"hole":if(interaction.toLowerCase().equals("jump")){
+    //game over instantaneo
+    break;
+    }else{
+    break;    
+    }
+    case "chest": if(interaction.toLowerCase().equals("open")){
+        //bisogna fare il check se nell'inventario ho chiave oppure se la ho equipaggiata
+    break;
+    }else{
+    break;    
+    }
+    }
+    
 }
 }
