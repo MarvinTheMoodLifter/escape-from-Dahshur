@@ -1,0 +1,51 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <modelVersion>4.0.0</modelVersion>
+
+<!-- Project information -->
+  <groupId>escape-from-dahshur.main</groupId> <!-- Sostituisci con il tuo gruppo ID -->
+  <artifactId>escape-from-dahshur</artifactId>
+  <version>0.8</version>
+
+  <!-- Project metadata -->
+  <name>Escape from Dahshur</name>
+  <description>Text adventure game</description>
+  <url>https://github.com/MarvinTheMoodLifter/escape-from-Dahshur/</url>
+
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <!-- Dependencies -->
+  <dependencies>
+
+    <!-- Junit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Set Game as the main class for the application -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.4.1</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>Game</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

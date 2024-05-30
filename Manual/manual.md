@@ -50,3 +50,4 @@ The project makes extensive use of Java's native functionalities; however, some 
 - [Marco](https://github.com/MarvinTheMoodLifter)
 - [Roberto](https://github.com/RobertoLupuC)
 - [Simone](https://github.com/acquanaturaleminerale)
+
