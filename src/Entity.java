@@ -5,11 +5,12 @@ public class Entity
     private String name;
     private int health;
     private int power;
-    private List<Item> item; // bisogna prima creare Item per gestirla meglio
+    private List<Item> items; // bisogna prima creare Item per gestirla meglio
     private int maxWeight;
     private int score;
     private int[] currentPosition;
     private Boolean hasmoved;
+    private Boolean canmove;
 
     public Entity(String name, int health, int power, int maxWeight, int startX, int startY)
     {
@@ -17,12 +18,13 @@ public class Entity
         this.health = health;
         this.power = power;
         this.maxWeight = maxWeight;
-        this.item = new ArrayList<>(); // dopo lo sviluppiamo
+        this.items = new ArrayList<Item>(); // dopo lo sviluppiamo
         this.score = 0;
         this.currentPosition = new int[]{startX, startY}; // Usando la matrice bidimensionale
         hasmoved= false; /*lo usiamo per i print perche se si piò muovere dopo un movimento allora si printa 
         che si è mosso sennò si printa che ha colpito un muro o qualcosa del genere
         */ 
+        canmove=true;
     }
 
     public String getName() { return name; }
@@ -31,7 +33,7 @@ public class Entity
 
     public int getPower() { return power; }
 
-    public List<Item> getItem() { return item; }
+    public List<Item> getItems() { return items; }
 
     public double getMaxWeight() { return maxWeight; }
 
@@ -45,7 +47,7 @@ public class Entity
 
     public void setPower(int power) { this.power = power; }
 
-    public void addItem(Item item) { this.item.add(item); }
+    public void addItem(Item item) { items.add(item); }
 
     public void setMaxWeight(int maxWeight) { this.maxWeight = maxWeight; }
 
@@ -79,11 +81,11 @@ public class Entity
 
     public Boolean getHasMoved(){
         return hasmoved;
-    }
+        }
 
     public void move(Pyramid target, String direction){
              direction.toLowerCase();
-        if(direction=="up"||direction=="down"||direction=="right"||direction=="left"){
+        if((direction.equals("up")||direction.equals("down")||direction.equals("right")||direction.equals("left"))&& canmove){
             switch(direction){
             case "up": if(!target.getRoom(currentPosition[1],currentPosition[0]).getWall(direction)){moveNorth();}else{hasmoved=false;}    break;
             case "down":if(!target.getRoom(currentPosition[1],currentPosition[0]).getWall(direction)){moveSouth();}else{hasmoved=false;}   break;
@@ -91,5 +93,12 @@ public class Entity
             case "right":if(!target.getRoom(currentPosition[1],currentPosition[0]).getWall(direction)){moveEast();}else{hasmoved=false;}   break;
             }
         }else{hasmoved=false;}
+    }
+    public Boolean setCanMove(Boolean setting){
+        return canmove=setting;
+        }
+    
+    public Boolean getcanMove(){
+            return canmove;
     }
 }
