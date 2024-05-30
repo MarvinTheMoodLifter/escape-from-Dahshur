@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
 <!-- Project information -->
-  <groupId>unipd</groupId> <!-- Sostituisci con il tuo gruppo ID -->
+  <groupId>escape-from-dahshur.main</groupId> <!-- Sostituisci con il tuo gruppo ID -->
   <artifactId>escape-from-dahshur</artifactId>
   <version>0.8</version>
 
@@ -30,18 +30,22 @@
 
   </dependencies>
 
-  <!-- Maven compiler plugin -->
   <build>
     <plugins>
+      <!-- Set Game as the main class for the application -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.4.1</version>
         <configuration>
-          <source>${maven.compiler.source}</source>
-          <target>${maven.compiler.target}</target>
+          <archive>
+            <manifest>
+              <mainClass>Game</mainClass>
+            </manifest>
+          </archive>
         </configuration>
       </plugin>
     </plugins>
   </build>
+
 </project>
