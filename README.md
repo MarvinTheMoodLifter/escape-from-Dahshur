@@ -7,42 +7,46 @@ But beware, the path is perillous, each room is unique and hides secrets, artefa
 ## Installation
 
 To install and launch the software, follow these steps:
-- Ensure you have Java installed on you system. The project has been written and tested with Java 21.
-- Clone the project from the [GitHub repository](https://github.com/MarvinTheMoodLifter/escape-from-Dahshur)
+- Ensure you have Java installed on you system. The project has been written and tested with Java 8.
+- This project needs Maven to be installed on your system.
 
 ```bash
 # Clone the project from the GitHub repository
 git clone https://github.com/MarvinTheMoodLifter/escape-from-Dahshur
 # Enter the project directory
-cd escape-from-Dahshur/src
+cd escape-from-Dahshur
 # Compile the project
-javac *.java
+mvn package
 ```
 
-- To start the game, run the following command:
+To start the game, run the following command:
 
 ```bash
-java Game
+java -jar target/escape-from-dahshur-0.8.jar
 ```
 
 ## Controls
 Escape from Dahshur is a text-based adventure where players interact with the game through commands displayed on the screen. Throughout the game, various prompts will guide the player through exploring the pyramid and searching for treasure.
 
-### Game controls
-- Move: Use directional commands `north`, `south`, `east`, and `west` to navigate between the different rooms of the pyramid.
-- View inventory: Use the command `inventory` to view the items in your inventory.
-- Look around: Use the command `look` to look around the room.
-- View map: Use the command `map` to view the map of the pyramid.
-- Request help: Use the command `help` to view the list of available commands.
+### Game commands
+- `move [direction]`: Use directional commands `north`, `south`, `east`, and `west` to navigate between the different rooms of the pyramid.
+- `inspect [item_name]`: gather information about items.
+- `talk to [npc_name]`: talk to NPCs.
+- `attack [noc_name]`: attack NPCs.
+- `view inventory`: view the items in your inventory.
+- `exit`: quit the game.
 
 ## Execution environments and Java version constraints
 
-The project has been developed and tested on Windows and Linux. It is compatible with Java 21 and later versions. It is recommended to use an updated version of Java to ensure the proper functioning of the game.
+The project has been developed and tested on Windows and Linux. It is compatible with Java 8 and later versions. It is recommended to use an updated version of Java to ensure the proper functioning of the game.
 
 ## Libraries and dependencies
 
-The project makes extensive use of Java's native functionalities; however, some external libraries have been used to simplify certain operations. The main libraries used include:
-- JUnit: The project has been tested with JUnit.
+The project makes extensive use of Java's native functionalities; however, some external libraries have been used to simplify certain operations.
+To learn more about these libraries, please refer to the following links:
+- [Maven](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
+- [JUnit](https://junit.org/junit5/docs/current/user-guide/)
+- [Gson](https://www.baeldung.com/java-gson)
 
 ## Credits
 ### Development Team
