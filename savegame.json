@@ -1,20 +1,12 @@
 {
 "hero": {
   "hasEquippedItem": false,
-  "inventory": {
-    "sword": {
-      "name": "Sword",
-      "score": 10,
-      "weight": 5,
-      "damage": 20,
-      "itemDescription": "pointy stick"
-    }
-  },
+  "inventory": {},
   "name": "Hero",
   "health": 100,
   "power": 50,
   "items": [],
-  "maxWeight": 100,
+  "maxWeight": 100.0,
   "score": 0,
   "currentPosition": [
     0,
@@ -30,6 +22,13 @@
         "roomstat": true,
         "roomdescription": "█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████        ████████████|█████████\n█████████|██████████        ████████████|█████████\n█████████|██████████        ████████████|█████████\n█████████|██████████        ████████████|█████████\r\nIn front of you there is a room with shiny white sandstone walls, time seems not to have passed, on the ground the sand which has slowly infiltrated over the millennia through the small cracks is accumulating along the edges. The walls are all closed except for a passage in the north wall. The temperature is pleasant, it is certainly a good ten degrees cooler than outside.",
         "roomItems": [
+          {
+            "name": "Sword",
+            "score": 10,
+            "weight": 5,
+            "damage": 20,
+            "itemDescription": "pointy stick"
+          },
           {
             "name": "Shield",
             "score": 15,
@@ -60,7 +59,7 @@
             "health": 100,
             "power": 10,
             "items": [],
-            "maxWeight": 150,
+            "maxWeight": 150.0,
             "score": 0,
             "currentPosition": [
               0,
@@ -128,7 +127,7 @@
             "health": 50,
             "power": 25,
             "items": [],
-            "maxWeight": 150,
+            "maxWeight": 150.0,
             "score": 0,
             "currentPosition": [
               0,
@@ -199,7 +198,7 @@
             "health": 0,
             "power": 0,
             "items": [],
-            "maxWeight": 1000,
+            "maxWeight": 1000.0,
             "score": 0,
             "currentPosition": [
               1,
@@ -238,7 +237,7 @@
             "health": 0,
             "power": 0,
             "items": [],
-            "maxWeight": 1000,
+            "maxWeight": 1000.0,
             "score": 0,
             "currentPosition": [
               1,
@@ -329,7 +328,7 @@
             "health": 100,
             "power": 75,
             "items": [],
-            "maxWeight": 150,
+            "maxWeight": 150.0,
             "score": 0,
             "currentPosition": [
               2,

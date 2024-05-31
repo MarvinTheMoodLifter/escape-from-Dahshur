@@ -176,12 +176,12 @@ public class Main_Character extends Entity
   public void updateFrom(Main_Character other) {
     this.name = other.getName();
     this.health = other.getHealth();
-    this.maxWeight = other.maxWeight;
+    this.maxWeight = other.getMaxWeight();
     this.items = other.getItems();
     this.score = other.getScore();
     this.currentPosition = other.getCurrentPosition();
-    this.hasmoved = other.hasmoved;
-    this.canmove = other.canmove;
+    this.hasmoved = other.getHasMoved();
+    this.canmove = other.getCanMove();
     this.hasEquippedItem = other.getHasEqItem();
     this.equippedItem = other.getEqItem();
     this.inventory = other.getInventory();

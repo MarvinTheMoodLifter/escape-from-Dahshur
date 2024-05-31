@@ -2,15 +2,15 @@ import java.util.*;
 
 public class Entity
 {
-    public String name;
-    public int health;
-    public int power;
-    public List<Item> items; // bisogna prima creare Item per gestirla meglio
-    public int maxWeight;
-    public int score;
-    public int[] currentPosition;
-    public Boolean hasmoved;
-    public Boolean canmove;
+    protected String name;
+    protected int health;
+    protected int power;
+    protected List<Item> items; // bisogna prima creare Item per gestirla meglio
+    protected double maxWeight;
+    protected int score;
+    protected int[] currentPosition;
+    protected Boolean hasmoved;
+    protected Boolean canmove;
 
     public Entity(String name, int health, int power, int maxWeight, int startX, int startY)
     {
@@ -98,7 +98,7 @@ public class Entity
         return canmove=setting;
         }
     
-    public Boolean getcanMove(){
+    public Boolean getCanMove(){
             return canmove;
     }
 }
