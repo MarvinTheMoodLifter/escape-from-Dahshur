@@ -1,4 +1,10 @@
 import java.util.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Pyramid {
     private Room[][] gamemap;
@@ -437,4 +443,32 @@ public class Pyramid {
         }
         else { System.out.println("No room found at the specified coordinates."); }
     }
+
+  // Get gamemap
+  public Room[][] getGamemap() {
+    return gamemap;
+  }
+
+  public String toJson() {
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    return gson.toJson(this);
+  }
+
+  public static Pyramid fromJson(String json) {
+    Gson gson = new Gson();
+    return gson.fromJson(json, Pyramid.class);
+  }
+
+  public static Pyramid fromJsonFile(String filePath) throws IOException {
+    Gson gson = new Gson();
+    FileReader reader = new FileReader(filePath);
+    Pyramid pyramid = gson.fromJson(reader, Pyramid.class);
+    reader.close();
+    return pyramid;
+  }
+
+  public void updateFrom(Pyramid other) {
+    this.pyramidDescription = other.getPyramidDesc();
+    this.gamemap = other.getGamemap();
+  }
 }

@@ -1,4 +1,10 @@
 import java.util.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Main_Character extends Entity
 {
@@ -17,6 +23,8 @@ public class Main_Character extends Entity
         this.inventory = new HashMap<>();
         setCanMove(true);
     }
+
+    public HashMap<String, Item> getInventory() { return inventory; }
 
     public void inspectItemByName(Room room, String itemName)
     {
@@ -146,4 +154,36 @@ public class Main_Character extends Entity
         if (hasEquippedItem && equippedItem != null) { System.out.println(ANSI_PURPLE +"Equipped item: " + equippedItem.getName()); }
         else { System.out.println(ANSI_PURPLE +"No item equipped."); }
     }
+
+  public String toJson() {
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    return gson.toJson(this);
+  }
+
+  public static Main_Character fromJson(String json) {
+    Gson gson = new Gson();
+    return gson.fromJson(json, Main_Character.class);
+  }
+
+  public static Main_Character fromJsonFile(String filePath) throws IOException {
+    Gson gson = new Gson();
+    FileReader reader = new FileReader(filePath);
+    Main_Character character = gson.fromJson(reader, Main_Character.class);
+    reader.close();
+    return character;
+  }
+
+  public void updateFrom(Main_Character other) {
+    this.name = other.getName();
+    this.health = other.getHealth();
+    this.maxWeight = other.maxWeight;
+    this.items = other.getItems();
+    this.score = other.getScore();
+    this.currentPosition = other.getCurrentPosition();
+    this.hasmoved = other.hasmoved;
+    this.canmove = other.canmove;
+    this.hasEquippedItem = other.getHasEqItem();
+    this.equippedItem = other.getEqItem();
+    this.inventory = other.getInventory();
+  }
 }

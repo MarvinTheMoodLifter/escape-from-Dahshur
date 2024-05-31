@@ -6,6 +6,7 @@
   <groupId>escape-from-dahshur.main</groupId> <!-- Sostituisci con il tuo gruppo ID -->
   <artifactId>escape-from-dahshur</artifactId>
   <version>0.8</version>
+  <packaging>jar</packaging>
 
   <!-- Project metadata -->
   <name>Escape from Dahshur</name>
@@ -33,12 +34,21 @@
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>2.10.1</version>
+      <scope>compile</scope>
     </dependency>
 
   </dependencies>
 
   <build>
     <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
       <!-- Set Game as the main class for the application -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

@@ -1,4 +1,11 @@
 import java.util.Scanner;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Game
 {
@@ -48,6 +55,8 @@ public class Game
             printCentered("attack [npc_name]", ANSI_GREEN);
             printCentered("move [direction]", ANSI_GREEN);
             printCentered("view inventory", ANSI_GREEN);
+            printCentered("save game", ANSI_GREEN);
+            printCentered("load game [hero_name]", ANSI_GREEN);
             printCentered("type 'exit' to quit.", ANSI_RED);
             System.out.print("Enter action: ");
             String input = scanner.nextLine();
@@ -191,6 +200,14 @@ public class Game
                 }
                 else { printCentered("You cannot move " + direction + "."); }
             }
+            else if (input.equalsIgnoreCase("save game"))
+            {
+              saveGame(hero, pyramid);
+            }
+            else if (input.toLowerCase().startsWith("load game "))
+            {
+              loadGame(hero, pyramid);
+            }
             else { printCentered("Unknown command. Please try again."); }
 
             // Pausa dopo ogni azione
@@ -204,4 +221,42 @@ public class Game
 
         scanner.close();
     }
+
+  private static void saveGame(Main_Character hero, Pyramid pyramid)
+  {
+    printCentered("Saving game...", ANSI_CYAN);
+    try {
+      Gson gson = new GsonBuilder().setPrettyPrinting().create();
+      FileWriter writer = new FileWriter("savegame.json");
+      writer.write("{\n");
+      writer.write("\"hero\": " + gson.toJson(hero) + ",\n");
+      writer.write("\"pyramid\": " + gson.toJson(pyramid) + "\n");
+      writer.write("}");
+      writer.close();
+      printCentered("Game saved successfully.", ANSI_GREEN);
+    } catch (IOException e) {
+      printCentered("Error saving game: " + e.getMessage(), ANSI_RED);
+    }
+  }
+
+  private static void loadGame(Main_Character hero, Pyramid pyramid)
+  {
+    try {
+      Gson gson = new Gson();
+      FileReader reader = new FileReader("savegame.json");
+      JsonObject root = gson.fromJson(reader, JsonObject.class);
+      reader.close();
+
+      Main_Character loadedHero = gson.fromJson(root.get("hero"), Main_Character.class);
+      Pyramid loadedPyramid = gson.fromJson(root.get("pyramid"), Pyramid.class);
+
+      // Update current hero and pyramid with loaded data
+      hero.updateFrom(loadedHero);
+      pyramid.updateFrom(loadedPyramid);
+
+      printCentered("Game loaded successfully.", ANSI_GREEN);
+    } catch (IOException e) {
+      printCentered("Error loading game: " + e.getMessage(), ANSI_RED);
+    }
+  }
 }

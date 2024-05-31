@@ -2,15 +2,15 @@ import java.util.*;
 
 public class Entity
 {
-    private String name;
-    private int health;
-    private int power;
-    private List<Item> items; // bisogna prima creare Item per gestirla meglio
-    private int maxWeight;
-    private int score;
-    private int[] currentPosition;
-    private Boolean hasmoved;
-    private Boolean canmove;
+    public String name;
+    public int health;
+    public int power;
+    public List<Item> items; // bisogna prima creare Item per gestirla meglio
+    public int maxWeight;
+    public int score;
+    public int[] currentPosition;
+    public Boolean hasmoved;
+    public Boolean canmove;
 
     public Entity(String name, int health, int power, int maxWeight, int startX, int startY)
     {
