@@ -29,7 +29,7 @@ java -jar target/escape-from-dahshur-0.8.jar
 Escape from Dahshur is a text-based adventure where players interact with the game through commands displayed on the screen. Throughout the game, various prompts will guide the player through exploring the pyramid and searching for treasure.
 
 ### Game commands
-- `move [direction]`: Use directional commands `north`, `south`, `east`, and `west` to navigate between the different rooms of the pyramid.
+- `move [direction]`: Use directional commands `up`, `down`, `right`, and `left` to navigate between the different rooms of the pyramid.
 - `inspect [item_name]`: gather information about items.
 - `talk to [npc_name]`: talk to NPCs.
 - `attack [noc_name]`: attack NPCs.
