@@ -1,6 +1,5 @@
 public class NPC extends Entity 
 {
-    private int health;
     private String description;
     private boolean isAlive;
     private boolean isFriendly;
