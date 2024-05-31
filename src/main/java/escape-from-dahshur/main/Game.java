@@ -55,8 +55,8 @@ public class Game
             printCentered("attack [npc_name]", ANSI_GREEN);
             printCentered("move [direction]", ANSI_GREEN);
             printCentered("view inventory", ANSI_GREEN);
-            printCentered("save game", ANSI_GREEN);
-            printCentered("load game [hero_name]", ANSI_GREEN);
+            printCentered("save game", ANSI_CYAN);
+            printCentered("load game [hero_name]", ANSI_CYAN);
             printCentered("type 'exit' to quit.", ANSI_RED);
             System.out.print("Enter action: ");
             String input = scanner.nextLine();
@@ -200,13 +200,17 @@ public class Game
                 }
                 else { printCentered("You cannot move " + direction + "."); }
             }
-            else if (input.equalsIgnoreCase("save game"))
+            else if (input.toLowerCase().startsWith("save game "))
             {
-              saveGame(hero, pyramid);
+              String saveName = input.substring(10).trim();
+              // If the save name is empty, use the default name "savegame"
+              if (saveName.isEmpty()) { saveName = "savegame"; }
+              saveGame(hero, pyramid, saveName);
             }
             else if (input.toLowerCase().startsWith("load game "))
             {
-              loadGame(hero, pyramid);
+              String saveName = input.substring(10).trim();
+              loadGame(hero, pyramid, saveName);
             }
             else { printCentered("Unknown command. Please try again."); }
 
@@ -222,12 +226,12 @@ public class Game
         scanner.close();
     }
 
-  private static void saveGame(Main_Character hero, Pyramid pyramid)
+  private static void saveGame(Main_Character hero, Pyramid pyramid, String saveName)
   {
     printCentered("Saving game...", ANSI_CYAN);
     try {
       Gson gson = new GsonBuilder().setPrettyPrinting().create();
-      FileWriter writer = new FileWriter("savegame.json");
+      FileWriter writer = new FileWriter(saveName + ".json");
       writer.write("{\n");
       writer.write("\"hero\": " + gson.toJson(hero) + ",\n");
       writer.write("\"pyramid\": " + gson.toJson(pyramid) + "\n");
@@ -239,11 +243,12 @@ public class Game
     }
   }
 
-  private static void loadGame(Main_Character hero, Pyramid pyramid)
+  private static void loadGame(Main_Character hero, Pyramid pyramid, String saveName)
   {
+    printCentered("Loading game...", ANSI_CYAN);
     try {
       Gson gson = new Gson();
-      FileReader reader = new FileReader("savegame.json");
+      FileReader reader = new FileReader(saveName + ".json");
       JsonObject root = gson.fromJson(reader, JsonObject.class);
       reader.close();
 
