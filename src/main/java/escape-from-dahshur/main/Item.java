@@ -9,11 +9,11 @@ public class Item {
   public static final String ANSI_PURPLE = "\u001B[35m";
 
   public Item(String name, int score, int weight, int damage, String itemdesc) {
-      this.name = name;
-      this.score = score;
-      this.weight = weight;
-      this.damage = damage;
-      itemDescription= itemdesc;
+    this.name = name;
+    this.score = score;
+    this.weight = weight;
+    this.damage = damage;
+    itemDescription = itemdesc;
   }
 
   public String getName() { return name; }
@@ -21,15 +21,17 @@ public class Item {
   public int getWeight() { return weight; }
   public int getDamage() { return damage; }
   public String getItemDesc() { return itemDescription; }
-  public void setItemDesc(String desc) { itemDescription=desc; }
+  public void setItemDesc(String desc) { itemDescription = desc; }
   public void printItemDesc() { System.out.println(itemDescription); }
 
-  public void inspectItem()
-  {
-        System.out.println(ANSI_PURPLE + "Name: " + getName());
-        System.out.println("Score: " + getItemScore());
-        System.out.println("Weight: " + getWeight());
-        System.out.println("Damage: " + getDamage() + ANSI_RESET);
-        System.out.print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+  public void inspectItem() {
+    System.out.println(ANSI_PURPLE + "Name: " + getName());
+    System.out.println("Score: " + getItemScore());
+    System.out.println("Weight: " + getWeight());
+    System.out.println("Damage: " + getDamage() + ANSI_RESET);
+    System.out.print(
+        "--------------------------------------------------------------------" +
+        "--------------------------------------------------------------------" +
+        "----------------------------------------\n");
   }
 }
