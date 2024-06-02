@@ -251,7 +251,7 @@ public class Game {
     }
 
     scanner.close();
-    GameEnd();
+    GameEnd(hero);
   }
 
   private static void saveGame(Main_Character hero, Pyramid pyramid,
@@ -293,7 +293,7 @@ public class Game {
       printCentered("Error loading game: " + e.getMessage(), ANSI_RED);
     }
   }
-      public void Victory(Main_Character hero){
+    private static void Victory(Main_Character hero){
     if(hero.getInvScore()<=0){
         System.out.println("you did not bring back anything noteworthy.\n"+
         "this entire expedtion was a waste of time....at least you didn't die");
@@ -320,7 +320,7 @@ public class Game {
        "╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝"+"\n");
     System.out.println("your final score is:"+hero.getInvScore());
     }
-    public void Loss(Main_Character hero){
+    private static void Loss(Main_Character hero){
         System.out.println("unfortunately during your expedition you met your end.\n"+
         " You are now fated to remain forgotten unable to die trapped forever in the depths of the tomb");
     System.out.println("██╗   ██╗ ██████╗ ██╗   ██╗    ██╗      ██████╗ ███████╗███████╗" +"\n"+
@@ -331,7 +331,7 @@ public class Game {
        "╚═╝    ╚═════╝  ╚═════╝     ╚══════╝ ╚═════╝ ╚══════╝╚══════╝" +"\n");
        System.out.println("your final score is:"+hero.getInvScore());
     }
-    public void GameEnd(Main_Character hero){
+    private static void GameEnd(Main_Character hero){
     if(hero.getHealth()<=0){
     Loss(hero);
     }
