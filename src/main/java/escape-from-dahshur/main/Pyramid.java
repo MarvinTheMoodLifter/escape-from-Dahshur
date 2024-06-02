@@ -83,7 +83,6 @@ public class Pyramid {
       }
     }
     wallInitializer();
-    roomInitializer();
     itemInizializer();
     NPCIinitializer();
     landscapeInitializer();
@@ -109,15 +108,6 @@ public class Pyramid {
     gamemap[1][0].setWall("up", true);
     gamemap[2][0].setWall("down", true);
     gamemap[2][1].setWall("right", true);
-  }
-  private void roomInitializer() {
-    // Aggiunta di oggetti alla stanza per dimostrazione
-    Room room = gamemap[0][0];
-    room.addItem(new Item("Sword", 10, 5, 20, "pointy stick"));
-    room.addItem(new Item("Shield", 15, 10, 5, "defense is the best offense"));
-    room.addItem(new Item("Coconut", 5, 1, 0, "food"));
-
-    // Aggiunta di un NPC alla stanza
   }
   private void itemInizializer() {
 
