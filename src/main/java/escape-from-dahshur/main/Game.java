@@ -40,7 +40,7 @@ public class Game {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     Pyramid pyramid = new Pyramid();
-    Main_Character hero = new Main_Character("Hero", 100, 50, 100, 0, 0);
+    Main_Character hero = new Main_Character("Hero", 100, 50, 100, 0, 2);
     boolean inCombat = false;
 
     while (true) {
