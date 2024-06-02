@@ -25,13 +25,13 @@ public class Landscape_Entity extends Entity {
     switch (room.findLandmarkByName(target).getName()) {
     case "hole":
       if (interaction.toLowerCase().equals("jump")) {
-        System.out.println("you jump in, your curiosity got the better of you./n"+
-        "You jump in./n"+
-        "..."+
-        "..."+
-        "..."+
-        "After what feels like an eternity you finally reach the bottom, unfortunately there is nothing to cushon your fall."+
-        "you die instantly.");
+        System.out.println("you jump in, your curiosity got the better of you.\n"+
+        "You jump in.\n"+
+        "...\n"+
+        "...\n"+
+        "...\n"+
+        "After what feels like an eternity you finally reach the bottom, unfortunately there is nothing to cushon your fall.\n"+
+        "you die instantly.\n");
         hero.setHealth(0);
         break;
       } else {
