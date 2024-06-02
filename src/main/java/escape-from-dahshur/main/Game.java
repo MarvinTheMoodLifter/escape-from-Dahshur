@@ -43,7 +43,7 @@ public class Game {
     Main_Character hero = new Main_Character("Hero", 100, 50, 100, 0, 2);
     boolean inCombat = false;
 
-    while (true) {
+    while (hero.getHealth()>=0) {
       int[] currentPosition = hero.getCurrentPosition();
       pyramid.describeRoom(currentPosition[0], currentPosition[1]);
 
@@ -251,6 +251,7 @@ public class Game {
     }
 
     scanner.close();
+    GameEnd();
   }
 
   private static void saveGame(Main_Character hero, Pyramid pyramid,
