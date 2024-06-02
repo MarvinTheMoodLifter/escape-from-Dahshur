@@ -292,4 +292,48 @@ public class Game {
       printCentered("Error loading game: " + e.getMessage(), ANSI_RED);
     }
   }
+      public void Victory(Main_Character hero){
+    if(hero.getInvScore()<=0){
+        System.out.println("you did not bring back anything noteworthy.\n"+
+        "this entire expedtion was a waste of time....at least you didn't die");
+    }else{ if(hero.getInvScore()>0&&hero.getInvScore()<=50){
+        System.out.println("you brought back several artifacts.\n"+
+        "it is impossible for you to tell their value but you know you'll surely be remembered for your findings.");
+    } else{ if(hero.getInvScore()>50&&hero.getInvScore()<=100){
+        System.out.println("you made several breaktroughs during your expediction.\n"+
+        "you brought back several inestimable artifacts, your name is sure to be remembered for years to come");
+    } else{
+    System.out.println("you brought back everything you could get your hands on in the pyramid.\n"+
+    "not even a grave robber could've done such a thorough job.\n"+
+    "that said peraphs it was better for the world to forget about several of the artifacts you found.\n"+
+    "regardless of the price you've found your wealth and your fame.\n"+
+    "The world Will remember your name.");
+    }
+    }
+    }
+    System.out.println("██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗" +"\n"+
+    "╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██║████╗  ██║"+"\n"+
+     "╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║██╔██╗ ██║"+"\n"+
+      "╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║██║╚██╗██║"+"\n"+
+       "██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝██║██║ ╚████║"+"\n"+
+       "╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝"+"\n");
+    System.out.println("your final score is:"+hero.getInvScore());
+    }
+    public void Loss(Main_Character hero){
+        System.out.println("unfortunately during your expedition you met your end.\n"+
+        " You are now fated to remain forgotten unable to die trapped forever in the depths of the tomb");
+    System.out.println("██╗   ██╗ ██████╗ ██╗   ██╗    ██╗      ██████╗ ███████╗███████╗" +"\n"+
+    "╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║     ██╔═══██╗██╔════╝██╔════╝" +"\n"+
+     "╚████╔╝ ██║   ██║██║   ██║    ██║     ██║   ██║███████╗█████╗" +"\n"+
+      "╚██╔╝  ██║   ██║██║   ██║    ██║     ██║   ██║╚════██║██╔══╝"   +"\n"+
+       "██║   ╚██████╔╝╚██████╔╝    ███████╗╚██████╔╝███████║███████╗" +"\n"+
+       "╚═╝    ╚═════╝  ╚═════╝     ╚══════╝ ╚═════╝ ╚══════╝╚══════╝" +"\n");
+       System.out.println("your final score is:"+hero.getInvScore());
+    }
+    public void GameEnd(Main_Character hero){
+    if(hero.getHealth()<=0){
+    Loss(hero);
+    }
+    Victory(hero);
+    }
 }
