@@ -60,8 +60,8 @@ public class Entity {
   }
 
   public void moveNorth() {
-    if (currentPosition[1] < 2) {
-      currentPosition[1]++;
+    if (currentPosition[1] >0) {
+      currentPosition[1]--;
       hasmoved = true;
     } else {
       hasmoved = false;
@@ -69,8 +69,8 @@ public class Entity {
   }
 
   public void moveSouth() {
-    if (currentPosition[1] > 0) {
-      currentPosition[1]--;
+    if (currentPosition[1] < 2) {
+      currentPosition[1]++;
       hasmoved = true;
     } else {
       hasmoved = false;
