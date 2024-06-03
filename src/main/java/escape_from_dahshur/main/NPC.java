@@ -1,3 +1,5 @@
+package escape_from_dahshur.main;
+
 public class NPC extends Entity {
   private String description;
   private boolean isAlive;

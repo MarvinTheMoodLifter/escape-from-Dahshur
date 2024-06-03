@@ -1,3 +1,5 @@
+package escape_from_dahshur.main;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -56,7 +58,7 @@ public class Game {
             printCentered("attack [npc_name]", ANSI_GREEN);
             printCentered("move [direction]", ANSI_GREEN);
             printCentered("view inventory", ANSI_GREEN);
-            printCentered("save game", ANSI_CYAN);
+            printCentered("save game [hero_name]", ANSI_CYAN);
             printCentered("load game [hero_name]", ANSI_CYAN);
             printCentered("type 'exit' to quit.", ANSI_RED);
             System.out.print("Enter action: ");
@@ -267,7 +269,7 @@ public class Game {
         GameEnd(hero);
     }
 
-    private static void saveGame(Main_Character hero, Pyramid pyramid,
+    protected static void saveGame(Main_Character hero, Pyramid pyramid,
                                  String saveName) {
         printCentered("Saving game...", ANSI_CYAN);
         try {
@@ -284,7 +286,7 @@ public class Game {
         }
     }
 
-    private static void loadGame(Main_Character hero, Pyramid pyramid,
+    protected static void loadGame(Main_Character hero, Pyramid pyramid,
                                  String saveName) {
         printCentered("Loading game...", ANSI_CYAN);
         try {

@@ -3,8 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
 
 <!-- Project information -->
-  <groupId>escape-from-dahshur.main</groupId> <!-- Sostituisci con il tuo gruppo ID -->
-  <artifactId>escape-from-dahshur</artifactId>
+  <groupId>escape_from_dahshur.main</groupId> <!-- Sostituisci con il tuo gruppo ID -->
+  <artifactId>escape_from_dahshur</artifactId>
   <version>0.8</version>
   <packaging>jar</packaging>
 
@@ -16,6 +16,7 @@
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <junit.version>5.9.3</junit.version>
   </properties>
 
   <!-- Dependencies -->
@@ -23,9 +24,9 @@
 
     <!-- Junit -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
 
