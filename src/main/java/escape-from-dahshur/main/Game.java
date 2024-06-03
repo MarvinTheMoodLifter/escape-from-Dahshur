@@ -184,7 +184,7 @@ public class Game {
                                 hero.attack(npc);
                                 inCombat = true;
                                 if (npc.isAlive()) {
-                                    npc.attack(hero, 10);
+                                    npc.attack(hero, npc.getPower());
                                     if (!hero.isAlive()) {
                                         printCentered(ANSI_RED + "You have died." + ANSI_RESET);
                                         GameEnd(hero);
