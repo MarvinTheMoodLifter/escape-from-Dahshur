@@ -134,7 +134,7 @@ public class Room {
   }
   public void setRoomDesc(String desc) { roomdescription = desc; }
   public String getRoomDesc() { return roomdescription; }
-  public void printRoomDesc(String desc) {
+  public void printRoomDesc() {
     System.out.println(roomdescription);
   }
   public void setEntrance(Boolean newEntrance) { isEntrance = newEntrance; }
