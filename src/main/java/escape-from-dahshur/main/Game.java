@@ -291,7 +291,7 @@ public class Game {
             }
 
 
-            if (hero.getHealth() <= 0)
+            if (hero.getHealth() <= 0&&!input.toLowerCase().startsWith("exit"))
             {
                 GameEnd(hero);
                 break;
