@@ -288,7 +288,7 @@ public class Game {
             }else if(input.toLowerCase().startsWith("open chest")&&hero.getCurrentPosition()[1]==1&&hero.getCurrentPosition()[0]==2){
             pyramid.getRoom(1, 2).findLandmarkByName("chest").landmarkInteraction("chest", "open", hero, pyramid.getRoom(1, 2));
             }else if(input.toLowerCase().startsWith("look around")){
-            pyramid.getRoom(hero.getCurrentPosition()[1], hero.getCurrentPosition()[0]).getRoomDesc();
+            pyramid.getRoom(hero.getCurrentPosition()[1], hero.getCurrentPosition()[0]).printRoomDesc();
             }else{
              printCentered("Unknown command. Please try again.");
             }
