@@ -56,7 +56,7 @@ public class Game {
             printCentered("attack [npc_name]", ANSI_GREEN);
             printCentered("move [direction]", ANSI_GREEN);
             printCentered("view inventory", ANSI_GREEN);
-            printCentered("inspect room", ANSI_GREEN);
+            printCentered("look around", ANSI_GREEN);
             if(hero.getCurrentPosition()[1]==1&&hero.getCurrentPosition()[0]==1){
                 printCentered("type 'enter hole' to enter the hole.", ANSI_GREEN);
             }
@@ -287,7 +287,7 @@ public class Game {
             pyramid.getRoom(1, 1).findLandmarkByName("hole").landmarkInteraction("hole", "enter", hero, pyramid.getRoom(1, 1));
             }else if(input.toLowerCase().startsWith("open chest")&&hero.getCurrentPosition()[1]==1&&hero.getCurrentPosition()[0]==2){
             pyramid.getRoom(1, 2).findLandmarkByName("chest").landmarkInteraction("chest", "open", hero, pyramid.getRoom(1, 2));
-            }else if(input.toLowerCase().startsWith("inpect room")){
+            }else if(input.toLowerCase().startsWith("look around")){
             pyramid.getRoom(hero.getCurrentPosition()[1], hero.getCurrentPosition()[0]).getRoomDesc();
             }else{
              printCentered("Unknown command. Please try again.");
