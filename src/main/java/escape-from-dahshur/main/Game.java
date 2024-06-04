@@ -42,8 +42,8 @@ public class Game {
         Pyramid pyramid = new Pyramid();
         Main_Character hero = new Main_Character("Hero", 100, 50, 100, 0, 2);
         boolean inCombat = false;
-
-        pyramid.printRoomLayout();
+        
+        pyramid.getPyramidDesc();
         while (true) {
             int[] currentPosition = hero.getCurrentPosition();
             clearScreen();
@@ -269,7 +269,7 @@ public class Game {
             } else if (input.toLowerCase().startsWith("load game ")) {
                 String saveName = input.substring(10).trim();
                 loadGame(hero, pyramid, saveName);
-            } else if (input.toLowerCase().startsWith("exit pyramid")&&hero.getCurrentPosition()[1]==0&&hero.getCurrentPosition()[0]==0){
+            } else if (input.toLowerCase().startsWith("leave pyramid")&&hero.getCurrentPosition()[1]==0&&hero.getCurrentPosition()[0]==0){
                 if(hero.getInvItem("ankh").getName().toLowerCase().equals("ankh")||hero.getEqItem().getName().equalsIgnoreCase("ankh")){
                 System.out.println("the ankh begins to glow alongside the incisions on the door\n"
                 +"after a short while the door begins to open.\n"
