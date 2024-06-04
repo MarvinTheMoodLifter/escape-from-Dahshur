@@ -233,7 +233,7 @@ public class Game {
             } else if (input.toLowerCase().startsWith("save game ")) {
                 String saveName = input.substring(10).trim();
                 // If the save name is empty, use the default name "savegame"
-                if (saveName.isEmpty()) {
+                if (saveName.isEmpty() || saveName == null) {
                     saveName = "savegame";
                 }
                 saveGame(hero, pyramid, saveName);

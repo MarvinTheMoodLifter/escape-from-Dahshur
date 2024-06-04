@@ -189,6 +189,7 @@ public class Main_Character extends Entity {
   public void updateFrom(Main_Character other) {
     this.name = other.getName();
     this.health = other.getHealth();
+    this.power = other.getPower();
     this.maxWeight = other.getMaxWeight();
     this.items = other.getItems();
     this.score = other.getScore();

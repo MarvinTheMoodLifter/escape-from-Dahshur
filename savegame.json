@@ -10,7 +10,7 @@
   "score": 0,
   "currentPosition": [
     0,
-    0
+    2
   ],
   "hasmoved": false,
   "canmove": true
@@ -21,29 +21,7 @@
       {
         "roomstat": true,
         "roomdescription": "█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████████████████████████|█████████\n█████████|██████████        ████████████|█████████\n█████████|██████████        ████████████|█████████\n█████████|██████████        ████████████|█████████\n█████████|██████████        ████████████|█████████\r\nIn front of you there is a room with shiny white sandstone walls, time seems not to have passed, on the ground the sand which has slowly infiltrated over the millennia through the small cracks is accumulating along the edges. The walls are all closed except for a passage in the north wall. The temperature is pleasant, it is certainly a good ten degrees cooler than outside.",
-        "roomItems": [
-          {
-            "name": "Sword",
-            "score": 10,
-            "weight": 5,
-            "damage": 20,
-            "itemDescription": "pointy stick"
-          },
-          {
-            "name": "Shield",
-            "score": 15,
-            "weight": 10,
-            "damage": 5,
-            "itemDescription": "defense is the best offense"
-          },
-          {
-            "name": "Coconut",
-            "score": 5,
-            "weight": 1,
-            "damage": 0,
-            "itemDescription": "food"
-          }
-        ],
+        "roomItems": [],
         "walls": {
           "left": false,
           "up": false,
