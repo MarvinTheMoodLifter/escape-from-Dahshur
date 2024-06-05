@@ -146,25 +146,33 @@ package "Items" {
   }
 }
 
+together {
+    Game --> Pyramid : generates
+    Pyramid --> "9" Room : made of
+}
 
-Game "manages" --> "1" Main_Character
-Game "generates" --> Pyramid
-Pyramid "is made by" --> "9" Room
-Main_Character "inherits" --> "1" Entity
-Main_Character "is-in" --> "1" Room
-Main_Character "equips" --> "*" Item 
-Main_Character "interacts with" --> "1" Room
-Main_Character "interacts with" --> "1" NPC
-NPC "inherits" --> Entity
-Landscape_Entity "inherits" --> Entity
-Room "contains" --> "*" Landscape_Entity
-Room "adjacent-to" --> "*" Room 
-Room "contains" --> "*" Item 
-Room "hosts" --> NPC 
-Room "contains" --> Main_Character
-Room "manages" --> NPC
+together {
+    
+    Main_Character "inspects" --> Item
+    Item --> "equips" Main_Character
+    Main_Character --> "interacts with" NPC
+}
 
-Game -[hidden]right- "Game World"
-Main_Character -[hidden]right- Pyramid
+together {
+    Main_Character --> Entity : is a
+    NPC --> Entity : is a
+    Landscape_Entity --> Entity : is a
+}
+
+together {
+    Room --> "*" Entity : contains
+    Room --> Item : contains
+}
+
+
+Game -[hidden]down- "Game World"
+"Items" -[hidden]right- "Game World"
+Landscape_Entity -[hidden]left- Entity
+NPC -[hidden]right- Main_Character
 
 @enduml
