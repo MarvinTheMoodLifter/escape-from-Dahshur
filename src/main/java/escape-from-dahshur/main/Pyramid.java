@@ -101,17 +101,18 @@ public class Pyramid {
     public void setPyramidDesc(String desc) { pyramidDescription = desc; }
     public void printPyramidDesc() { System.out.println(pyramidDescription); }
     private void wallInitializer() {
-        gamemap[0][0].setWall("right", true);
-        gamemap[0][1].setWall("left", true);
+        gamemap[0][0].setWall("down", true);
         gamemap[0][1].setWall("right", true);
         gamemap[0][2].setWall("left", true);
         gamemap[1][0].setWall("up", true);
-        gamemap[2][0].setWall("down", true);
+        gamemap[2][0].setWall("right", true);
         gamemap[2][1].setWall("right", true);
+        gamemap[2][1].setWall("left", true);
+        gamemap[2][2].setWall("left", true);
     }
     private void itemInizializer() {
 
-        gamemap[2][1].addItem(new Item("ankh", 10, 1, 0,
+        gamemap[0][1].addItem(new Item("ankh", 10, 1, 0,
                 "an ancient amulet of glittering gold, it " +
                         "used to be worshipped as the symbol of life"
                         + "\r\n"
@@ -151,7 +152,7 @@ public class Pyramid {
                         + "     ███|       "
                         + "\n"));
 
-        gamemap[0][1].addItem(
+        gamemap[2][1].addItem(
                 new Item("djed", 20, 1, 0,
                         "an ancient amulet, its symbol represents stability"
                                 + "\r\n"
@@ -166,7 +167,7 @@ public class Pyramid {
                                 + "                   ██|                     "
                                 + "\n"));
 
-        gamemap[0][1].addItem(
+        gamemap[2][1].addItem(
                 new Item("khol", 5, 1, 0,
                         "it kind of looks like a modern eyeliner, it's still used " +
                                 "as eye makeup. The small wooden object is carvedin the " +
@@ -195,7 +196,7 @@ public class Pyramid {
                                 + "           █████|          "
                                 + "\n"));
 
-        gamemap[2][2].addItem(
+        gamemap[0][2].addItem(
                 new Item("mhyrr oil", 5, 5, 0,
                         "a small bottle of perfume, it's still full and emanates a " +
                                 "pleasant smell"
@@ -223,7 +224,7 @@ public class Pyramid {
                                 + "           ████████████████████|            "
                                 + "\n"));
 
-        gamemap[2][2].addItem(
+        gamemap[0][2].addItem(
                 new Item("linen tunic", 10, 5, 1,
                         "just an average linen tunic, the only remarkable feature " +
                                 "being the quality of its cloth"
@@ -287,7 +288,7 @@ public class Pyramid {
                                 + "████|█████|█████████████"
                                 + "\n"));
 
-        gamemap[0][1].addItem(new Item(
+        gamemap[2][1].addItem(new Item(
                 "razor", 1, 2, 10,
                 "a sharp razor with a copper blade and a bone handle"
                         + "\r\n"
@@ -334,7 +335,7 @@ public class Pyramid {
                         "                                               "
                         + "\n"));
 
-        gamemap[2][1].addItem(new Item(
+        gamemap[0][1].addItem(new Item(
                 "book of the dead", 20, 2, 5,
                 "an ancient papyrus filled with magical formulas whose original " +
                         "purpose was to aid the deceased on their journey to the afterlife"
@@ -434,19 +435,19 @@ public class Pyramid {
                                 + "\n"));
     }
     private void NPCIinitializer() {
-        gamemap[2][2].addEntity(
+        gamemap[0][2].addEntity(
                 new NPC("Osiris", 100, 75, 150, 2, 2,
                         "A creepy ancient mummy, the owner of the tomb. Now that you " +
                                 "have desecrated its home it seeks vengance.",
                         false));
-        gamemap[0][2].addEntity(
+        gamemap[2][2].addEntity(
                 new NPC("mummy", 50, 25, 150, 0, 2,
                         "A shadow stands in front of you, as you try to illuminate " +
                                 "it with the torch you realize it is a humanoid being " +
                                 "wrapped in bandages wearing typical Egyptian funeral " +
                                 "clothes adorned with jewels and fine dyed linen. ",
                         false));
-        gamemap[0][0].addEntity(new NPC(
+        gamemap[2][0].addEntity(new NPC(
                 "lost explorer", 100, 10, 150, 0, 0,
                 "A lost explorer that's now stuck inside of the ruins cursed to be " +
                         "unable to leave. Altough he speaks with you, you can barely tell " +
@@ -496,7 +497,7 @@ public class Pyramid {
                         "Peraphs it may not be a bad idea to jump in after all....."));
     }
     private void roomDescInitializer() {
-        gamemap[0][0].setRoomDesc(
+        gamemap[2][0].setRoomDesc(
                 "█████████|██████████████████████████████|█████████"
                         + "\n"
                         + "█████████|██████████████████████████████|█████████"
@@ -576,7 +577,7 @@ public class Pyramid {
                         "tell, they talk about a certain “Pdor, son of Kmer from the Instar " +
                         "tribe! Of the wasteland of the Sknir! One of the last seven essays! " +
                         "Purvurur, Garen, Pastararin, Giugiar, Taram, Fusciusc and Tarin”. ");
-        gamemap[0][1].setRoomDesc(
+        gamemap[2][1].setRoomDesc(
                 "█████████|██████████████████████████████|█████████"
                         + "\n"
                         + "█████████|██████████████████████████████|█████████"
@@ -655,7 +656,7 @@ public class Pyramid {
                         "decorated with painted geometric elements, in the center of the " +
                         "room there is a strange hole, surrounded by beautiful painted " +
                         "tiles of bright colors.");
-        gamemap[2][0].setRoomDesc(
+        gamemap[0][0].setRoomDesc(
                 "█████████|██████████████████████████████|█████████"
                         + "\n"
                         + "█████████|██████████████████████████████|█████████"
@@ -699,7 +700,7 @@ public class Pyramid {
                         "beautiful.\nWith your torch you struggle to illuminate the entire " +
                         "room.\n The room around you is bare as if to underline the " +
                         "importance of the door  ");
-        gamemap[0][2].setRoomDesc(
+        gamemap[2][2].setRoomDesc(
                 "█████████|██████████████████████████████|█████████"
                         + "\n"
                         + "█████████|██████████████████████████████|█████████"
@@ -738,7 +739,7 @@ public class Pyramid {
                         "corners, hidden in the dim light, you scared, but doesn't seem to " +
                         "move. You try to illuminate the walls of the room, the only " +
                         "passage is the one you came from.");
-        gamemap[2][2].setRoomDesc(
+        gamemap[0][2].setRoomDesc(
                 "█████████|██████████████████████████████|█████████"
                         + "\n"
                         + "█████████|██████████████████████████████|█████████"
@@ -815,7 +816,7 @@ public class Pyramid {
                         "Following the walls with your gaze you notice two other passages " +
                         "in addition to the one you came from. One to the south and one to " +
                         "the north.");
-        gamemap[2][1].setRoomDesc(
+        gamemap[0][1].setRoomDesc(
                 "█████████|██████████████████████████████|█████████"
                         + "\n"
                         + "█████████|██████████████████████████████|█████████"
