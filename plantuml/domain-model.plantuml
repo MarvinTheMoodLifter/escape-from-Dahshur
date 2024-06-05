@@ -6,32 +6,38 @@ skinparam ArrowThickness 1
 hide empty members
 
 object "Player" as Main_Character {
-  equippedItem
+  - equippedItem
 }
-object Entity
+object Entity {
+  - health
+  - power
+}
 object Attack
 object Talk
 object Item {
-  name
-  damage 
-  weight 
-  score
+  - name
+  - damage 
+  - weight 
+  - score
 }
 object NPC 
-object Pyramid 
-object Room {
-  walls
+object Pyramid {
+  - rooms
 }
+object Room 
 
 Entity -- "*" Main_Character : is-a <
 Entity -- "*" NPC : is-a <
 Main_Character -- Room : is-in >
-Main_Character -- "*" Item : has >
+Main_Character -- "*" Item : equips >
 (Main_Character,NPC) .. Attack
 (Main_Character,NPC) .. Talk
 Room -- "*" Item : contains >
-Room -- "1" NPC : hosts >
-Room --> "*" Room : can-have
+Room .. "1" NPC : could hosts >
 Pyramid "1" -- "9" Room : has >
-@enduml
 
+Main_Character -[hidden]down- Room
+Entity -[hidden]left- Main_Character
+Pyramid -[hidden]up- Room
+
+@enduml
