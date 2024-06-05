@@ -140,7 +140,7 @@ public class Main_Character extends Entity {
   }
 
   public Item getInvItem(String name) {
-    return inventory.getOrDefault(name.toLowerCase(), null);
+  return inventory.getOrDefault(name.toLowerCase(), null);
   }
 
   public Item setInvItem(Item item) {
@@ -163,6 +163,8 @@ public class Main_Character extends Entity {
     } else {
       System.out.println(ANSI_PURPLE + "No item equipped.");
     }
+    System.out.println("your health is: "+getHealth());
+    System.out.println("your weight is: "+getInvWeight()+" out of "+ getMaxWeight());
   }
 
   public String toJson() {
