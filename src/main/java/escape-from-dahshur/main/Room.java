@@ -20,7 +20,10 @@ public class Room {
 
   public void addItem(Item groundItem) { roomItems.add(groundItem); }
 
-  public void deleteItem(Item target) { roomItems.remove(target); }
+  public void deleteItem(Item target) {
+     roomItems.remove(target);
+     roomItems.trimToSize();
+     }
 
   public void clearItem() { roomItems.clear(); }
 
@@ -42,7 +45,10 @@ public class Room {
 
   public void addEntity(NPC addednpc) { roomnpc.add(addednpc); }
 
-  public void removeEntity(NPC target) { roomnpc.remove(target); }
+  public void removeEntity(NPC target) { 
+    roomnpc.remove(target);
+    roomnpc.trimToSize(); 
+   }
   public boolean hasLandmark() { return !landmarks.isEmpty(); }
 
   public void addLandmark(Landscape_Entity addedlandmark) {
@@ -51,6 +57,7 @@ public class Room {
 
   public void removeLandmark(Landscape_Entity target) {
     landmarks.remove(target);
+    landmarks.trimToSize();
   }
   public boolean isOpen() { return roomstat; }
 
@@ -99,7 +106,7 @@ public class Room {
   public void talkToNPC(String npcName) {
     for (Entity entity : roomnpc) {
       if (entity instanceof NPC && entity.getName().equalsIgnoreCase(npcName)) {
-        System.out.println(npcName + " says: 'Hello, I am the " + npcName +
+        System.out.println( "you see the "+  npcName+ " in front of you" +
                            ". " + ((NPC)entity).getDescription() + "'");
         return;
       }
