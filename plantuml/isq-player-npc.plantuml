@@ -1,0 +1,13 @@
+@startuml
+actor Main_Character as "Main Character"
+actor NPC as "Non-Player Character"
+
+Main_Character->>NPC: Greet NPC
+NPC->>Main_Character: Respond with greeting and presentation
+Main_Character->>NPC: Ask NPC about item location
+NPC->>Main_Character: Provide information about item location
+Main_Character->>NPC: Request help to retrieve the item
+NPC->>Main_Character: Agree or decline request
+Main_Character->>NPC: Retrieve item
+
+@enduml

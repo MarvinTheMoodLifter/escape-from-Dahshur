@@ -1,0 +1,40 @@
+@startuml
+  actor User as "Player"
+  actor Main_Character as "Hero"
+  entity NPC as "NPC"
+  participant Room as "Room"
+  database Storage as "Storage"
+
+  User->>Main_Character: Start game
+  Main_Character->>Room: Enter room
+  Room->>Main_Character: Present the room state and available actions
+  Main_Character->>User: Report current situation and available actions
+
+  loop Game
+    User->>Main_Character: Choose an action (e.g., inspect item, move to another room)
+    Main_Character->>Room: Perform chosen action
+    Room->>Main_Character: Update the room state and present new options
+    Main_Character->>User: Report updated situation and available actions
+  end
+
+  User->>Main_Character: Show hint or clue for a puzzle
+  Main_Character->>User: Provide hint or solution to puzzle
+  User->>Main_Character: Ask NPC about item or location
+  Main_Character->>NPC: Pass question to NPC
+  NPC->>Main_Character: Provide information from NPC
+  Main_Character->>User: Report NPC's response and actions
+
+  User->>Main_Character: Use an item or skill
+  Main_Character->>Room: Use the item or skill
+  Room->>Main_Character: Update the room state based on the action
+  Main_Character->>User: Report updated situation and available actions
+
+  User->>Main_Character: Save game
+  Main_Character->>Storage: Store current game state
+  Storage->>Main_Character: Confirm saved game state
+
+  User->>Main_Character: Load saved game
+  Main_Character->>Storage: Retrieve stored game state
+  Storage->>Main_Character: Return loaded game state
+
+@enduml

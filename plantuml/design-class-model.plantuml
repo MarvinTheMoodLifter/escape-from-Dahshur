@@ -1,0 +1,170 @@
+@startuml
+skinparam linetype ortho
+
+skinparam Arrow {
+  Thickness 2
+  FontStyle Bold
+}
+
+package "Game Management" {
+  class Game {
+      + clearScreen()
+      + printCentered(text: String)
+      + main()
+      + saveGame(hero: Main_Character, pyramid: Pyramid, saveName: String)
+      + loadGame(hero: Main_Character, pyramid: Pyramid, saveName: String)
+      + victory(hero: Main_Character)
+      + loss(hero: Main_Character)
+      + gameEnd(hero: Main_Character)
+  }
+}
+package "Game World" {
+  class Pyramid {
+      - gamemap: Room[][]
+      - pyramidDescription: String
+      + getRoom(posx: int, posy: int): Room
+      + getPyramidDesc(): String
+      + setPyramidDesc(desc: String)
+      + printPyramidDesc()
+      + wallInitializer()
+  }
+  class Room {
+      - roomstat: boolean
+      - roomdescription: String
+      - roomItems: ArrayList<Item>
+      - walls: HashMap<String, Boolean>
+      - roomnpc: ArrayList<NPC>
+      + addItem(groundItem: Item)
+      + deleteItem(target: Item)
+      + clearItem()
+      + hasItem(): boolean
+      + getWall(wallpos: String): Boolean
+      + setWall(direction: String, setting: boolean)
+      + hasWall(): boolean
+      + listwall()
+      + hasEntity(): boolean
+      + addEntity(addednpc: NPC)
+      + removeEntity(target: NPC)
+      + isOpen(): boolean
+      + setRoomStat(setting: boolean)
+      + printItems()
+      + getRoomItems(): List<Item>
+      + describeEntities()
+      + talkToNPC(npcName: String)
+      + findNPCByName(name: String): NPC
+      + findItemByName(name: String): Item
+      + setRoomDesc(desc: String)
+      + getRoomDesc(): String
+      + printRoomDesc(desc: String)
+  }
+}
+package "Entities" {
+  class Entity {
+      - name: String
+      - health: int
+      - power: int
+      - items: List<Item>
+      - maxWeight: double
+      - score: int
+      - currentPosition: int[]
+      - hasmoved: boolean
+      - canmove: boolean
+      + getName(): String
+      + getHealth(): int
+      + getPower(): int
+      + getItems(): List<Item>
+      + getMaxWeight(): int
+      + getScore(): int
+      + getCurrentPosition(): int[]
+      + getCanMove(): boolean
+      + setName(name: String)
+      + setHealth(health: int)
+      + setPower(power: int)
+      + addItem(item: Item)
+      + setMaxWeight(maxWeight: int)
+      + setScore(score: int)
+      + setCurrentPosition(x: int, y: int)
+      + setCanMove(setting: boolean)
+      + moveNorth()
+      + moveSouth()
+      + moveEast()
+      + moveWest()
+      + setHasMoved(setting: boolean)
+      + getHasMoved(): boolean
+      + move(target: Pyramid, direction: String)
+  }
+  class Main_Character {
+      - equippedItem: Item
+      + inspectItemByName(room: Room, itemName: String)
+      + attack(npc: NPC)
+      + takeDamage(damage: int)
+      + equipItem(item: Item)
+      + isAlive(): boolean
+      + die()
+  }
+
+  class NPC {
+      - health: int
+      - description: String
+      - isAlive: boolean
+      + isAlive(): boolean
+      + getDescription(): String
+      + takeDamage(damage: int)
+      + attack(hero: Main_Character, damage: int)
+      + die()
+      + describe()
+  }
+  
+  class Landscape_Entity {
+    - landmarkdescription: String
+    - landmarkpower: int
+    + getLandscapeDesc(): String
+    + setLandscapeDesc(desc: String)
+    + damageCharacter(victim: Main_Character)
+    + describeLandscape()
+    + landmarkInteraction(target: String, interaction: String, hero: Main_Character, room: Room)
+  }
+}
+
+
+
+package "Items" {
+  class Item {
+      - name: String
+      - score: int
+      - weight: int
+      - damage: int
+      - itemDescription: String
+      + getName(): String
+      + getItemScore(): int
+      + getWeight(): int
+      + getDamage(): int
+      + getItemDesc(): String
+      + setItemDesc(desc: String)
+      + printItemDesc()
+      + inspectItem()
+  }
+}
+
+
+Game "manages" --> "1" Main_Character
+Game "generates" --> Pyramid
+Pyramid "is made by" --> "9" Room
+Main_Character "inherits" --> "1" Entity
+Main_Character "is-in" --> "1" Room
+Main_Character "equips" --> "*" Item 
+Main_Character "interacts with" --> "1" Room
+Main_Character "interacts with" --> "1" NPC
+NPC "inherits" --> Entity
+Landscape_Entity "inherits" --> Entity
+Room "contains" --> "*" Landscape_Entity
+Room "adjacent-to" --> "*" Room 
+Room "contains" --> "*" Item 
+Room "hosts" --> NPC 
+Room "contains" --> Main_Character
+Room "manages" --> NPC
+
+Game -[hidden]right- "Game World"
+Main_Character -[hidden]right- Pyramid
+
+@enduml
