@@ -48,6 +48,7 @@ public class Game {
             int[] currentPosition = hero.getCurrentPosition();
             clearScreen();
             pyramid.describeRoom(currentPosition[1], currentPosition[0]);
+            pyramid.printPyramidDesc();
 
             // Menu per interazione utente
             printCentered("Available actions:", ANSI_YELLOW);
@@ -59,13 +60,13 @@ public class Game {
             printCentered("look around", ANSI_GREEN);
             printCentered("examine environment", ANSI_GREEN);
             if(hero.getCurrentPosition()[1]==1&&hero.getCurrentPosition()[0]==1){
-                printCentered("type 'enter hole' to enter the hole.", ANSI_GREEN);
+                printCentered("enter hole", ANSI_GREEN);
             }
             if(hero.getCurrentPosition()[1]==0&&hero.getCurrentPosition()[0]==0){
-                printCentered("type 'leave pyramid' to attmept to leave the pyramid.", ANSI_GREEN);
+                printCentered("leave pyramid", ANSI_GREEN);
             }
             if(hero.getCurrentPosition()[1]==1&&hero.getCurrentPosition()[0]==2){
-                printCentered("type 'open chest' to open the chest.", ANSI_GREEN);
+                printCentered("open chest", ANSI_GREEN);
             }
             printCentered("save game", ANSI_CYAN);
             printCentered("load game [hero_name]", ANSI_CYAN);
@@ -115,12 +116,11 @@ public class Game {
                 }else if(subInput.toLowerCase().startsWith("check ")) {
                     String itemName = subInput.substring(6).trim();
                     if(hero.getInvItem(itemName)!=null){
-                        hero.getInvItem(itemName).getItemDesc();
+                        hero.getInvItem(itemName).printItemDesc();
                     }
                     else{
                        System.out.println("you do not have such an item"); 
                     }
-                  hero.inspectItemByName(pyramid.getRoom(currentPosition[1], currentPosition[0]),itemName);
                 }else{
                  printCentered("Unknown command. Returning to main menu.");
                 }
@@ -201,8 +201,8 @@ public class Game {
                         printCentered("You talked to " + npcName + ".", ANSI_RED);
                         printCentered("What would you like to do next?", ANSI_RED);
                         printCentered("attack " + npcName, ANSI_GREEN);
-                        if (hero.getCurrentPosition()[1] == 2 && hero.getCurrentPosition()[0] == 0) {
-                            printCentered("type 'free lost explorer' to attempt to free the lost explorer.", ANSI_GREEN);
+                        if (hero.getCurrentPosition()[1] == 2 && hero.getCurrentPosition()[0] == 0&&pyramid.getRoom(2, 0).findNPCByName("lost explorer").isAlive()) {
+                            printCentered("free lost explorer ", ANSI_GREEN);
                         }
                         printCentered("back", ANSI_BLUE);
                         System.out.print("Enter action: ");
@@ -249,7 +249,7 @@ public class Game {
                                                     "\n") +
                                             ANSI_RESET);
                             continue; // Ritorna al menu principale
-                        } else if (subInput.toLowerCase().startsWith("free ") && (hero.getCurrentPosition()[1] == 2 && hero.getCurrentPosition()[0] == 0)) {
+                        } else if (subInput.toLowerCase().startsWith("free ") && (hero.getCurrentPosition()[1] == 2 && hero.getCurrentPosition()[0] == 0)&&pyramid.getRoom(2, 0).findNPCByName("lost explorer").isAlive()) {
                             String interactednpcname = subInput.substring(5).trim();
                             if (interactednpcname.equalsIgnoreCase(npcName)) {
                                 npc = pyramid.getRoom(currentPosition[1], currentPosition[0])
@@ -312,25 +312,22 @@ public class Game {
                 String saveName = input.substring(10).trim();
                 loadGame(hero, pyramid, saveName);
             } else if (input.toLowerCase().startsWith("leave pyramid")&&hero.getCurrentPosition()[1]==0&&hero.getCurrentPosition()[0]==0){
-                try{
-                if(hero.getInvItem("ankh").getName().toLowerCase().equals("ankh")||hero.getEqItem().getName().equalsIgnoreCase("ankh")){
-                    System.out.println("the ankh begins to glow alongside the incisions on the door\n"
-                            +"after a short while the door begins to open.\n"
-                            +"without wasting any time you immediatly exit the pyramid, you are finally free.\n"+
-                            "you made it out with all the artifacts you could carry with you.");
-                    GameEnd(hero);
-                    break;
-                }else{
-                    System.out.println("despite your best efforts the door won't budge.\n"
-                            +"after several minutes of careful examinations you notice\n several incisions depicting humanoid figured holding ankh shaped object in front of the door\n"+
-                            "peraphs if you find such an item you might be able to leave.");
-                }
-            }catch(NullPointerException e){
-             System.out.println("despite your best efforts the door won't budge.\n" + 
-                                  "after several minutes of careful examinations you notice\n" + 
-                                  " several incisions depicting humanoid figured holding ankh shaped object in front of the door\n" + 
-                                  "peraphs if you find such an item you might be able to leave.");
-                }
+                if(hero.getEqItem()!=null){
+                if(hero.getEqItem().getName().equalsIgnoreCase("ankh")){
+                            System.out.println("the ankh begins to glow alongside the incisions on the door\n"
+                                    +"after a short while the door begins to open.\n"
+                                    +"without wasting any time you immediatly exit the pyramid, you are finally free.\n"+
+                                    "you made it out with all the artifacts you could carry with you.");
+                            GameEnd(hero);
+                            break;
+                        }else{
+                            System.out.println("despite your best efforts the door won't budge.\n"
+                                    +"after several minutes of careful examinations you notice\n several incisions depicting humanoid figured holding ankh shaped object in front of the door\n"+
+                                    "peraphs if you find such an item you might be able to leave.");
+                        }
+                    }else{
+                        System.out.println("you did not equip any item.");
+                    }
             }else if(input.toLowerCase().startsWith("enter hole")&&hero.getCurrentPosition()[1]==1&&hero.getCurrentPosition()[0]==1)
             {
                 pyramid.getRoom(1, 1).findLandmarkByName("hole").landmarkInteraction("hole", "enter", hero, pyramid.getRoom(1, 1));
