@@ -165,6 +165,7 @@ public class Main_Character extends Entity {
     }
     System.out.println("your health is: "+getHealth());
     System.out.println("your weight is: "+getInvWeight()+" out of "+ getMaxWeight());
+    System.out.println("your current score is: "+getScore());
   }
 
   public String toJson() {
