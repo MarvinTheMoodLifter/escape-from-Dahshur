@@ -40,9 +40,9 @@ public class Game {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Pyramid pyramid = new Pyramid();
-        Main_Character hero = new Main_Character("Hero", 100, 50, 100, 0, 2);
+        Main_Character hero = new Main_Character("Hero", 100, 50, 50, 0, 0);
         boolean inCombat = false;
-        
+
         pyramid.getPyramidDesc();
         while (true) {
             int[] currentPosition = hero.getCurrentPosition();
@@ -53,10 +53,11 @@ public class Game {
             printCentered("Available actions:", ANSI_YELLOW);
             printCentered("inspect [item_name]", ANSI_GREEN);
             printCentered("talk to [npc_name]", ANSI_GREEN);
-            printCentered("attack [npc_name]", ANSI_GREEN);
             printCentered("move [direction]", ANSI_GREEN);
+            printCentered("attack [npc name]", ANSI_GREEN);
             printCentered("view inventory", ANSI_GREEN);
             printCentered("look around", ANSI_GREEN);
+            printCentered("examine environment", ANSI_GREEN);
             if(hero.getCurrentPosition()[1]==1&&hero.getCurrentPosition()[0]==1){
                 printCentered("type 'enter hole' to enter the hole.", ANSI_GREEN);
             }
@@ -66,7 +67,7 @@ public class Game {
             if(hero.getCurrentPosition()[1]==1&&hero.getCurrentPosition()[0]==2){
                 printCentered("type 'open chest' to open the chest.", ANSI_GREEN);
             }
-             printCentered("save game", ANSI_CYAN);
+            printCentered("save game", ANSI_CYAN);
             printCentered("load game [hero_name]", ANSI_CYAN);
             printCentered("type 'exit' to quit.", ANSI_RED);
             System.out.print("Enter action: ");
@@ -82,6 +83,10 @@ public class Game {
                 printCentered("You are viewing your inventory.", ANSI_RED);
                 printCentered("What would you like to do next?", ANSI_RED);
                 printCentered("equip [item_name]", ANSI_GREEN);
+                
+                printCentered("unequip item", ANSI_GREEN);
+                printCentered("drop [item name]", ANSI_GREEN);
+                printCentered("check [item name]", ANSI_GREEN);
                 printCentered("back", ANSI_BLUE);
                 System.out.print("Enter action: ");
                 String subInput = scanner.nextLine();
@@ -97,8 +102,27 @@ public class Game {
                                             "------------------------------------------------------\n") +
                                     ANSI_RESET);
                     continue; // Ritorna al menu principale
-                } else {
-                    printCentered("Unknown command. Returning to main menu.");
+                } else if(subInput.equalsIgnoreCase("unequip item")) {
+                hero.unequipItem(pyramid.getRoom(hero.getCurrentPosition()[1], hero.getCurrentPosition()[0]));
+                }else if(subInput.toLowerCase().startsWith("drop ")){
+                    String itemName = subInput.substring(5).trim();
+                    if(hero.getInvItem(itemName)!=null){
+                        hero.dropItem(hero.getInvItem(itemName), pyramid.getRoom(hero.getCurrentPosition()[1], hero.getCurrentPosition()[0]));
+                    }
+                    else{
+                       System.out.println("you do not have this item"); 
+                  } 
+                }else if(subInput.toLowerCase().startsWith("check ")) {
+                    String itemName = subInput.substring(6).trim();
+                    if(hero.getInvItem(itemName)!=null){
+                        hero.getInvItem(itemName).getItemDesc();
+                    }
+                    else{
+                       System.out.println("you do not have such an item"); 
+                    }
+                  hero.inspectItemByName(pyramid.getRoom(currentPosition[1], currentPosition[0]),itemName);
+                }else{
+                 printCentered("Unknown command. Returning to main menu.");
                 }
             } else if (input.toLowerCase().startsWith("inspect ")) {
                 if (inCombat) {
@@ -106,13 +130,16 @@ public class Game {
                             ("You cannot inspect items during combat. You must " +
                                     "'attack' or 'flee'.") +
                             ANSI_RESET);
-                } else {
+                } {
                     String itemName = input.substring(8).trim();
+                    if(hero.getInvItem(itemName)!=null){
+                        hero.getInvItem(itemName).printItemDesc();
+                    }
                     hero.inspectItemByName(
                             pyramid.getRoom(currentPosition[1], currentPosition[0]),
                             itemName);
 
-                    // Sottomenu per l'oggetto ispezionato
+                    // Sottomenu per l'oggetto ispezionatoleav
                     System.out.println();
                     System.out.println("-------------------------------------------------------------" +
                             "-------------------------------------------------------------" +
@@ -153,6 +180,7 @@ public class Game {
                         printCentered("Unknown command. Returning to main menu.");
                     }
                 }
+                // Inside the main method
             } else if (input.toLowerCase().startsWith("talk to ")) {
                 if (inCombat) {
                     printCentered(
@@ -161,79 +189,93 @@ public class Game {
                                     ANSI_RESET);
                 } else {
                     String npcName = input.substring(8).trim();
-                    pyramid.getRoom(currentPosition[1], currentPosition[0])
-                            .talkToNPC(npcName);
+                    NPC npc = pyramid.getRoom(currentPosition[1], currentPosition[0])
+                            .findNPCByName(npcName);
 
-                    // Sottomenu per l'NPC
-                    System.out.println();
-                    printCentered("You talked to " + npcName + ".", ANSI_RED);
-                    printCentered("What would you like to do next?", ANSI_RED);
-                    printCentered("attack " + npcName, ANSI_GREEN);
-                    if(hero.getCurrentPosition()[1]==2&&hero.getCurrentPosition()[0]==0){
-                        printCentered("type 'free lost explorer' to attempt to free the lost explorer.", ANSI_GREEN);
-                    }
-                    printCentered("back", ANSI_BLUE);
-                    System.out.print("Enter action: ");
-                    String subInput = scanner.nextLine();
+                    if (npc != null) {
+                        pyramid.getRoom(currentPosition[1], currentPosition[0])
+                                .talkToNPC(npcName);
 
-                    if (subInput.toLowerCase().startsWith("attack ")) {
-                        String attackNPCName = subInput.substring(7).trim();
-                        if (attackNPCName.equalsIgnoreCase(npcName)) {
-                            NPC npc = pyramid.getRoom(currentPosition[1], currentPosition[0])
-                                    .findNPCByName(attackNPCName);
-                            if (npc != null && npc.isAlive()) {
-                                hero.attack(npc);
-                                inCombat = true;
-                                if (npc.isAlive()) {
-                                    npc.attack(hero, npc.getPower());
-                                    if (!hero.isAlive()) {
-                                        printCentered(ANSI_RED + "You have died." + ANSI_RESET);
-                                        GameEnd(hero);
-                                        break;
+                        // Sottomenu per l'NPC
+                        System.out.println();
+                        printCentered("You talked to " + npcName + ".", ANSI_RED);
+                        printCentered("What would you like to do next?", ANSI_RED);
+                        printCentered("attack " + npcName, ANSI_GREEN);
+                        if (hero.getCurrentPosition()[1] == 2 && hero.getCurrentPosition()[0] == 0) {
+                            printCentered("type 'free lost explorer' to attempt to free the lost explorer.", ANSI_GREEN);
+                        }
+                        printCentered("back", ANSI_BLUE);
+                        System.out.print("Enter action: ");
+                        String subInput = scanner.nextLine();
+
+                        if (subInput.toLowerCase().startsWith("attack ")) {
+                            String attackNPCName = subInput.substring(7).trim();
+                            if (attackNPCName.equalsIgnoreCase(npcName)) {
+                                npc = pyramid.getRoom(currentPosition[1], currentPosition[0])
+                                        .findNPCByName(attackNPCName);
+                                if (npc != null && npc.isAlive()) {
+                                    hero.attack(npc);
+                                    if(npc.getHealth()>0){
+                                       inCombat = true; 
+                                    }else{
+                                        inCombat=false;
                                     }
+                                    
+                                    if (npc.isAlive()) {
+                                        npc.attack(hero, npc.getPower());
+                                        if (!hero.isAlive()) {
+                                            printCentered(ANSI_RED + "You have died." + ANSI_RESET);
+                                            GameEnd(hero);
+                                            break;
+                                        }
+                                    }
+                                } else if (npc != null && !npc.isAlive()) {
+                                    printCentered(npc.getName() +
+                                            " is already dead and cannot be attacked.");
+                                    inCombat = false;
+                                } else {
+                                    printCentered("No NPC named '" + attackNPCName +
+                                            "' found in the room.");
                                 }
-                            } else if (npc != null && !npc.isAlive()) {
-                                printCentered(npc.getName() +
-                                        " is already dead and cannot be attacked.");
-                                inCombat = false;
                             } else {
-                                printCentered("No NPC named '" + attackNPCName +
-                                        "' found in the room.");
+                                printCentered("NPC name does not match the talked NPC.");
+                            }
+                        } else if (subInput.equalsIgnoreCase("back")) {
+                            System.out.println(
+                                    ANSI_CYAN +
+                                            ("-----------------------------------------------------------" +
+                                                    "-----------------------------------------------------------" +
+                                                    "----------------------------------------------------------" +
+                                                    "\n") +
+                                            ANSI_RESET);
+                            continue; // Ritorna al menu principale
+                        } else if (subInput.toLowerCase().startsWith("free ") && (hero.getCurrentPosition()[1] == 2 && hero.getCurrentPosition()[0] == 0)) {
+                            String interactednpcname = subInput.substring(5).trim();
+                            if (interactednpcname.equalsIgnoreCase(npcName)) {
+                                npc = pyramid.getRoom(currentPosition[1], currentPosition[0])
+                                        .findNPCByName(interactednpcname);
+                                if (npc != null && npc.isAlive()) {
+                                    npc.NpcInteraction(interactednpcname, "free", hero, pyramid.getRoom(currentPosition[1], currentPosition[0]));
+                                } else if (npc != null && !npc.isAlive()) {
+                                    printCentered(npc.getName() +
+                                            " is already dead and cannot be interacted with.");
+                                } else {
+                                    printCentered("No NPC named '" + interactednpcname +
+                                            "' found in the room.");
+                                }
+                            } else {
+                                printCentered("NPC name does not match the talked NPC.");
                             }
                         } else {
-                            printCentered("NPC name does not match the talked NPC.");
+                            printCentered("Unknown command. Returning to main menu.");
                         }
-                    } else if (subInput.equalsIgnoreCase("back")) {
-                        System.out.println(
-                                ANSI_CYAN +
-                                        ("-----------------------------------------------------------" +
-                                                "-----------------------------------------------------------" +
-                                                "----------------------------------------------------------" +
-                                                "\n") +
-                                        ANSI_RESET);
-                        continue; // Ritorna al menu principale
-                    } else if(subInput.toLowerCase().startsWith("free ")&&(hero.getCurrentPosition()[1]==1&&hero.getCurrentPosition()[0]==1)) {
-                        String interactednpcname = subInput.substring(5).trim();
-                        if (interactednpcname.equalsIgnoreCase(npcName)) {
-                            NPC npc = pyramid.getRoom(currentPosition[1], currentPosition[0])
-                                    .findNPCByName(interactednpcname);
-                            if (npc != null && npc.isAlive()) {
-                               npc.NpcInteraction(interactednpcname, "free", hero, pyramid.getRoom(currentPosition[1], currentPosition[0]));
-                            } else if (npc != null && !npc.isAlive()) {
-                                printCentered(npc.getName() +
-                                        " is already dead and cannot be interacted with.");
-                            } else {
-                                printCentered("No NPC named '" + interactednpcname +
-                                        "' found in the room.");
-                            }
-                        } else {
-                            printCentered("NPC name does not match the talked NPC.");
-                        }
-                   }else {
-                    printCentered("Unknown command. Returning to main menu.");
-                   }
-                }}
-            
+                    } else {
+                        printCentered("No NPC named '" + npcName + "' found in the room.");
+                    }
+                }
+            }
+
+
             else if (input.equalsIgnoreCase("flee")) {
                 if (inCombat) {
                     printCentered(ANSI_BLUE + "You flee from the combat!" + ANSI_RESET);
@@ -270,36 +312,75 @@ public class Game {
                 String saveName = input.substring(10).trim();
                 loadGame(hero, pyramid, saveName);
             } else if (input.toLowerCase().startsWith("leave pyramid")&&hero.getCurrentPosition()[1]==0&&hero.getCurrentPosition()[0]==0){
+                try{
                 if(hero.getInvItem("ankh").getName().toLowerCase().equals("ankh")||hero.getEqItem().getName().equalsIgnoreCase("ankh")){
-                System.out.println("the ankh begins to glow alongside the incisions on the door\n"
-                +"after a short while the door begins to open.\n"
-                +"without wasting any time you immediatly exit the pyramid, you are finally free.\n"+
-                "you made it out with all the artifacts you could carry with you.");
-                GameEnd(hero);
-                break;
+                    System.out.println("the ankh begins to glow alongside the incisions on the door\n"
+                            +"after a short while the door begins to open.\n"
+                            +"without wasting any time you immediatly exit the pyramid, you are finally free.\n"+
+                            "you made it out with all the artifacts you could carry with you.");
+                    GameEnd(hero);
+                    break;
                 }else{
                     System.out.println("despite your best efforts the door won't budge.\n"
-                +"after several minutes of careful examinations you notice\n several incisions depicting humanoid figured holding ankh shaped object in front of the door\n"+
-                "peraphs if you find such an item you might be able to leave.");
+                            +"after several minutes of careful examinations you notice\n several incisions depicting humanoid figured holding ankh shaped object in front of the door\n"+
+                            "peraphs if you find such an item you might be able to leave.");
+                }
+            }catch(NullPointerException e){
+             System.out.println("despite your best efforts the door won't budge.\n" + 
+                                  "after several minutes of careful examinations you notice\n" + 
+                                  " several incisions depicting humanoid figured holding ankh shaped object in front of the door\n" + 
+                                  "peraphs if you find such an item you might be able to leave.");
                 }
             }else if(input.toLowerCase().startsWith("enter hole")&&hero.getCurrentPosition()[1]==1&&hero.getCurrentPosition()[0]==1)
-                { 
-            pyramid.getRoom(1, 1).findLandmarkByName("hole").landmarkInteraction("hole", "enter", hero, pyramid.getRoom(1, 1));
+            {
+                pyramid.getRoom(1, 1).findLandmarkByName("hole").landmarkInteraction("hole", "enter", hero, pyramid.getRoom(1, 1));
             }else if(input.toLowerCase().startsWith("open chest")&&hero.getCurrentPosition()[1]==1&&hero.getCurrentPosition()[0]==2){
-            pyramid.getRoom(1, 2).findLandmarkByName("chest").landmarkInteraction("chest", "open", hero, pyramid.getRoom(1, 2));
+                pyramid.getRoom(1, 2).findLandmarkByName("chest").landmarkInteraction("chest", "open", hero, pyramid.getRoom(1, 2));
             }else if(input.toLowerCase().startsWith("look around")){
-            pyramid.getRoom(hero.getCurrentPosition()[1], hero.getCurrentPosition()[0]).printRoomDesc();
-            }else{
-             printCentered("Unknown command. Please try again.");
+                pyramid.getRoom(hero.getCurrentPosition()[1], hero.getCurrentPosition()[0]).printRoomDesc();
+            }else if(input.toLowerCase().startsWith("examine environment")){
+                pyramid.getRoom(hero.getCurrentPosition()[1], hero.getCurrentPosition()[0]).describeLandmarks();
+            }else if (input.toLowerCase().startsWith("attack ")) {
+                String attackNPCName = input.substring(7).trim();
+                    NPC npc = pyramid.getRoom(currentPosition[1], currentPosition[0])
+                            .findNPCByName(attackNPCName);
+                    if (npc != null && npc.isAlive()) {
+                        hero.attack(npc);
+                        if(npc.getHealth()>0){
+                           inCombat = true; 
+                        }else{
+                            inCombat=false;
+                        }
+                        
+                        if (npc.isAlive()) {
+                            npc.attack(hero, npc.getPower());
+                            if (!hero.isAlive()) {
+                                printCentered(ANSI_RED + "You have died." + ANSI_RESET);
+                                GameEnd(hero);
+                                break;
+                            }
+                        }
+                    } else if (npc != null && !npc.isAlive()) {
+                        printCentered(npc.getName() +
+                                " is already dead and cannot be attacked.");
+                        inCombat = false;
+                    } else {
+                        printCentered("No NPC named '" + attackNPCName +
+                                "' found in the room.");
+                    }
+                }
+            else{
+              printCentered("Unknown command. Please try again."); 
             }
-        
+               
+            
 
-            if (hero.getHealth() <= 0&&!input.toLowerCase().startsWith("exit"))
+
+            if (hero.getHealth() <= 0 && !(input.toLowerCase().startsWith("exit")))
             {
                 GameEnd(hero);
                 break;
             }
-
             // Pausa dopo ogni azione
             printCentered("Press Enter to continue...", ANSI_RED);
             scanner.nextLine();
@@ -313,7 +394,6 @@ public class Game {
         }
 
         scanner.close();
-        GameEnd(hero);
     }
 
     private static void saveGame(Main_Character hero, Pyramid pyramid,
@@ -386,7 +466,7 @@ public class Game {
         System.out.println("your final score is:" + hero.getInvScore());
     }
 
-        private static void Loss(Main_Character hero) {
+    private static void Loss(Main_Character hero) {
         System.out.println("unfortunately during your expedition you met your end.\n" +
                 " You are now fated to remain forgotten unable to die trapped forever in the depths of the tomb");
         System.out.println("██╗   ██╗ ██████╗ ██╗   ██╗    ██╗      ██████╗ ███████╗███████╗" + "\n" +
