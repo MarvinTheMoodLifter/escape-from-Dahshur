@@ -22,11 +22,11 @@ public class Landscape_Entity extends Entity {
     }
     public void landmarkInteraction(String target, String interaction,
                                     Main_Character hero, Room room) {
+      try{                              
       switch (room.findLandmarkByName(target).getName()) {
       case "hole":
         if (interaction.toLowerCase().equals("enter")) {
             System.out.println("you jump in, your curiosity got the better of you.\n"+
-            "You jump in.\n"+
             "...\n"+
             "...\n"+
             "...\n"+
@@ -53,5 +53,8 @@ public class Landscape_Entity extends Entity {
           break;
         }
       }
+     } catch(NullPointerException e){
+      System.out.println("nothing happens as you aren't holding an item");
+     }
     }
   }
