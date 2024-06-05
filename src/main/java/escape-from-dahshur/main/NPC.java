@@ -83,9 +83,9 @@ public class NPC extends Entity {
                                       "now that the curse is gona you think"));
               room.removeEntity(room.findNPCByName(target));
           } else {
-              System.out.println("as you hold" +
+              System.out.println("as you hold " +
                       hero.getEqItem().getName() +
-                      ("nothing happens, peraphs you could try looking " +
+                      (" nothing happens, peraphs you could try looking " +
                               "for an ancient tome"));
           }
       }
