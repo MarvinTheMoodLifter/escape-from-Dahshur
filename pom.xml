@@ -58,7 +58,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>Game</mainClass>
+              <mainClass>escape_from_dahshur.main.Game</mainClass>
             </manifest>
           </archive>
         </configuration>
