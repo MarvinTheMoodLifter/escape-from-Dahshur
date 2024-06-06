@@ -26,19 +26,23 @@ java -jar target/escape-from-dahshur-0.8.jar
 ```
 
 ## Controls and game info
-Escape from Dahshur is a text-based adventure where players interact with the game through commands displayed on the screen. Throughout the game, various prompts will guide the player through exploring the pyramid and searching for treasure.
+Escape from Dahshur is a text-based adventure where players interact with the game through commands displayed on the screen. Throughout the game, various prompts will guide the player through exploring the pyramid and searching for treasure. Your main objective is to find a way to escape the pyramid that you're stuck in and maybe bring back some valuables.
 
 If an interaction allows for an item to be used, you must first equip the item you want to use in the interaction to actually use it.
 
-Your total score is based on the items you pick up during the course of the game.
-
-You win if you escape the pyramid.
+Your total score is based on the items you pick up and the enemies you fight during the course of the game.
 
 Depending on your total score you obtain a different ending, your main goal is not only to find a way to escape but also get as much score as possible.
 
-You loose if your health reaches zero or if an interaction kills you.
+You loose if your health reaches zero or if an interaction kills you, beware you cannot heal so manage your health carefully.
 
-You cannot take items if your weight is too high.
+There's a weight system, if the weight you're carrying is too high you can't take any more items until you drop one.
+
+When in combat you can't do anything but fight, you must prepare yourself beforehand as you are unable to equip or use items as well.
+
+You should make sure your terminal is as large as possible as this game uses ascii images which take up a large portion of the screen.
+
+Make sure your terminal can show utf8 characters.
 
 ### Game commands
 - `move [direction]`: Use directional commands `up`(north), `down`(south), `right`(east), and `left`(west) to navigate between the different rooms of the pyramid.
