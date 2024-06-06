@@ -27,11 +27,17 @@ java -jar target/escape-from-dahshur-0.8.jar
 
 ## Controls and game info
 Escape from Dahshur is a text-based adventure where players interact with the game through commands displayed on the screen. Throughout the game, various prompts will guide the player through exploring the pyramid and searching for treasure.
+
 If an interaction allows for an item to be used, you must first equip the item you want to use in the interaction to actually use it.
+
 Your total score is based on the items you pick up during the course of the game.
+
 You win if you escape the pyramid.
+
 Depending on your total score you obtain a different ending, your main goal is not only to find a way to escape but also get as much score as possible.
+
 You loose if your health reaches zero or if an interaction kills you.
+
 You cannot take items if your weight is too high.
 
 ### Game commands
