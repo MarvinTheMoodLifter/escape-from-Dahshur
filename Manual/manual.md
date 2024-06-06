@@ -44,6 +44,7 @@ You should make sure your terminal is as large as possible as this game uses asc
 
 Make sure your terminal can show utf8 characters.
 
+Not all npcs are hostile so think twice before mindlessly attacking.
 ### Game commands
 - `move [direction]`: Use directional commands `up`(north), `down`(south), `right`(east), and `left`(west) to navigate between the different rooms of the pyramid.
 - `inspect [item_name]`: gather information about items.
