@@ -7,7 +7,8 @@ import java.util.*;
 
 public class Pyramid {
     private Room[][] gamemap;
-    private String pyramidDescription;
+    protected String pyramidDescription;
+    protected String gameIntro;
 
     public Pyramid() {
 
@@ -34,8 +35,9 @@ public class Pyramid {
                         + "\n"
                         + "                                                                 " +
                         "                                                                " +
-                        "                    "
-                        + "\r\n"
+                        "                    ";
+        gameIntro =
+                         "\r\n"
                         + "..."
                         + "\r\n"
                         + "..."
@@ -76,6 +78,7 @@ public class Pyramid {
                         "be another exit, there always is in a necropolis like the one you " +
                         "are in, and above all there must be in a complex of this size.\r\n" + //
                         "";
+
         gamemap = new Room[3][3];
         for (int i = 0; i < gamemap.length; i++) {
             for (int j = 0; j < gamemap[i].length; j++) {
