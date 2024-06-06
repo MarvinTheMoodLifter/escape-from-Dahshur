@@ -29,10 +29,12 @@ public class NPC extends Entity {
 
     public String getDescription() { return description; }
 
+    public void setDescription(String desc) { description=desc; }
+
     public void takeDamage(int damage) {
         if (!isAlive) {
             System.out.println(getName() + " is already dead.");
-            return;
+
         }
         this.health -= damage;
         System.out.println(ANSI_RED + getName() + " has taken " + damage +
@@ -40,6 +42,7 @@ public class NPC extends Entity {
                 " health left." + ANSI_RESET);
         if (this.health <= 0) {
             die();
+            setDescription("a lifeless corpse is all that remains on the ground");
         }
     }
 
@@ -53,6 +56,7 @@ public class NPC extends Entity {
     private void die() {
         System.out.println(getName() + " has died.");
         this.isAlive = false;
+
     }
 
     public void describe() {
@@ -61,28 +65,32 @@ public class NPC extends Entity {
 
     public void NpcInteraction(String target, String interaction,
                                Main_Character hero, Room room) {
-        if (room.findNPCByName(target).isFriendly() &&
-                room.findNPCByName(target).getName().equals("lost explorer")) {
-            if (interaction.equals("free") &&
-                    hero.getEqItem().getName().equals("book of the dead")) {
-                System.out.println(
-                        "as you free the aventurer his form begins to vanish and the " +
-                                "book you are holding goes up in flames. Your heart tightens at " +
-                                "the loss of such precious knowledge, however the adventurer " +
-                                "before disappearing places an item in your hand");
-                hero.setEqItem(
-                        new Item("mysterious idol", 20, 10, 0,
-                                "you can't quite tell wether or not it belongs to a " +
-                                        "diety or some sort of demon, all you know is that it " +
-                                        "emanates a powerful aura. It is probably safe to keep " +
-                                        "now that the curse is gona you think"));
-                room.removeEntity(room.findNPCByName(target));
-            } else {
-                System.out.println("as you hold" +
-                        room.findNPCByName(target).getName() +
-                        ("nothing happens, peraphs you could try looking " +
-                                "for an ancient tome"));
+        try{
+            if (room.findNPCByName(target).isFriendly() &&
+                    room.findNPCByName(target).getName().equals("lost explorer")) {
+                if (interaction.equals("free") &&
+                        hero.getEqItem().getName().equals("book of the dead")) {
+                    System.out.println(
+                            "as you free the aventurer his form begins to vanish and the " +
+                                    "book you are holding goes up in flames. Your heart tightens at " +
+                                    "the loss of such precious knowledge, however the adventurer " +
+                                    "before disappearing places an item in your hand");
+                    hero.setEqItem(
+                            new Item("mysterious idol", 20, 10, 0,
+                                    "you can't quite tell wether or not it belongs to a " +
+                                            "diety or some sort of demon, all you know is that it " +
+                                            "emanates a powerful aura. It is probably safe to keep " +
+                                            "now that the curse is gona you think"));
+                    room.removeEntity(room.findNPCByName(target));
+                } else {
+                    System.out.println("as you hold " +
+                            hero.getEqItem().getName() +
+                            (" nothing happens, peraphs you could try looking " +
+                                    "for an ancient tome"));
+                }
             }
+        }catch(NullPointerException e){
+            System.out.println("nothing happens as you aren't holding any items");
         }
     }
 }
