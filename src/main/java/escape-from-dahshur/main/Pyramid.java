@@ -7,7 +7,8 @@ import java.util.*;
 
 public class Pyramid {
     private Room[][] gamemap;
-    private String pyramidDescription;
+    protected String pyramidDescription;
+    protected String gameIntro;
 
     public Pyramid() {
 
@@ -34,8 +35,9 @@ public class Pyramid {
                         + "\n"
                         + "                                                                 " +
                         "                                                                " +
-                        "                    "
-                        + "\r\n"
+                        "                    ";
+        gameIntro =
+                         "\r\n"
                         + "..."
                         + "\r\n"
                         + "..."
@@ -76,6 +78,7 @@ public class Pyramid {
                         "be another exit, there always is in a necropolis like the one you " +
                         "are in, and above all there must be in a complex of this size.\r\n" + //
                         "";
+
         gamemap = new Room[3][3];
         for (int i = 0; i < gamemap.length; i++) {
             for (int j = 0; j < gamemap[i].length; j++) {
@@ -108,11 +111,11 @@ public class Pyramid {
         gamemap[2][0].setWall("right", true);
         gamemap[2][1].setWall("right", true);
         gamemap[2][1].setWall("left", true);
-        gamemap[2][2].setWall("right", true);
+        gamemap[2][2].setWall("left", true);
     }
     private void itemInizializer() {
 
-        gamemap[0][1].addItem(new Item("ankh", 10, 1, 0,
+        gamemap[0][2].addItem(new Item("ankh", 10, 1, 0,
                 "an ancient amulet of glittering gold, it " +
                         "used to be worshipped as the symbol of life"
                         + "\r\n"
@@ -129,7 +132,7 @@ public class Pyramid {
                         + "        ██        "
                         + "\n"));
 
-        gamemap[1][2].addItem(new Item("key", 10, 1, 0,
+        gamemap[1][2].addItem(new Item("key", 5, 1, 0,
                 "a large metal key well decorated with " +
                         "incisions all over the handle and shaft"
                         + "\r\n"
@@ -407,7 +410,7 @@ public class Pyramid {
                                 + "\n"));
 
         gamemap[1][1].addItem(
-                new Item("meat", 1, 10, 1,
+                new Item("meat", 3, 5, 1,
                         "rancid meat still sealed inside a clay jar, the smell is " +
                                 "slowly leaking from the sealed container"
                                 + "\r\n"
@@ -436,7 +439,7 @@ public class Pyramid {
     }
     private void NPCIinitializer() {
         gamemap[0][2].addEntity(
-                new NPC("Osiris", 100, 75, 150, 2, 2,
+                new NPC("Osiris", 100, 35, 150, 2, 2,
                         "A creepy ancient mummy, the owner of the tomb. Now that you " +
                                 "have desecrated its home it seeks vengance.",
                         false));
