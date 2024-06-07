@@ -1,3 +1,5 @@
+package escape_from_dahshur.main;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -85,7 +87,7 @@ public class Game {
                 if (hero.getCurrentPosition()[1] == 1 && hero.getCurrentPosition()[0] == 2) {
                     printCentered("open chest", ANSI_GREEN);
                 }
-                printCentered("save game", ANSI_CYAN);
+                printCentered("save game [hero_name]", ANSI_CYAN);
                 printCentered("load game [hero_name]", ANSI_CYAN);
                 printCentered("type 'exit' to quit.", ANSI_RED);
             } else {
@@ -94,7 +96,6 @@ public class Game {
                 printCentered("flee", ANSI_GREEN);
                 printCentered("view inventory", ANSI_GREEN);
             }
-
             System.out.print("Enter action: ");
             String input = scanner.nextLine();
 
@@ -300,7 +301,7 @@ public class Game {
             } else if (input.toLowerCase().startsWith("save game ") && !inCombat) {
                 String saveName = input.substring(10).trim();
                 // If the save name is empty, use the default name "savegame"
-                if (saveName.isEmpty()) {
+                if (saveName.isEmpty() || saveName == null) {
                     saveName = "savegame";
                 }
                 saveGame(hero, pyramid, saveName);
@@ -378,7 +379,7 @@ public class Game {
         scanner.close();
     }
 
-    private static void saveGame(Main_Character hero, Pyramid pyramid,
+    protected static void saveGame(Main_Character hero, Pyramid pyramid,
                                  String saveName) {
         printCentered("Saving game...", ANSI_CYAN);
         try {
@@ -395,7 +396,7 @@ public class Game {
         }
     }
 
-    private static void loadGame(Main_Character hero, Pyramid pyramid,
+    protected static void loadGame(Main_Character hero, Pyramid pyramid,
                                  String saveName) {
         printCentered("Loading game...", ANSI_CYAN);
         try {

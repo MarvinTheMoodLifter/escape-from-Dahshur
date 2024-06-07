@@ -1,3 +1,4 @@
+package escape_from_dahshur.main;
 public class Landscape_Entity extends Entity {
     private String landmarkdescription;
     private int landmarkpower;

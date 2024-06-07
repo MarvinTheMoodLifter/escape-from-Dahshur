@@ -1,0 +1,6 @@
+{
+  "save-location": "local-or-cloud",
+  "google-cloud-bucket": {
+    "key-path": "/path/to/key/file.json"
+  }
+}

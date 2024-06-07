@@ -1,3 +1,4 @@
+package escape_from_dahshur.main;
 import java.util.*;
 
 public class Entity {

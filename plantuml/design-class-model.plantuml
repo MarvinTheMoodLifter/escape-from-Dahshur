@@ -1,0 +1,219 @@
+@startuml Design Class Model
+skinparam linetype ortho
+
+skinparam Arrow {
+  Thickness 2
+  FontStyle Bold
+}
+
+package "Game Management" {
+  class Game {
+      + clearScreen()
+      + printCentered(text: String)
+      + main()
+      + saveGame(hero: Main_Character, pyramid: Pyramid, saveName: String)
+      + loadGame(hero: Main_Character, pyramid: Pyramid, saveName: String)
+      + victory(hero: Main_Character)
+      + loss(hero: Main_Character)
+      + gameEnd(hero: Main_Character)
+  }
+}
+package "Game World" {
+  class Pyramid {
+      - gamemap: Room[][]
+      - pyramidDescription: String
+      + getRoom(posx: int, posy: int): Room
+      + getPyramidDesc(): String
+      + setPyramidDesc(desc: String)
+      + printPyramidDesc()
+      + wallInitializer()
+      + itemInitializer()
+      + NPCinitializer()
+      + landscapeInitializer()
+      + roomDescInitializer()
+      + describeRoom(x: int, y: int)
+      + getGameMap()
+      + toJson()
+      + fromJson(json: String)
+      + fromJsonFile(filePath: String)
+      + updateFrom(other: Pyramid)
+      + printRoomLayout()
+  }
+  class Room {
+      - roomstat: boolean
+      - roomdescription: String
+      - roomItems: ArrayList<Item>
+      - walls: HashMap<String, Boolean>
+      - roomnpc: ArrayList<NPC>
+      - landmarks: ArrayList<Landscape_Entity>
+      - isEntrance: boolean
+      + addItem(groundItem: Item)
+      + deleteItem(target: Item)
+      + clearItem()
+      + hasItem(): boolean
+      + getWall(wallpos: String): Boolean
+      + setWall(direction: String, setting: boolean)
+      + hasWall(): boolean
+      + listwall()
+      + hasEntity(): boolean
+      + addEntity(addednpc: NPC)
+      + removeEntity(target: NPC)
+      + addLandmark(addedlandmark: Landscape_Entity)
+      + removeLandmark(target: Landscape_Entity)
+      + isOpen(): boolean
+      + setRoomStat(setting: boolean)
+      + printItems()
+      + getRoomItems(): List<Item>
+      + describeEntities()
+      + describeLandmarks()
+      + talkToNPC(npcName: String)
+      + findNPCByName(name: String): NPC
+      + findLandmarkByName(name: String): Landscape_Entity
+      + findItemByName(name: String): Item
+      + setRoomDesc(desc: String)
+      + getRoomDesc(): String
+      + printRoomDesc(desc: String)
+      + setEntrance(newEntrance: boolean)
+      + getEntrance(): boolean
+  }
+}
+package "Entities" {
+  class Entity {
+      - name: String
+      - health: int
+      - power: int
+      - items: List<Item>
+      - maxWeight: double
+      - score: int
+      - currentPosition: int[]
+      - hasmoved: boolean
+      - canmove: boolean
+      + getName(): String
+      + getHealth(): int
+      + getPower(): int
+      + getItems(): List<Item>
+      + getMaxWeight(): int
+      + getScore(): int
+      + getCurrentPosition(): int[]
+      + getCanMove(): boolean
+      + setName(name: String)
+      + setHealth(health: int)
+      + setPower(power: int)
+      + addItem(item: Item)
+      + setMaxWeight(maxWeight: int)
+      + setScore(score: int)
+      + setCurrentPosition(x: int, y: int)
+      + setCanMove(setting: boolean)
+      + moveNorth()
+      + moveSouth()
+      + moveEast()
+      + moveWest()
+      + setHasMoved(setting: boolean)
+      + getHasMoved()
+      + move(target: Pyramid, direction: String)
+  }
+  class Main_Character {
+      - equippedItem: Item
+      - hasEquippedItem: boolean
+      - inventory: HashMap<String, Item>
+      + getInventory(): HashMap<String, Item>
+      + inspectItemByName(room: Room, itemName: String)
+      + attack(npc: NPC)
+      + takeDamage(damage: int)
+      + equipItem(itemName: Item)
+      + takeItem(item: Item, room: Room)
+      + dropItem(item: Item, room: Room)
+      + getInvWeight()
+      + getInvScore()
+      + getEqItem()
+      + getHasEqItem()
+      + setHasEqItem(setting: boolean)
+      + setEqItem(item: Item)
+      + unequipItem(room: Room)
+      + getInvItem(name: String)
+      + setInvItem(item: Item)
+      + printInventory()
+      + isAlive()
+      + die()
+      + toJson()
+      + fromJson(json: String)
+      + fromJsonFile(filePath: String)
+      + updateFrom(other: Main_Character)
+  }
+
+  class NPC {
+      - description: String
+      - isAlive: boolean
+      - isFriendly: boolean
+      + isAlive(): boolean
+      + isFriendly(): boolean
+      + setIsFriendly(setting: boolean)
+      + getDescription(): String
+      + takeDamage(damage: int)
+      + attack(hero: Main_Character, damage: int)
+      + die()
+      + describe()
+      + NpcInteraction(target: String, interaction: String, hero: Main_Character, room: Room)
+  }
+  
+  class Landscape_Entity {
+    - landmarkdescription: String
+    - landmarkpower: int
+    + getLandscapeDesc(): String
+    + setLandscapeDesc(desc: String)
+    + damageCharacter(victim: Main_Character)
+    + describeLandscape()
+    + landmarkInteraction(target: String, interaction: String, hero: Main_Character, room: Room)
+  }
+}
+
+
+
+package "Items" {
+  class Item {
+      - name: String
+      - score: int
+      - weight: int
+      - damage: int
+      - itemDescription: String
+      + getName(): String
+      + getItemScore(): int
+      + getWeight(): int
+      + getDamage(): int
+      + getItemDesc(): String
+      + setItemDesc(desc: String)
+      + printItemDesc()
+      + inspectItem()
+  }
+}
+
+together {
+    Game --> Pyramid : generates
+    Pyramid --> "9" Room : made of
+}
+
+together {
+    
+    Main_Character "inspects" --> Item
+    Item --> "equips" Main_Character
+    Main_Character --> "interacts with" NPC
+}
+
+together {
+    Main_Character --> Entity : is a
+    NPC --> Entity : is a
+    Landscape_Entity --> Entity : is a
+}
+
+together {
+    Room --> "*" Entity : contains
+    Room --> Item : contains
+}
+
+
+Game -[hidden]down- "Game World"
+"Items" -[hidden]right- "Game World"
+Landscape_Entity -[hidden]left- Entity
+NPC -[hidden]right- Main_Character
+
+@enduml

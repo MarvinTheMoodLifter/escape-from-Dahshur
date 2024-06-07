@@ -1,0 +1,50 @@
+@startuml System Sequence Diagram
+
+actor User as "Player"
+actor Main_Character as "Hero"
+entity NPC as "NPC"
+participant Room as "Room"
+participant Item as "Item"
+database Storage as "Storage"
+
+User->>Main_Character: Start game
+Main_Character->>Room: Enter room
+Room->>User: Present the room state and available actions
+
+== Game Loop ==
+loop Each Turn
+    User->>Main_Character: Choose action
+    alt Action is move
+        Main_Character->>Room: Move to new location
+        Room->>User: Report new location info
+    else Action is inspect
+        Main_Character->>Item: Inspect item
+        Item->>User: Report item stats
+        opt Take the item
+            User->>Main_Character: Take item
+            Item->>Main_Character: Take item
+            opt Equip the item
+                User->>Main_Character: Equip item
+                Item->>Main_Character: Equip item
+            end
+        end
+    else Action is talk to NPC
+        Main_Character->>NPC: Ask NPC
+        NPC->>Main_Character: Report answer
+    else Action is attack NPC
+        Main_Character->>NPC: Attack NPC
+        NPC->>Main_Character: Attack back
+end
+
+== Save and Load ==
+User->>Main_Character: Save game
+Main_Character->>Storage: Store hero state
+Room->>Storage: Store location state
+Storage->>User: Confirm save
+
+User->>Storage: Load game
+Storage->>Main_Character: Load saved hero state
+Storage->>Room: Load saved location state
+Storage->>User: Confirm load
+
+@enduml
