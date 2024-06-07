@@ -1,5 +1,4 @@
 package escape_from_dahshur.main;
-
 public class Item {
   private String name;
   private int score;
