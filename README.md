@@ -11,7 +11,7 @@ Please refer to the [wiki](https://github.com/MarvinTheMoodLifter/escape-from-Da
 ## 🛠️ Installation
 
 To install and launch the software, follow these steps:
-- Ensure you have Java installed on you system. The project has been written and tested with Java 8.
+- Ensure you have Java installed on you system. The project has been written and tested with Java 21.
 - This project needs **Maven** to be installed on your system.
 
 ```bash
@@ -31,7 +31,7 @@ java -jar target/escape-from-dahshur-0.8.jar
 
 ### ☕ Execution environments and Java version constraints
 
-The project has been developed and tested on Windows and Linux. It is compatible with Java 8 and later versions. It is recommended to use an updated version of Java to ensure the proper functioning of the game.
+The project has been developed and tested on Windows and Linux. It is compatible with Java 21 and later versions. It is recommended to use an updated version of Java to ensure the proper functioning of the game.
 
 ### 📚 Libraries and dependencies
 
