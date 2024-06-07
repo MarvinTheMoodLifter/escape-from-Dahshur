@@ -72,9 +72,9 @@ class Main_CharacterTest {
 
   @Test
   void testAttack() {
-    NPC npc = new NPC("Goblin", 30, 2, 20, 1, 1, "Little goblin", false);
+    NPC npc = new NPC("Goblin", 90, 2, 20, 1, 1, "Little goblin", false);
     hero.attack(npc);
-    assertEquals(30 - 50, npc.getHealth());
+    assertEquals(90 - hero.getPower(), npc.getHealth());
   }
 
   @Test

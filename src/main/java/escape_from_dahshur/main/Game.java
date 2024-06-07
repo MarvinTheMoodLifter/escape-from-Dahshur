@@ -384,7 +384,7 @@ public class Game {
         scanner.close();
     }
 
-    private static void saveGame(Main_Character hero, Pyramid pyramid,
+    protected static void saveGame(Main_Character hero, Pyramid pyramid,
                                  String saveName) {
         printCentered("Saving game...", ANSI_CYAN);
         try {
@@ -401,7 +401,7 @@ public class Game {
         }
     }
 
-    private static void loadGame(Main_Character hero, Pyramid pyramid,
+    protected static void loadGame(Main_Character hero, Pyramid pyramid,
                                  String saveName) {
         printCentered("Loading game...", ANSI_CYAN);
         try {
@@ -463,7 +463,7 @@ public class Game {
                 "╚██╔╝  ██║   ██║██║   ██║    ██║     ██║   ██║╚════██║██╔══╝" + "\n" +
                 "██║   ╚██████╔╝╚██████╔╝    ███████╗╚██████╔╝███████║███████╗" + "\n" +
                 "╚═╝    ╚═════╝  ╚═════╝     ╚══════╝ ╚═════╝ ╚══════╝╚══════╝" + "\n");
-        system.out.println("your final score is:" +(hero.getscore()+hero.getinvscore()) );
+        System.out.println("your final score is:" +(hero.getScore()+hero.getInvScore()) );
     }
 
     private static void GameEnd(Main_Character hero) {

@@ -136,14 +136,6 @@ class RoomTest {
   }
 
   @Test
-  void testPrintRoomDesc() {
-    String description = "A dark room with stone walls.";
-    room.setRoomDesc(description);
-    room.printRoomDesc(description);
-    // Output check manually
-  }
-
-  @Test
   void testSetAndGetEntrance() {
     room.setEntrance(true);
     assertTrue(room.getEntrance());

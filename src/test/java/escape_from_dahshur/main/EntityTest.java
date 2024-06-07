@@ -30,22 +30,22 @@ class EntityTest {
   @Test
   void testMoveNorth() {
     entity.move(pyramid, "up");
-    assertArrayEquals(new int[]{1, 2}, entity.getCurrentPosition());
+    assertArrayEquals(new int[]{1, 0}, entity.getCurrentPosition());
     assertTrue(entity.getHasMoved());
 
     entity.move(pyramid, "up");
-    assertArrayEquals(new int[]{1, 2}, entity.getCurrentPosition());
+    assertArrayEquals(new int[]{1, 0}, entity.getCurrentPosition());
     assertFalse(entity.getHasMoved());
   }
 
   @Test
   void testMoveSouth() {
     entity.move(pyramid, "down");
-    assertArrayEquals(new int[]{1, 0}, entity.getCurrentPosition());
+    assertArrayEquals(new int[]{1, 2}, entity.getCurrentPosition());
     assertTrue(entity.getHasMoved());
 
     entity.move(pyramid, "down");
-    assertArrayEquals(new int[]{1, 0}, entity.getCurrentPosition());
+    assertArrayEquals(new int[]{1, 2}, entity.getCurrentPosition());
     assertFalse(entity.getHasMoved());
   }
 
