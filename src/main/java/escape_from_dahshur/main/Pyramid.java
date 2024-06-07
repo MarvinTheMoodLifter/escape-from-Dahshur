@@ -117,7 +117,7 @@ public class Pyramid {
     }
     private void itemInizializer() {
 
-        gamemap[0][1].addItem(new Item("ankh", 10, 1, 0,
+        gamemap[0][2].addItem(new Item("ankh", 10, 1, 0,
                 "an ancient amulet of glittering gold, it " +
                         "used to be worshipped as the symbol of life"
                         + "\r\n"
@@ -134,7 +134,7 @@ public class Pyramid {
                         + "        ██        "
                         + "\n"));
 
-        gamemap[1][2].addItem(new Item("key", 10, 1, 0,
+        gamemap[1][2].addItem(new Item("key", 5, 1, 0,
                 "a large metal key well decorated with " +
                         "incisions all over the handle and shaft"
                         + "\r\n"
@@ -412,7 +412,7 @@ public class Pyramid {
                                 + "\n"));
 
         gamemap[1][1].addItem(
-                new Item("meat", 1, 10, 1,
+                new Item("meat", 3, 5, 1,
                         "rancid meat still sealed inside a clay jar, the smell is " +
                                 "slowly leaking from the sealed container"
                                 + "\r\n"
@@ -441,7 +441,7 @@ public class Pyramid {
     }
     private void NPCIinitializer() {
         gamemap[0][2].addEntity(
-                new NPC("Osiris", 100, 75, 150, 2, 2,
+                new NPC("Osiris", 100, 35, 150, 2, 2,
                         "A creepy ancient mummy, the owner of the tomb. Now that you " +
                                 "have desecrated its home it seeks vengance.",
                         false));

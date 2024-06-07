@@ -113,6 +113,9 @@ public class Main_Character extends Entity {
         for (Item item : inventory.values()) {
             totalScore += item.getItemScore();
         }
+        if(hasEquippedItem){
+          totalScore=totalScore+equippedItem.getItemScore();
+        }
         return totalScore;
     }
 
@@ -167,7 +170,8 @@ public class Main_Character extends Entity {
         }
         System.out.println("your health is: "+getHealth());
         System.out.println("your weight is: "+getInvWeight()+" out of "+ getMaxWeight());
-        System.out.println("your current score is: "+getScore());
+       System.out.println("you have: "+ getScore()+" score from defeating npcs and "+getInvScore()+" score from items");
+         System.out.println("your current total score is: "+(getScore()+getInvScore()));
     }
 
     public String toJson() {

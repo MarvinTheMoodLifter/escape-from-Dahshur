@@ -21,6 +21,7 @@ public class NPC extends Entity {
         this.isAlive = true;
         setCanMove(true);
         isFriendly = isfriend;
+        setScore(5);
     }
 
     public boolean isAlive() { return isAlive; }
@@ -78,7 +79,7 @@ public class NPC extends Entity {
                                     "the loss of such precious knowledge, however the adventurer " +
                                     "before disappearing places an item in your hand");
                     hero.setEqItem(
-                            new Item("mysterious idol", 20, 10, 0,
+                            new Item("mysterious idol", 32, 10, 0,
                                     "you can't quite tell wether or not it belongs to a " +
                                             "diety or some sort of demon, all you know is that it " +
                                             "emanates a powerful aura. It is probably safe to keep " +

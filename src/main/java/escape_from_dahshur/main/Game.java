@@ -50,7 +50,7 @@ public class Game {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Pyramid pyramid = new Pyramid();
-        Main_Character hero = new Main_Character("Hero", 100, 25, 50, 0, 0);
+        Main_Character hero = new Main_Character("Hero", 100, 25, 30, 0, 0);
         boolean inCombat = false;
 
         pyramid.getPyramidDesc();
@@ -87,7 +87,7 @@ public class Game {
                 if (hero.getCurrentPosition()[1] == 1 && hero.getCurrentPosition()[0] == 2) {
                     printCentered("open chest", ANSI_GREEN);
                 }
-                printCentered("save game [hero_name]", ANSI_CYAN);
+                printCentered("save game", ANSI_CYAN);
                 printCentered("load game [hero_name]", ANSI_CYAN);
                 printCentered("type 'exit' to quit.", ANSI_RED);
             } else {
@@ -96,6 +96,7 @@ public class Game {
                 printCentered("flee", ANSI_GREEN);
                 printCentered("view inventory", ANSI_GREEN);
             }
+
             System.out.print("Enter action: ");
             String input = scanner.nextLine();
 
@@ -148,13 +149,10 @@ public class Game {
                 }
             } else if (input.toLowerCase().startsWith("inspect ") && !inCombat) {
                 String itemName = input.substring(8).trim();
-                if (hero.getInvItem(itemName) != null) {
-                    hero.getInvItem(itemName).printItemDesc();
-                } else {
                     hero.inspectItemByName(
                             pyramid.getRoom(currentPosition[1], currentPosition[0]),
                             itemName);
-
+                    if(pyramid.getRoom(currentPosition[1], currentPosition[0]).findItemByName(itemName)!=null){
                     // Sottomenu per l'oggetto ispezionato
                     System.out.println();
                     System.out.println("-------------------------------------------------------------" +
@@ -196,7 +194,8 @@ public class Game {
                         printCentered("Unknown command. Returning to main menu.");
                     }
                 }
-            } else if (input.toLowerCase().startsWith("talk to ") && !inCombat) {
+            }
+             else if (input.toLowerCase().startsWith("talk to ") && !inCombat) {
                 String npcName = input.substring(8).trim();
                 NPC npc = pyramid.getRoom(currentPosition[1], currentPosition[0])
                         .findNPCByName(npcName);
@@ -225,6 +224,9 @@ public class Game {
                             if (npc != null && npc.isAlive()) {
                                 hero.attack(npc);
                                 inCombat = npc.isAlive();
+                                if(!npc.isAlive()){
+                                    hero.setScore(hero.getScore()+npc.getScore());
+                                }
                                 if (npc.isAlive()) {
                                     npc.attack(hero, npc.getPower());
                                     if (!hero.isAlive()) {
@@ -301,7 +303,7 @@ public class Game {
             } else if (input.toLowerCase().startsWith("save game ") && !inCombat) {
                 String saveName = input.substring(10).trim();
                 // If the save name is empty, use the default name "savegame"
-                if (saveName.isEmpty() || saveName == null) {
+                if (saveName.isEmpty()) {
                     saveName = "savegame";
                 }
                 saveGame(hero, pyramid, saveName);
@@ -340,6 +342,9 @@ public class Game {
                 if (npc != null && npc.isAlive()) {
                     hero.attack(npc);
                     inCombat = npc.isAlive();
+                    if(!npc.isAlive()){
+                        hero.setScore(hero.getScore()+npc.getScore());
+                    }
                     if (npc.isAlive()) {
                         npc.attack(hero, npc.getPower());
                         if (!hero.isAlive()) {
@@ -379,7 +384,7 @@ public class Game {
         scanner.close();
     }
 
-    protected static void saveGame(Main_Character hero, Pyramid pyramid,
+    private static void saveGame(Main_Character hero, Pyramid pyramid,
                                  String saveName) {
         printCentered("Saving game...", ANSI_CYAN);
         try {
@@ -396,7 +401,7 @@ public class Game {
         }
     }
 
-    protected static void loadGame(Main_Character hero, Pyramid pyramid,
+    private static void loadGame(Main_Character hero, Pyramid pyramid,
                                  String saveName) {
         printCentered("Loading game...", ANSI_CYAN);
         try {
@@ -420,22 +425,22 @@ public class Game {
     }
 
     private static void Victory(Main_Character hero) {
-        if (hero.getInvScore() <= 0) {
+        if (hero.getScore()+hero.getInvScore() <= 0) {
             System.out.println("you did not bring back anything noteworthy.\n" +
                     "this entire expedtion was a waste of time....at least you didn't die");
         } else {
-            if (hero.getInvScore() > 0 && hero.getInvScore() <= 50) {
+            if (hero.getScore()+hero.getInvScore() > 0 && hero.getScore()+hero.getInvScore() <= 50) {
                 System.out.println("you brought back several artifacts.\n" +
                         "it is impossible for you to tell their value but you know you'll surely be remembered for your findings.");
             } else {
-                if (hero.getInvScore() > 50 && hero.getInvScore() <= 100) {
+                if (hero.getScore()+hero.getInvScore() > 50 && hero.getScore()+hero.getInvScore() <= 100) {
                     System.out.println("you made several breaktroughs during your expediction.\n" +
                             "you brought back several inestimable artifacts, your name is sure to be remembered for years to come");
                 } else {
                     System.out.println("you brought back everything you could get your hands on in the pyramid.\n" +
                             "not even a grave robber could've done such a thorough job.\n" +
                             "that said peraphs it was better for the world to forget about several of the artifacts you found.\n" +
-                            "regardless of the price you've found your wealth and your fame.\n" +
+                            "regardless of the price, you've found your wealth and your fame.\n" +
                             "The world Will remember your name.");
                 }
             }
@@ -446,7 +451,7 @@ public class Game {
                 "╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║██║╚██╗██║" + "\n" +
                 "██║   ╚██████╔╝╚██████╔╝    ███████╗╚███╔███╔╝██║██║ ╚████║" + "\n" +
                 "╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝" + "\n");
-        System.out.println("your final score is:" + hero.getInvScore());
+        System.out.println("your final score is:" +( hero.getScore()+hero.getInvScore()));
     }
 
     private static void Loss(Main_Character hero) {
@@ -458,7 +463,7 @@ public class Game {
                 "╚██╔╝  ██║   ██║██║   ██║    ██║     ██║   ██║╚════██║██╔══╝" + "\n" +
                 "██║   ╚██████╔╝╚██████╔╝    ███████╗╚██████╔╝███████║███████╗" + "\n" +
                 "╚═╝    ╚═════╝  ╚═════╝     ╚══════╝ ╚═════╝ ╚══════╝╚══════╝" + "\n");
-        System.out.println("your final score is:" + hero.getInvScore());
+        system.out.println("your final score is:" +(hero.getscore()+hero.getinvscore()) );
     }
 
     private static void GameEnd(Main_Character hero) {
