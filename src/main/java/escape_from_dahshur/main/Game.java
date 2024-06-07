@@ -1,8 +1,17 @@
 package escape_from_dahshur.main;
 
+import com.google.cloud.storage.Bucket;
+import com.google.cloud.storage.BucketInfo;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.nio.file.Paths;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -423,6 +432,41 @@ public class Game {
             printCentered("Error loading game: " + e.getMessage(), ANSI_RED);
         }
     }
+
+  protected static void uploadToCloud(String saveFile) throws IOException {
+    
+      // Load data from config.json
+      FileReader reader = new FileReader("config.json");
+      JsonObject config = JsonParser.parseReader(reader).getAsJsonObject();
+      reader.close();
+
+      String projectId = config.get("project_id").getAsString();
+      String bucketName = config.get("bucket_name").getAsString();
+      String objectName = saveName + ".json";
+      String filePath = saveFile;
+
+      Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
+      BlobId blobId = BlobId.of(bucketName, objectName);
+      BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
+
+      Storage.BlobWriteOption precondition;
+      if (storage.get(bucketName, objectName) == null) {
+        // For a target object that does not yet exist, set the DoesNotExist precondition.
+        // This will cause the request to fail if the object is created before the request runs.
+        precondition = Storage.BlobWriteOption.doesNotExist();
+      } else {
+        // If the destination already exists in your bucket, instead set a generation-match
+        // precondition. This will cause the request to fail if the existing object's generation
+        // changes before the request runs.
+        precondition =
+            Storage.BlobWriteOption.generationMatch(
+                storage.get(bucketName, objectName).getGeneration());
+      }
+      storage.createFrom(blobInfo, Paths.get(filePath), precondition);
+
+      System.out.println(
+          "File " + filePath + " uploaded to bucket " + bucketName + " as " + objectName);
+  }
 
     private static void Victory(Main_Character hero) {
         if (hero.getScore()+hero.getInvScore() <= 0) {
