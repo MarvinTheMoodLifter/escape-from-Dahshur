@@ -10,15 +10,17 @@ package "Game Management" {
   class Game {
       + clearScreen()
       + printCentered(text: String)
-      + wrapText(String text, int width): String
-      + printCentered(String text, String color)
+      + wrapText(text: String, width: int): String
+      + printCentered(text: String,color: String)
       + main()
-      + saveGame(hero: Main_Character, pyramid: Pyramid, saveName: String)
-      + loadGame(hero: Main_Character, pyramid: Pyramid, saveName: String)
-      + victory(hero: Main_Character)
-      + loss(hero: Main_Character)
-      + gameEnd(hero: Main_Character)
-      + printWithDelay(String message, long millis) 
+      # saveGame(hero: Main_Character, pyramid: Pyramid, saveName: String)
+      # loadGame(hero: Main_Character, pyramid: Pyramid, saveName: String)
+      - victory(hero: Main_Character)
+      - loss(hero: Main_Character)
+      # uploadToCloud(String saveFile)
+      # downloadFromCloud(String saveFile)
+      - gameEnd(hero: Main_Character)
+      + printWithDelay(message: String, millis: long) 
   }
 }
 package "Game World" {
@@ -93,7 +95,7 @@ package "Entities" {
       # currentPosition: int[]
       # hasmoved: boolean
       # canmove: boolean
-      + Entity(String name, int health, int power, int maxWeight, int startX, int startY)
+      + Entity(name: String, health: int, power: int, maxWeight: int, startX: int, startY: int)
       + getName(): String
       + getHealth(): int
       + getPower(): int
@@ -122,7 +124,7 @@ package "Entities" {
       - equippedItem: Item
       - hasEquippedItem: boolean
       - inventory: HashMap<String, Item>
-      + NPC(String name, int health, int power, int maxWeight, int startX, int startY, String description, Boolean isfriend)
+      + NPC(name: String,health: int,power: int,maxWeight: int,startX :int,startY: int,description: String,isfriend: Boolean)
       + getInventory(): HashMap<String, Item>
       + inspectItemByName(room: Room, itemName: String)
       + attack(npc: NPC)
@@ -152,7 +154,7 @@ package "Entities" {
       - description: String
       - isAlive: boolean
       - isFriendly: boolean
-      + NPC(String name, int health, int power, int maxWeight, int startX,int startY, String description, Boolean isfriend)
+      + NPC(name: String,health: int,power: int,maxWeight: int,startX: int,startY: int,description: String,isfriend: boolean)
       + isAlive(): boolean
       + isFriendly(): boolean
       + setIsFriendly(setting: boolean)
@@ -167,7 +169,7 @@ package "Entities" {
   class Landscape_Entity {
     - landmarkdescription: String
     - landmarkpower: int
-    + Landscape_Entity(String name, int power, int startX, int startY, String landmarkdescription)
+    + Landscape_Entity(name: String,power: int,startX: int,startY: int,landmarkdescription: String)
     + getLandscapeDesc(): String
     + setLandscapeDesc(desc: String)
     + damageCharacter(victim: Main_Character)
@@ -185,7 +187,7 @@ package "Items" {
       - weight: int
       - damage: int
       - itemDescription: String
-      + Item(String name, int score, int weight, int damage, String itemdesc)
+      + Item(name: String,score: int,weight: int,damage: int,itemdesc: String)
       + getName(): String
       + getItemScore(): int
       + getWeight(): int
