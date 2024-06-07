@@ -1,5 +1,5 @@
 {
   "save_location": "local_or_cloud",
   "project_id": "your-project-id",
-  "bucket_name": "your-unique-bucket-name",
+  "bucket_name": "your-unique-bucket-name"
 }

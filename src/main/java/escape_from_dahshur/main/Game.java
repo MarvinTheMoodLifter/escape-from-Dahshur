@@ -1,5 +1,8 @@
 package escape_from_dahshur.main;
 
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.BucketInfo;
 import com.google.cloud.storage.Storage;
@@ -404,10 +407,17 @@ public class Game {
             writer.write("\"pyramid\": " + gson.toJson(pyramid) + "\n");
             writer.write("}");
             writer.close();
+            FileReader reader = new FileReader("config.json");
+            JsonObject config = JsonParser.parseReader(reader).getAsJsonObject();
+            reader.close();
+            if (config.get("save_location").getAsString() == "cloud") {
+                uploadToCloud(saveName + ".json");
+            }
             printCentered("Game saved successfully.", ANSI_GREEN);
         } catch (IOException e) {
             printCentered("Error saving game: " + e.getMessage(), ANSI_RED);
         }
+
     }
 
     protected static void loadGame(Main_Character hero, Pyramid pyramid,
@@ -428,13 +438,53 @@ public class Game {
             pyramid.updateFrom(loadedPyramid);
 
             printCentered("Game loaded successfully.", ANSI_GREEN);
+            FileReader configReader = new FileReader("config.json");
+            JsonObject config = JsonParser.parseReader(configReader).getAsJsonObject();
+            configReader.close();
+            if (config.get("save_location").getAsString() == "cloud") {
+                downloadFromCloud(saveName + ".json");
+            }
         } catch (IOException e) {
             printCentered("Error loading game: " + e.getMessage(), ANSI_RED);
         }
     }
 
-  protected static void uploadToCloud(String saveFile) throws IOException {
+    protected static void uploadToCloud(String saveFile) throws IOException {
     
+        // Load data from config.json
+        FileReader reader = new FileReader("config.json");
+        JsonObject config = JsonParser.parseReader(reader).getAsJsonObject();
+        reader.close();
+
+        String projectId = config.get("project_id").getAsString();
+        String bucketName = config.get("bucket_name").getAsString();
+        String objectName = saveFile;
+        String filePath = objectName;
+
+        Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
+        BlobId blobId = BlobId.of(bucketName, objectName);
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
+
+        Storage.BlobWriteOption precondition;
+        if (storage.get(bucketName, objectName) == null) {
+          // For a target object that does not yet exist, set the DoesNotExist precondition.
+          // This will cause the request to fail if the object is created before the request runs.
+          precondition = Storage.BlobWriteOption.doesNotExist();
+        } else {
+          // If the destination already exists in your bucket, instead set a generation-match
+          // precondition. This will cause the request to fail if the existing object's generation
+          // changes before the request runs.
+          precondition =
+              Storage.BlobWriteOption.generationMatch(
+                  storage.get(bucketName, objectName).getGeneration());
+        }
+        storage.createFrom(blobInfo, Paths.get(filePath), precondition);
+
+        System.out.println(
+            "File " + filePath + " uploaded to bucket " + bucketName + " as " + objectName);
+    }
+
+    protected static void downloadFromCloud(String saveFile) throws IOException {
       // Load data from config.json
       FileReader reader = new FileReader("config.json");
       JsonObject config = JsonParser.parseReader(reader).getAsJsonObject();
@@ -442,31 +492,22 @@ public class Game {
 
       String projectId = config.get("project_id").getAsString();
       String bucketName = config.get("bucket_name").getAsString();
-      String objectName = saveName + ".json";
-      String filePath = saveFile;
+      String objectName = saveFile;
+      String filePath = objectName;
 
       Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
-      BlobId blobId = BlobId.of(bucketName, objectName);
-      BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
 
-      Storage.BlobWriteOption precondition;
-      if (storage.get(bucketName, objectName) == null) {
-        // For a target object that does not yet exist, set the DoesNotExist precondition.
-        // This will cause the request to fail if the object is created before the request runs.
-        precondition = Storage.BlobWriteOption.doesNotExist();
-      } else {
-        // If the destination already exists in your bucket, instead set a generation-match
-        // precondition. This will cause the request to fail if the existing object's generation
-        // changes before the request runs.
-        precondition =
-            Storage.BlobWriteOption.generationMatch(
-                storage.get(bucketName, objectName).getGeneration());
-      }
-      storage.createFrom(blobInfo, Paths.get(filePath), precondition);
+      Blob blob = storage.get(BlobId.of(bucketName, objectName));
+      blob.downloadTo(Paths.get(saveFile));
 
       System.out.println(
-          "File " + filePath + " uploaded to bucket " + bucketName + " as " + objectName);
-  }
+          "Downloaded object "
+              + objectName
+              + " from bucket name "
+              + bucketName
+              + " to "
+              + filePath);
+    }
 
     private static void Victory(Main_Character hero) {
         if (hero.getScore()+hero.getInvScore() <= 0) {
