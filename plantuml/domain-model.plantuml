@@ -24,16 +24,13 @@ object Entity {
   - weight
 }
 object Action{
-  -talk to [NPC]
-  -exit
-  -attack [NPC]
-  -move [direction]
-  -inspect [Item]
+  -move 
+  -interact
+  -inspect things
   -view inventory
-  -examine landscape
-  -look around
   -load
   -save
+
 
 }
 object Item {
