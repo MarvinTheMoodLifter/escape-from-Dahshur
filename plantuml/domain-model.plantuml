@@ -5,39 +5,67 @@ skinparam DefaultFontStyle bold
 skinparam ArrowThickness 1
 hide empty members
 
-object "Player" as Main_Character {
+object "Hero" as Main_Character {
   - equippedItem
+  - inventory
+}
+object Game{
+}
+object Player{
+}
+object Landscape_Entity{
+   -LandscapeInteraction
 }
 object Entity {
   - health
   - power
+  - score
+  - weight
 }
-object Attack
-object Talk
+object Action{
+  -talk to [NPC]
+  -exit
+  -attack [NPC]
+  -move [direction]
+  -inspect [Item]
+  -view inventory
+  -examine landscape
+  -look around
+  -load
+  -save
+
+}
 object Item {
   - name
   - damage 
   - weight 
   - score
 }
-object NPC 
-object Pyramid {
-  - rooms
+object NPC {
+  -NPCInteraction
 }
-object Room 
-
-Entity -- "*" Main_Character : is-a <
-Entity -- "*" NPC : is-a <
-Main_Character -- Room : is-in >
-Main_Character -- "*" Item : equips >
-(Main_Character,NPC) .. Attack
-(Main_Character,NPC) .. Talk
-Room -- "*" Item : contains >
-Room .. "1" NPC : could hosts >
-Pyramid "1" -- "9" Room : has >
-
-Main_Character -[hidden]down- Room
-Entity -[hidden]left- Main_Character
-Pyramid -[hidden]up- Room
+object Pyramid {
+}
+object Room {
+   - walls
+}
+Room "1"-- "1..*" Item : contains >
+Pyramid "1"*--"1..*" Room: contains >
+Room "1"*-- "1..*" NPC : contains >
+Game "1"--"1" Pyramid: played on
+Main_Character "1"--"*" Item: owns >
+Entity -- Main_Character: is a <
+NPC -- Entity: is a >
+Landscape_Entity -- Entity: is a >
+Landscape_Entity "*"--*"1" Room: contains <
+Main_Character "1" -- "1" Room: is on
+Player "1"--"1" Main_Character: controls
+Player -- Game: plays
+Player "1"--"1..*" Action: chooses
+Main_Character "1"--"1..*" Action: executes
+Action -- Game: interacts
+Action -- NPC: interacts
+Action -- Landscape_Entity: interacts
+Action -- Item: interacts
 
 @enduml
