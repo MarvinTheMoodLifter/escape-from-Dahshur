@@ -1,4 +1,4 @@
-package escape_from_dahshur.main;
+
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -39,7 +39,7 @@ public class Pyramid {
                         "                                                                " +
                         "                    ";
         gameIntro =
-                         "\r\n"
+                "\r\n"
                         + "..."
                         + "\r\n"
                         + "..."
@@ -118,8 +118,8 @@ public class Pyramid {
     private void itemInizializer() {
 
         gamemap[0][2].addItem(new Item("ankh", 10, 1, 0,
-                "an ancient amulet of glittering gold, it " +
-                        "used to be worshipped as the symbol of life"
+                Game.wrapText("an ancient amulet of glittering gold, it " +
+                        "used to be worshipped as the symbol of life", Game.CONSOLE_WIDTH)
                         + "\r\n"
                         + "     █ █  █ █     "
                         + "\n"
@@ -442,30 +442,30 @@ public class Pyramid {
     private void NPCIinitializer() {
         gamemap[0][2].addEntity(
                 new NPC("Osiris", 100, 35, 150, 2, 2,
-                        "A creepy ancient mummy, the owner of the tomb. Now that you " +
-                                "have desecrated its home it seeks vengance.",
+                        Game.wrapText("A creepy ancient mummy, the owner of the tomb. Now that you " +
+                                "have desecrated its home it seeks vengance.", Game.CONSOLE_WIDTH),
                         false));
         gamemap[2][2].addEntity(
                 new NPC("mummy", 50, 25, 150, 0, 2,
-                        "A shadow stands in front of you, as you try to illuminate " +
+                        Game.wrapText("A shadow stands in front of you, as you try to illuminate " +
                                 "it with the torch you realize it is a humanoid being " +
                                 "wrapped in bandages wearing typical Egyptian funeral " +
-                                "clothes adorned with jewels and fine dyed linen. ",
+                                "clothes adorned with jewels and fine dyed linen. ", Game.CONSOLE_WIDTH),
                         false));
         gamemap[2][0].addEntity(new NPC(
                 "lost explorer", 100, 10, 150, 0, 0,
-                "A lost explorer that's now stuck inside of the ruins cursed to be " +
+                Game.wrapText("A lost explorer that's now stuck inside of the ruins cursed to be " +
                         "unable to leave. Altough he speaks with you, you can barely tell " +
                         "wether or not he's still alive, he seems almost like a ghost.If you " +
-                        "were to help him he would surely repay your kindness",
+                        "were to help him he would surely repay your kindness", Game.CONSOLE_WIDTH),
                 true));
     }
     private void landscapeInitializer() {
         gamemap[1][2].addLandmark(new Landscape_Entity(
                 "chest", 0, 1, 2,
-                "a massive stone chestdecorated with several incisions on the " +
+                Game.wrapText("a massive stone chestdecorated with several incisions on the " +
                         "surface, an odd lock you've never seen before prevents you from " +
-                        "opening it. It seems you need some sort of key "
+                        "opening it. It seems you need some sort of key ", Game.CONSOLE_WIDTH)
                         + "\r\n"
                         + "      ███|██████████████████████████████|███      "
                         + "\n"
@@ -498,8 +498,8 @@ public class Pyramid {
 
         gamemap[1][1].addLandmark(new Landscape_Entity(
                 "hole", 0, 1, 1,
-                "a hole it looks deep, for some reason you feel drawn towards it. " +
-                        "Peraphs it may not be a bad idea to jump in after all....."));
+                Game.wrapText("a hole it looks deep, for some reason you feel drawn towards it. " +
+                        "Peraphs it may not be a bad idea to jump in after all.....", Game.CONSOLE_WIDTH)));
     }
     private void roomDescInitializer() {
         gamemap[2][0].setRoomDesc(
@@ -535,12 +535,12 @@ public class Pyramid {
                         + "\n"
                         + "█████████|██████████        ████████████|█████████"
                         + "\r\n"
-                        + "In front of you there is a room with shiny white sandstone walls, " +
+                        + Game.wrapText("In front of you there is a room with shiny white sandstone walls, " +
                         "time seems not to have passed, on the ground the sand which has " +
                         "slowly infiltrated over the millennia through the small cracks is " +
                         "accumulating along the edges. The walls are all closed except for " +
                         "a passage in the north wall. The temperature is pleasant, it is " +
-                        "certainly a good ten degrees cooler than outside.");
+                        "certainly a good ten degrees cooler than outside.", Game.CONSOLE_WIDTH));
         gamemap[1][0].setRoomDesc(
                 "█████████|██████████████████████████████|█████████"
                         + "\n"
@@ -574,14 +574,13 @@ public class Pyramid {
                         + "\n"
                         + "█████████|██████████        ████████████|███/  ███"
                         + "\r\n"
-                        +
-                        "The atmosphere is definitely different, the dimensions of this room " +
+                        + Game.wrapText("The atmosphere is definitely different, the dimensions of this room " +
                         "are larger than the previous one. The walls are decorated with " +
                         "bas-reliefs, interrupted only by the small and narrow passages in " +
                         "the south and east walls. You are fascinated by the story they " +
                         "tell, they talk about a certain “Pdor, son of Kmer from the Instar " +
                         "tribe! Of the wasteland of the Sknir! One of the last seven essays! " +
-                        "Purvurur, Garen, Pastararin, Giugiar, Taram, Fusciusc and Tarin”. ");
+                        "Purvurur, Garen, Pastararin, Giugiar, Taram, Fusciusc and Tarin”. ", Game.CONSOLE_WIDTH));
         gamemap[2][1].setRoomDesc(
                 "█████████|██████████████████████████████|█████████"
                         + "\n"
@@ -615,14 +614,14 @@ public class Pyramid {
                         + "\n"
                         + "█████████|██████████        ████████████|█████████"
                         + "\r\n"
-                        + "How long have you been inside? By now it feels like you've been " +
+                        + Game.wrapText("How long have you been inside? By now it feels like you've been " +
                         "wandering for hours, the air gets heavier and heavier as you get " +
                         "deeper into the necropolis. A room opens before you completely " +
                         "devoid of decorations, the only things you notice are footprints " +
                         "in the sand.\r\n" + //
                         "You feel a shiver go up your whole body. The only entrance to the " +
-                        "room is the one to the north where you entered.\r\n" + //
-                        "");
+                        "room is the one to the north where you entered.\r\n" +
+                        "", Game.CONSOLE_WIDTH));
         gamemap[1][1].setRoomDesc(
                 "█████████|██████████████████████████████|█████████"
                         + "\n"
@@ -654,13 +653,13 @@ public class Pyramid {
                         + "\n"
                         + "███__ ███|██████████        ████████████|███ __███"
                         + "\n"
-                        + "███ \\███|██████████        ████████████|███/  ███"
+                        + "███  /███|██████████        ████████████|███/  ███"
                         + "\r\n"
-                        + "This room has a strange shape, the walls are tapered downwards, " +
+                        + Game.wrapText("This room has a strange shape, the walls are tapered downwards, " +
                         "and each have a passage, the ceilings are very very high and " +
                         "decorated with painted geometric elements, in the center of the " +
                         "room there is a strange hole, surrounded by beautiful painted " +
-                        "tiles of bright colors.");
+                        "tiles of bright colors.", Game.CONSOLE_WIDTH));
         gamemap[0][0].setRoomDesc(
                 "█████████|██████████████████████████████|█████████"
                         + "\n"
@@ -700,11 +699,11 @@ public class Pyramid {
                         + "\n"
                         + "█████████|██████                  ██████|█████████"
                         + "\r\n"
-                        + "In front of you stands an immense black door filled with " +
+                        + Game.wrapText("In front of you stands an immense black door filled with " +
                         "hieroglyphics.\n  The contrast between the walls and the door is " +
                         "beautiful.\nWith your torch you struggle to illuminate the entire " +
                         "room.\n The room around you is bare as if to underline the " +
-                        "importance of the door  ");
+                        "importance of the door  ", Game.CONSOLE_WIDTH));
         gamemap[2][2].setRoomDesc(
                 "█████████|██████████████████████████████|█████████"
                         + "\n"
@@ -738,12 +737,12 @@ public class Pyramid {
                         + "\n"
                         + "█████████|██████████        ████████████|█████████"
                         + "\r\n"
-                        + "*rustling* After the first few steps, you freeze, you hear a " +
+                        + Game.wrapText("*rustling* After the first few steps, you freeze, you hear a " +
                         "sound, a rustling, you hold your breath, there isn't much in the " +
                         "room where you are, but you glimpse a silhouette in one of the " +
                         "corners, hidden in the dim light, you scared, but doesn't seem to " +
                         "move. You try to illuminate the walls of the room, the only " +
-                        "passage is the one you came from.");
+                        "passage is the one you came from.", Game.CONSOLE_WIDTH));
         gamemap[0][2].setRoomDesc(
                 "█████████|██████████████████████████████|█████████"
                         + "\n"
@@ -777,11 +776,11 @@ public class Pyramid {
                         + "\n"
                         + "█████████|██████████        ████████████|█████████"
                         + "\r\n"
-                        + "you feel surrounded, around you dozen of statues of guards fill " +
+                        + Game.wrapText("you feel surrounded, around you dozen of statues of guards fill " +
                         "the walls.\n In the center of the room stant a series of objects " +
                         "stacked on top of one another, giving the idea of being gift for " +
                         "the dead or the divinities, left there for millenia.\n This room " +
-                        "is a dead end, you can only go back.");
+                        "is a dead end, you can only go back.", Game.CONSOLE_WIDTH));
         gamemap[1][2].setRoomDesc(
                 "█████████|██████████████████████████████|█████████"
                         + "\n"
@@ -813,14 +812,14 @@ public class Pyramid {
                         + "\n"
                         + "███__ ███|██████████        ████████████|███ __███"
                         + "\n"
-                        + "███ \\███|██████████        ████████████|███/  ███"
+                        + "███  /███|██████████        ████████████|███/  ███"
                         + "\r\n"
-                        + "When you enter this room you see exactly in the center a huge " +
+                        + Game.wrapText("When you enter this room you see exactly in the center a huge " +
                         "wooden chest and metal plates, on the walls a series of religious " +
                         "themed frescoes on the \"cycle of life and the afterlife\". " +
                         "Following the walls with your gaze you notice two other passages " +
                         "in addition to the one you came from. One to the south and one to " +
-                        "the north.");
+                        "the north.", Game.CONSOLE_WIDTH));
         gamemap[0][1].setRoomDesc(
                 "█████████|██████████████████████████████|█████████"
                         + "\n"
@@ -852,16 +851,16 @@ public class Pyramid {
                         + "\n"
                         + "███__ ███|██████████        ████████████|█████████"
                         + "\n"
-                        + "███ \\███|██████████        ████████████|█████████"
+                        + "███  /███|██████████        ████████████|█████████"
                         + "\r\n"
-                        + "a room totally bare of decorations, on the walls a series of " +
+                        + Game.wrapText("a room totally bare of decorations, on the walls a series of " +
                         "niches containing several papyrus rolls, just looking at them you " +
                         "can feel them crumblin with age.\nEverything is fossilized in a " +
                         "bygone era, it seems like so little has passed since they were " +
                         "placed there, but it's just an illusion, you would just have to " +
                         "touch them for them to turn to dust with that idea of a distant " +
                         "era.\nFollowing the walls you notice two passages, the one where " +
-                        "you came from and an opening on the west wall.");
+                        "you came from and an opening on the west wall.", Game.CONSOLE_WIDTH));
     }
     public void describeRoom(int x, int y) {
         Room room = getRoom(x, y);
