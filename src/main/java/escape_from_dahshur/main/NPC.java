@@ -1,4 +1,3 @@
-package escape_from_dahshur.main;
 
 public class NPC extends Entity {
     private String description;
@@ -74,16 +73,16 @@ public class NPC extends Entity {
                 if (interaction.equals("free") &&
                         hero.getEqItem().getName().equals("book of the dead")) {
                     System.out.println(
-                            "as you free the aventurer his form begins to vanish and the " +
+                            Game.wrapText("as you free the aventurer his form begins to vanish and the " +
                                     "book you are holding goes up in flames. Your heart tightens at " +
                                     "the loss of such precious knowledge, however the adventurer " +
-                                    "before disappearing places an item in your hand");
+                                    "before disappearing places an item in your hand", Game.CONSOLE_WIDTH));
                     hero.setEqItem(
                             new Item("mysterious idol", 32, 10, 0,
-                                    "you can't quite tell wether or not it belongs to a " +
+                                    Game.wrapText("you can't quite tell wether or not it belongs to a " +
                                             "diety or some sort of demon, all you know is that it " +
                                             "emanates a powerful aura. It is probably safe to keep " +
-                                            "now that the curse is gona you think"));
+                                            "now that the curse is gona you think", Game.CONSOLE_WIDTH)));
                     room.removeEntity(room.findNPCByName(target));
                 } else {
                     System.out.println("as you hold " +
