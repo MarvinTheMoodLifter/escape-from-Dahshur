@@ -10,6 +10,7 @@ object "Hero" as Main_Character {
   - inventory
 }
 object Game{
+-display win/loss
 }
 object Player{
 }
