@@ -41,6 +41,24 @@ To learn more about these libraries, please refer to the following links:
 - [JUnit](https://junit.org/junit5/docs/current/user-guide/)
 - [Gson](https://www.baeldung.com/java-gson)
 
+## Game Arts
+
+The game's graphics are technically limited as everything is shown on a terminal, but we chose to use this weakness to our advantage. We tried to create a series of simple but clear images that could help the understanding of the story and give an idea of the spatiality of the structures described without showing too many details in the drawings so as to leave room for the reader's imagination. The approach was similar to that of a game book, also in common with that of text adventures.
+
+
+
+  
+
+## Story
+
+The game is set in Egypt, specifically in the necropolis of Dahshur located in the desert, on the western bank of the Nile, about forty kilometers from Giza.
+Starting from a real setting, the story then develops towards the supernatural. It takes inspiration from classic films of the genre such as "The Mummy" from 1999
+There are also some references to Italian and foreigner videogames and film pop culture, like the game "Fear and Hunger".
+
+The protagonist finds himself trapped inside a pyramid while exploring it. What initially seems like an accident that can be solved with a little elbow grease and exploration takes a disturbing twist by putting our hero to the test and confronting him with challenges and obstacles that he would not have imagined. He will have to face things beyond his comprehension and find a way to escape.
+
+The lack of an accurate description of the protagonist is preceded by a rich description of his surroundings, catapulting the player into the game environment and enhancing his experience.
+
 ## 🚀 Team
 
 | Chellin Davide | Ferro Simone | Lupu Roberto | Perin Marco |
