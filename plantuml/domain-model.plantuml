@@ -14,7 +14,7 @@ object Game{
 }
 object Player{
 }
-object Landscape_Entity{
+object Landmark{
    -LandscapeInteraction
 }
 object Entity {
@@ -54,8 +54,8 @@ Game "1"--"1" Pyramid: played on
 Main_Character "1"--"*" Item: owns >
 Entity -- Main_Character: is a <
 NPC -- Entity: is a >
-Landscape_Entity -- Entity: is a >
-Landscape_Entity "*"--*"1" Room: contains <
+Landmark -- Entity: is a >
+Landmark "*"--*"1" Room: contains <
 Main_Character "1" -- "1" Room: is on
 Player "1"--"1" Main_Character: controls
 Player -- Game: plays
@@ -63,7 +63,7 @@ Player "1"--"1..*" Action: chooses
 Main_Character "1"--"1..*" Action: executes
 Action -- Game: interacts
 Action -- NPC: interacts
-Action -- Landscape_Entity: interacts
+Action -- Landmark: interacts
 Action -- Item: interacts
 
 @enduml
