@@ -1,5 +1,3 @@
-package escape_from_dahshur.main;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -18,7 +16,10 @@ public class Game {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
-    private static final int CONSOLE_WIDTH = 160; // Larghezza della console
+    protected
+    static final int CONSOLE_WIDTH = 150
+
+            ; // Larghezza della console
 
     private static void clearScreen() {
         for (int i = 0; i < 8; ++i)
@@ -32,11 +33,13 @@ public class Game {
         System.out.println(text);
     }
 
-    private static String wrapText(String text, int width)
-    {
+
+    protected static String wrapText(String text, int width) {
         StringBuilder sb = new StringBuilder(text);
         int i = 0;
-        while (i + width < sb.length() && (i = sb.lastIndexOf(" ", i + width)) != -1) { sb.replace(i, i + 1, "\n"); }
+        while (i + width < sb.length() && (i = sb.lastIndexOf(" ", i + width)) != -1) {
+            sb.replace(i, i + 1, "\n");
+        }
         return sb.toString();
     }
 
@@ -61,20 +64,25 @@ public class Game {
         printCentered("Press Enter to continue...", ANSI_RED);
         scanner.nextLine();
 
-
         while (true) {
             int[] currentPosition = hero.getCurrentPosition();
             clearScreen();
             pyramid.describeRoom(currentPosition[1], currentPosition[0]);
-
+            Room currentRoom = pyramid.getRoom(currentPosition[1], currentPosition[0]);
 
             // Menu per interazione utente
             if (!inCombat) {
                 printCentered("Available actions:", ANSI_YELLOW);
-                printCentered("inspect [item_name]", ANSI_GREEN);
-                printCentered("talk to [npc_name]", ANSI_GREEN);
+
+                if (currentRoom.hasItem()) {
+                    printCentered("inspect [item_name]", ANSI_GREEN);
+                }
+                if (currentRoom.hasEntity()) {
+                    printCentered("talk to [npc_name]", ANSI_GREEN);
+                    printCentered("attack [npc name]", ANSI_GREEN);
+                }
+
                 printCentered("move [direction]", ANSI_GREEN);
-                printCentered("attack [npc name]", ANSI_GREEN);
                 printCentered("view inventory", ANSI_GREEN);
                 printCentered("look around", ANSI_GREEN);
                 printCentered("examine environment", ANSI_GREEN);
@@ -149,10 +157,10 @@ public class Game {
                 }
             } else if (input.toLowerCase().startsWith("inspect ") && !inCombat) {
                 String itemName = input.substring(8).trim();
-                    hero.inspectItemByName(
-                            pyramid.getRoom(currentPosition[1], currentPosition[0]),
-                            itemName);
-                    if(pyramid.getRoom(currentPosition[1], currentPosition[0]).findItemByName(itemName)!=null){
+                hero.inspectItemByName(
+                        pyramid.getRoom(currentPosition[1], currentPosition[0]),
+                        itemName);
+                if (pyramid.getRoom(currentPosition[1], currentPosition[0]).findItemByName(itemName) != null) {
                     // Sottomenu per l'oggetto ispezionato
                     System.out.println();
                     System.out.println("-------------------------------------------------------------" +
@@ -195,7 +203,7 @@ public class Game {
                     }
                 }
             }
-             else if (input.toLowerCase().startsWith("talk to ") && !inCombat) {
+            else if (input.toLowerCase().startsWith("talk to ") && !inCombat) {
                 String npcName = input.substring(8).trim();
                 NPC npc = pyramid.getRoom(currentPosition[1], currentPosition[0])
                         .findNPCByName(npcName);
@@ -385,7 +393,7 @@ public class Game {
     }
 
     protected static void saveGame(Main_Character hero, Pyramid pyramid,
-                                 String saveName) {
+                                   String saveName) {
         printCentered("Saving game...", ANSI_CYAN);
         try {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -402,7 +410,7 @@ public class Game {
     }
 
     protected static void loadGame(Main_Character hero, Pyramid pyramid,
-                                 String saveName) {
+                                   String saveName) {
         printCentered("Loading game...", ANSI_CYAN);
         try {
             Gson gson = new Gson();
@@ -439,9 +447,9 @@ public class Game {
                 } else {
                     System.out.println("you brought back everything you could get your hands on in the pyramid.\n" +
                             "not even a grave robber could've done such a thorough job.\n" +
-                            "that said peraphs it was better for the world to forget about several of the artifacts you found.\n" +
-                            "regardless of the price, you've found your wealth and your fame.\n" +
-                            "The world Will remember your name.");
+                            "that said peraphs it was meglio per il mondo dimenticare molti degli artefatti che hai trovato.\n" +
+                            "indipendentemente dal prezzo, hai trovato la tua ricchezza e la tua fama.\n" +
+                            "Il mondo ricorderà il tuo nome.");
                 }
             }
         }
@@ -484,3 +492,4 @@ public class Game {
         }
     }
 }
+
