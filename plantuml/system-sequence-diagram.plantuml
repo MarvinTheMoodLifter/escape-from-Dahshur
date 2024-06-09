@@ -13,8 +13,9 @@ loop Each Turn
     User->>Game: Choose action
     alt action is available
     Game->>User: action is available
-    Game->>User: attempt to execute action
+    Game->>Game: attempt to execute action
     alt action sucess
+    Game->>Game: update data
     Game->>User: report sucess
     else action failure
     Game->>User: report failure
@@ -41,25 +42,4 @@ Storage->>Game: Load saved hero state
 Storage->>Game: Load saved location and room state
 Storage->>User: Confirm load
 end
-@enduml
-        end
-    else Action is talk to NPC
-        Main_Character->>NPC: Ask NPC
-        NPC->>Main_Character: Report answer
-    else Action is attack NPC
-        Main_Character->>NPC: Attack NPC
-        NPC->>Main_Character: Attack back
-end
-
-== Save and Load ==
-User->>Main_Character: Save game
-Main_Character->>Storage: Store hero state
-Room->>Storage: Store location state
-Storage->>User: Confirm save
-
-User->>Storage: Load game
-Storage->>Main_Character: Load saved hero state
-Storage->>Room: Load saved location state
-Storage->>User: Confirm load
-
 @enduml
