@@ -1,32 +1,47 @@
 @startuml System Sequence Diagram
-
 actor User as "Player"
-actor Main_Character as "Hero"
-entity NPC as "NPC"
-participant Room as "Room"
-participant Item as "Item"
+participant Game as "Game"
 database Storage as "Storage"
 
-User->>Main_Character: Start game
-Main_Character->>Room: Enter room
-Room->>User: Present the room state and available actions
+User->>Game: Start game
+Game->>User: introduction
+User->>Game: continue
+Game->>User: Present the room state and available actions
 
 == Game Loop ==
 loop Each Turn
-    User->>Main_Character: Choose action
-    alt Action is move
-        Main_Character->>Room: Move to new location
-        Room->>User: Report new location info
-    else Action is inspect
-        Main_Character->>Item: Inspect item
-        Item->>User: Report item stats
-        opt Take the item
-            User->>Main_Character: Take item
-            Item->>Main_Character: Take item
-            opt Equip the item
-                User->>Main_Character: Equip item
-                Item->>Main_Character: Equip item
-            end
+    User->>Game: Choose action
+    alt action is available
+    Game->>User: action is available
+    Game->>User: attempt to execute action
+    alt action sucess
+    Game->>User: report sucess
+    else action failure
+    Game->>User: report failure
+    end
+    else action not available
+    Game->>User: report failure
+end
+   opt hero health<0
+   Game->>User: show loss and exit loop
+   end
+   opt win condition=true
+   Game->>User: show win and exit loop
+   end
+end
+== Save and Load ==
+alt save
+User->>Game: Save game
+Game->>Storage: Store hero state
+Game->>Storage: Store location and room state
+Storage->>User: Confirm save
+else load
+User->>Storage: Load game
+Storage->>Game: Load saved hero state
+Storage->>Game: Load saved location and room state
+Storage->>User: Confirm load
+end
+@enduml
         end
     else Action is talk to NPC
         Main_Character->>NPC: Ask NPC
