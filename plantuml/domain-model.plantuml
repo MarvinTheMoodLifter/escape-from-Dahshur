@@ -6,33 +6,26 @@ skinparam ArrowThickness 1
 hide empty members
 
 object "Hero" as Main_Character {
-  - equippedItem
   - inventory
+  - power
+  - health
+  - score
+  - name
+  -MaxWeight
 }
 object Game{
--display win/loss
+}
+object Storage{
+-save
 }
 object Player{
 }
 object Landmark{
-   -LandscapeInteraction
+   -power
+   -description
+   -name
 }
-object Entity {
-  - health
-  - power
-  - score
-  - weight
-}
-object Action{
-  -move 
-  -interact
-  -inspect things
-  -view inventory
-  -load
-  -save
 
-
-}
 object Item {
   - name
   - damage 
@@ -40,9 +33,13 @@ object Item {
   - score
 }
 object NPC {
-  -NPCInteraction
+  -power
+  -health
+  -score
+  -name
 }
 object Pyramid {
+   - description
 }
 object Room {
    - walls
@@ -52,18 +49,16 @@ Pyramid "1"*--"1..*" Room: contains >
 Room "1"*-- "1..*" NPC : contains >
 Game "1"--"1" Pyramid: played on
 Main_Character "1"--"*" Item: owns >
-Entity -- Main_Character: is a <
-NPC -- Entity: is a >
-Landmark -- Entity: is a >
 Landmark "*"--*"1" Room: contains <
 Main_Character "1" -- "1" Room: is on
 Player "1"--"1" Main_Character: controls
 Player -- Game: plays
-Player "1"--"1..*" Action: chooses
-Main_Character "1"--"1..*" Action: executes
-Action -- Game: interacts
-Action -- NPC: interacts
-Action -- Landmark: interacts
-Action -- Item: interacts
+Main_Character "1"--"1" Pyramid: moves on
+Main_Character "1"--"1" Landmark: interacts >
+Main_Character "1"--"1" NPC: interacts >
+Main_Character "1"--"1" Game: wins/looses >
+NPC "1"--"*" Item: owns >
+Landmark "1"--"*" Item: owns >
+Game "1"--"1" Storage: upload/load >
 
 @enduml
