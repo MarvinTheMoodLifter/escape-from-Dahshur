@@ -1,5 +1,6 @@
 package escape_from_dahshur.main;
-public class Item {
+public class Item 
+{
   private String name;
   private int score;
   private int weight;
@@ -25,7 +26,8 @@ public class Item {
   public void setItemDesc(String desc) { itemDescription = desc; }
   public void printItemDesc() { System.out.println(itemDescription); }
 
-  public void inspectItem() {
+  public void inspectItem() 
+  {
     System.out.println(ANSI_PURPLE + "Name: " + getName());
     System.out.println("Score: " + getItemScore());
     System.out.println("Weight: " + getWeight());
