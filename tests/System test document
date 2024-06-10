@@ -12,15 +12,19 @@ the rooms should not be barebone but they should have peculiarities like a trian
 status:passed
 2)As a player, I would like to be able to save and load my game progress so I can resume later.
 -there needs to be a save and load function
+if i chooe the save or load command i need to trigger the action
 -if the load/save fails an error message needs to appear
+if the action fails i want to see a fail message
 -there needs to be a suitable storage space where my data can be saved
+for isntance cloud storage or a local file where my data is stored
 -there needs to be a function that allows me to close the game without getting the game over screen
+for isntance i can exit the game without having to frocibly trigger the win/loss condition or terminate the game manually
 status: passed
 3)As a player, I would like to be able to choose to interact with the game environment in multiple ways so that the game experience is enhanced.
 -the main character should be able to have some sort interaction with pecularities around him 
 for instance look at interesting architecture pieces or talk to npcs
 -these interactions should not be forced on the player
-for isntance i could talk to an npc or just ignore it completely however i should still be able to continue
+for isntance i could talk to an npc or look at the floor or just ignore it completely however i should still be able to continue
 status: passed
 4)As a player, I would like to have the opportunity to complete the story to win
 -there needs to be a story
@@ -34,21 +38,27 @@ for isntance i can't just decide to leave and instantly finish the game
 status: passed
 5)As a player, I would like to have the ability to view character statistics to stay updated on my status.
 -there need to be meaningful character statistics
+for isntance score, weight or health
 -there needs to be a command which allows me to see the statistics at will
+for isntance if at any moment i need to see my stats i can
 -the statistics need to stay updated so they are always reliable
+for isntance after taking damage or gaining more score i need to see the updated number
 status: passed
 6)As a player, I would like to encounter challenges to make the game more interesting.
 -upon meeting certain requirements a loss need to be triggered
 as an example if my health reaches 0 i should loose or if my score is too low i should loose
 -challenges need to be able to trigger the loss condition if they cannot be overcome
--for example a tough enemy to fight or an interaction which causes a loss
+if i am unable to defeat an enemy for instance i need to loose
 -the challenges need to be possible to overcome
+if i preprare myself enough i should be able to take on a powerful foe without loosing
 status: passed
 7)As a player, I would like to have a maximum carrying weight to limit the number of items I can carry.
 -Items need to exist and they need a purpose
+for instance if i pick up a torch it needs to give me some benefit somehow so it is not dead weight
 -Items need a weight and the main character needs a maximum weight
--if the cumulative item weight is higher than the maximum weight my character can hold i can't pick up more items
+if i have 20 weight, i want to pick up an item with 10 weight but my maximum weight is 29 i can't pick it up
 -i need to be able to deposit items so that i can get rid of ones i no longer need
+if my inventory's weight is 30 and my maximum weight is 30 i can drop somehting to lower my current weight so i can pick up other items
 -the main character needs a space to hold the items
 for instance an inventory
 status: passed
