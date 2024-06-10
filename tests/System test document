@@ -1,13 +1,53 @@
 System test document
 1)As a player, I would like to be able to move between rooms while being able to tell where i am going so that i can explore the game environment.
--the main character can move between rooms
+-the main character can move between rooms 
+for example move up or move down
 -the main character can display the room status which shows available directions
+for isntance a command which displays on screen all the needed info about the room
+like the room has an opening in front of you
 -there has to be a game environment to explore
+the rooms should not be barebone but they should have peculiarities like a triangle room filled with moss or something
 -an error message needs to be shown if the picked direction is unavailable or does not exist
 status:passed
 2)As a player, I would like to be able to save and load my game progress so I can resume later.
+-there needs to be a save and load function
+-if the load/save fails an error message needs to appear
+-there needs to be a suitable storage space where my data can be saved
+-there needs to be a function that allows me to close the game without getting the game over screen
+status: passed
 3)As a player, I would like to be able to choose to interact with the game environment in multiple ways so that the game experience is enhanced.
+-the main character should be able to have some sort interaction with pecularities around him 
+for instance look at interesting architecture pieces or talk to npcs
+-these interactions should not be forced on the player
+for isntance i could talk to an npc or just ignore it completely however i should still be able to continue
+status: passed
 4)As a player, I would like to have the opportunity to complete the story to win
+-there needs to be a story
+it doesn't need to be complicated, it could just be something along the lines of
+i am lost and i need to find a way out
+-the story needs to be possible to complete
+for instance upon defeating the bad guy, i the hero win
+-the win condition needs to be at least somewhat complicated to prevent an instant victory
+for isntance i can't just decide to leave and instantly finish the game
+-the win condition needs to be clear enough that the player can understand what he needs to do
+status: passed
 5)As a player, I would like to have the ability to view character statistics to stay updated on my status.
+-there need to be meaningful character statistics
+-there needs to be a command which allows me to see the statistics at will
+-the statistics need to stay updated so they are always reliable
+status: passed
 6)As a player, I would like to encounter challenges to make the game more interesting.
+-upon meeting certain requirements a loss need to be triggered
+as an example if my health reaches 0 i should loose or if my score is too low i should loose
+-challenges need to be able to trigger the loss condition if they cannot be overcome
+-for example a tough enemy to fight or an interaction which causes a loss
+-the challenges need to be possible to overcome
+status: passed
 7)As a player, I would like to have a maximum carrying weight to limit the number of items I can carry.
+-Items need to exist and they need a purpose
+-Items need a weight and the main character needs a maximum weight
+-if the cumulative item weight is higher than the maximum weight my character can hold i can't pick up more items
+-i need to be able to deposit items so that i can get rid of ones i no longer need
+-the main character needs a space to hold the items
+for instance an inventory
+status: passed
