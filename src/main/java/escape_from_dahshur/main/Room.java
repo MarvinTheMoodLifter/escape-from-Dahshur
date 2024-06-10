@@ -1,7 +1,8 @@
 package escape_from_dahshur.main;
 
 import java.util.*;
-public class Room {
+public class Room 
+{
     private boolean roomstat;
     private String roomdescription;
     private ArrayList<Item> roomItems = new ArrayList<Item>();
@@ -10,7 +11,8 @@ public class Room {
     private ArrayList<Landscape_Entity> landmarks = new ArrayList<>();
     private Boolean isEntrance;
 
-    public Room() {
+    public Room() 
+    {
         walls.put("up", false);
         walls.put("right", false);
         walls.put("down", false);
@@ -22,7 +24,8 @@ public class Room {
 
     public void addItem(Item groundItem) { roomItems.add(groundItem); }
 
-    public void deleteItem(Item target) {
+    public void deleteItem(Item target) 
+    {
         roomItems.remove(target);
         roomItems.trimToSize();
     }
@@ -31,13 +34,9 @@ public class Room {
 
     public boolean hasItem() { return !roomItems.isEmpty(); }
 
-    public Boolean getWall(String wallpos) {
-        return walls.getOrDefault(wallpos.toLowerCase(), null);
-    }
+    public Boolean getWall(String wallpos) { return walls.getOrDefault(wallpos.toLowerCase(), null); }
 
-    public void setWall(String direction, boolean setting) {
-        walls.replace(direction.toLowerCase(), setting);
-    }
+    public void setWall(String direction, boolean setting) { walls.replace(direction.toLowerCase(), setting); }
 
     public boolean hasWall() { return walls.containsValue(true); }
 
@@ -47,17 +46,17 @@ public class Room {
 
     public void addEntity(NPC addednpc) { roomnpc.add(addednpc); }
 
-    public void removeEntity(NPC target) {
+    public void removeEntity(NPC target) 
+    {
         roomnpc.remove(target);
         roomnpc.trimToSize();
     }
     public boolean hasLandmark() { return !landmarks.isEmpty(); }
 
-    public void addLandmark(Landscape_Entity addedlandmark) {
-        landmarks.add(addedlandmark);
-    }
+    public void addLandmark(Landscape_Entity addedlandmark) { landmarks.add(addedlandmark); }
 
-    public void removeLandmark(Landscape_Entity target) {
+    public void removeLandmark(Landscape_Entity target) 
+    {
         landmarks.remove(target);
         landmarks.trimToSize();
     }
@@ -65,23 +64,23 @@ public class Room {
 
     public void setRoomStat(boolean setting) { roomstat = setting; }
 
-    public void printItems() {
-        if (roomItems.isEmpty()) {
-            System.out.println("No items in the room.");
-        } else {
+    public void printItems() 
+    {
+        if (roomItems.isEmpty()) { System.out.println("No items in the room."); } 
+        else 
+        {
             System.out.println("Items in the room:");
-            for (Item item : roomItems) {
-                System.out.println("- " + item.getName());
-            }
+            for (Item item : roomItems) { System.out.println("- " + item.getName()); }
         }
     }
 
     public List<Item> getRoomItems() { return roomItems; }
 
-    public void describeEntities() {
-        if (roomnpc.isEmpty()) {
-            System.out.println("There are no characters in the room.");
-        } else {
+    public void describeEntities() 
+    {
+        if (roomnpc.isEmpty()) { System.out.println("There are no characters in the room."); } 
+        else 
+        {
             for (Entity entity : roomnpc) {
                 if (entity instanceof NPC) {
                     ((NPC)entity).describe();
