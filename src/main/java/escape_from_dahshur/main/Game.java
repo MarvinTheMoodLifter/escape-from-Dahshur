@@ -97,7 +97,7 @@ public class Game
                 if (hero.getCurrentPosition()[1] == 1 && hero.getCurrentPosition()[0] == 1) { printCentered("enter hole", ANSI_GREEN); }
                 if (hero.getCurrentPosition()[1] == 0 && hero.getCurrentPosition()[0] == 0) { printCentered("leave pyramid", ANSI_GREEN); }
                 if (hero.getCurrentPosition()[1] == 1 && hero.getCurrentPosition()[0] == 2) { printCentered("open chest", ANSI_GREEN); }
-                printCentered("save game", ANSI_CYAN);
+                printCentered("save game [local/cloud]", ANSI_CYAN);
                 printCentered("load game [hero_name]", ANSI_CYAN);
                 printCentered("type 'exit' to quit.", ANSI_RED);
             }
