@@ -6,10 +6,11 @@ database Storage as "Storage"
 User->>Game: Start game
 Game->>User: introduction
 User->>Game: continue
-Game->>User: Present the room state and available actions
+
 
 == Game Loop ==
 loop Each Turn
+    Game->>User: Present the room state and available actions
     User->>Game: Choose action
     alt action is available
         Game->>User: action is available
