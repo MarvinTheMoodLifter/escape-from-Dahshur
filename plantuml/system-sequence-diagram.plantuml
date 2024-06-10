@@ -6,56 +6,56 @@ database Storage as "Storage"
 User->>Game: Start game
 Game->>User: introduction
 User->>Game: continue
-Game->>User: Present the room state and available actions
+
 
 == Game Loop ==
 loop Each Turn
+    Game->>User: Present the room state and available actions
     User->>Game: Choose action
     alt action is available
         Game->>User: action is available
         Game->>Game: attempt to execute action
-        alt action success
+        alt generic action success
             Game->>Game: update data
             Game->>User: report success
-        else action failure
-            Game->>User: report failure
-        end
-    else action not available
-        Game->>User: report failure
-    end
-    
-    alt view inventory
+            opt has subaction
+            Game->>User: possible subactions
+            User->>Game: choice
+             alt subaction availabe
+             Game->>Game: attempt subaction
+              alt subaction success
+              Game->>Game: update data
+              Game->>User: subaction completed
+              else subaction failure
+              Game->>User: subaction failed
+              end 
+              else subaction unavailable
+              Game->>User: subaction failure
+              end
+              end
+    else specific action success
+                opt action is view inventory
         User->>Game: view inventory
         Game->>User: display inventory
         User->>Game: manage inventory (equip/drop)
         Game->>Game: update inventory state
     end
-    
+        opt interact with NPC/item/landmark
+        User->>Game: interact with [NPC/item/landmark]
+        Game->>User: interaction outcome
+    end
     opt in combat
         loop Combat Loop
             User->>Game: Choose combat action
             Game->>User: report combat outcome
             opt combat ends
-                break
+                Game->>Game: user not in combat
             end
         end
     end
     
-    opt interaction with NPC/item/landmark
-        User->>Game: interact with [NPC/item/landmark]
-        Game->>User: interaction outcome
-    end
-    
-    opt hero health < 0
-        Game->>User: show loss and exit loop
-    end
-    opt win condition = true
-        Game->>User: show win and exit loop
-    end
-end
 
-== Save and Load ==
-alt save
+       alt save
     User->>Game: Save game
     Game->>Storage: Store hero state
     Game->>Storage: Store location and room state
@@ -65,7 +65,23 @@ else load
     User->>Game: Load game
     Storage->>Game: Load saved hero state
     Storage->>Game: Load saved location and room state
-    Storage->>User: Confirm load
+    Storage->>Game: load finished
     Game->>User: Confirm load
 end
+    else action failure
+        Game->>User: report failure
+    end
+    else action unavailable
+    Game->>User: report action unavailable
+    end
+    opt hero health < 0
+        Game->>User: show loss and exit loop
+    end
+    opt win condition = true
+        Game->>User: show win and exit loop
+    end
+    
+    end
+
+
 @enduml
