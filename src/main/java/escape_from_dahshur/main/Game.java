@@ -464,9 +464,9 @@ public class Game
                 {
                     System.out.println("you brought back everything you could get your hands on in the pyramid.\n" +
                             "not even a grave robber could've done such a thorough job.\n" +
-                            "that said peraphs it was meglio per il mondo dimenticare molti degli artefatti che hai trovato.\n" +
-                            "indipendentemente dal prezzo, hai trovato la tua ricchezza e la tua fama.\n" +
-                            "Il mondo ricorderà il tuo nome.");
+                            "that said peraphs it was better for the world to forget many of the artifacts you found.\n" +
+                            "Regardless of the price you've found the fame and wealth you were looking for. \n" +
+                            "The world will remember your name.");
                 }
             }
         }
