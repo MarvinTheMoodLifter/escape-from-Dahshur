@@ -1,0 +1,13 @@
+System test document
+1)As a player, I would like to be able to move between rooms while being able to tell where i am going so that i can explore the game environment.
+-the main character can move between rooms
+-the main character can display the room status which shows available directions
+-there has to be a game environment to explore
+-an error message needs to be shown if the picked direction is unavailable or does not exist
+status:passed
+2)As a player, I would like to be able to save and load my game progress so I can resume later.
+3)As a player, I would like to be able to choose to interact with the game environment in multiple ways so that the game experience is enhanced.
+4)As a player, I would like to have the opportunity to complete the story to win
+5)As a player, I would like to have the ability to view character statistics to stay updated on my status.
+6)As a player, I would like to encounter challenges to make the game more interesting.
+7)As a player, I would like to have a maximum carrying weight to limit the number of items I can carry.
