@@ -1,1 +1,75 @@
+@startuml
+actor Player
+participant Game
+participant "Main_Character" as Hero
+participant "Room"
+participant "Item"
+participant "NPC"
+participant "Landscape_Entity" as Landmark
+database "Storage"
+
+Player -> Game: Start Game
+activate Game
+Game -> Hero: Initialize Hero
+activate Hero
+Hero --> Game: Hero initialized
+deactivate Hero
+
+Game -> Room: Setup initial Room
+activate Room
+Room --> Game: Room ready
+deactivate Room
+
+Game -> Player: Display initial state
+activate Player
+Player --> Game: Choose action
+
+loop Game Loop
+    alt Move
+        Player -> Game: move [direction]
+        Game -> Room: validate move
+        Room -> Game: move result
+        Game -> Player: display new room state
+    else Inventory Management
+        Player -> Game: view inventory/manage items
+        Game -> Hero: inventory action (equip, drop, etc.)
+        Hero -> Game: action result
+        Game -> Player: display updated inventory
+    else Interact with Entity
+        Player -> Game: interact with [entity]
+        Game -> Room: find entity (NPC, Item, Landmark)
+        alt NPC
+            Room -> NPC: initiate interaction
+            NPC -> Game: interaction result
+        else Item
+            Room -> Item: initiate interaction
+            Item -> Game: interaction result
+        else Landmark
+            Room -> Landmark: initiate interaction
+            Landmark -> Game: interaction result
+        end
+        Game -> Player: display interaction outcome
+    end
+    
+    Game -> Game: check game status
+    alt Game Over Conditions
+        Game -> Player: Game Over (win/loss)
+        deactivate Game
+    end
+end
+
+== Save and Load ==
+alt Save Game
+    Player -> Game: save game
+    Game -> Storage: store all game data
+    Storage -> Game: confirm save
+    Game -> Player: save confirmed
+else Load Game
+    Player -> Game: load game
+    Game -> Storage: retrieve game data
+    Storage -> Game: load all game data
+    Game -> Player: game loaded
+end
+
+@endoml
 
