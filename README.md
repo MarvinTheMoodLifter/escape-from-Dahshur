@@ -26,7 +26,7 @@ mvn package
 To start the game, run the following command:
 
 ```bash
-java -jar target/escape-from-dahshur-0.8.jar
+java -jar target/escape_from_dahshur-0.8.jar
 ```
 
 ### ☕ Execution environments and Java version constraints
