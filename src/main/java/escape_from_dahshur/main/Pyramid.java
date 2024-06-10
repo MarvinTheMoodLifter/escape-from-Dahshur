@@ -170,8 +170,8 @@ public class Pyramid {
         gamemap[2][1].addItem(
                 new Item("khol", 5, 1, 0,
                         "it kind of looks like a modern eyeliner, it's still used " +
-                                "as eye makeup. The small wooden object is carvedin the " +
-                                "shape of a diety an fully painted"
+                                "as eye makeup. The small wooden object is carved in the " +
+                                "shape of a deity and fully painted"
                                 + "\r\n"
                                 + "            ███|           "
                                 + "\n"
@@ -438,7 +438,7 @@ public class Pyramid {
         gamemap[0][2].addEntity(
                 new NPC("Osiris", 100, 35, 150, 2, 2,
                         "A creepy ancient mummy, the owner of the tomb. Now that you " +
-                                "have desecrated its home it seeks vengance.",
+                                "have desecrated its home it seeks vengeance.",
                         false));
         gamemap[2][2].addEntity(
                 new NPC("mummy", 50, 25, 150, 0, 2,
@@ -450,7 +450,7 @@ public class Pyramid {
         gamemap[2][0].addEntity(new NPC(
                 "lost explorer", 100, 10, 150, 0, 0,
                 "A lost explorer that's now stuck inside of the ruins cursed to be " +
-                        "unable to leave. Altough he speaks with you, you can barely tell " +
+                        "unable to leave. Although he speaks with you, you can barely tell " +
                         "wether or not he's still alive, he seems almost like a ghost.If you " +
                         "were to help him he would surely repay your kindness",
                 true));
@@ -494,7 +494,7 @@ public class Pyramid {
         gamemap[1][1].addLandmark(new Landscape_Entity(
                 "hole", 0, 1, 1,
                 "a hole it looks deep, for some reason you feel drawn towards it. " +
-                        "Peraphs it may not be a bad idea to jump in after all....."));
+                        "Perhaps it may not be a bad idea to jump in after all....."));
     }
     private void roomDescInitializer() {
         gamemap[2][0].setRoomDesc(
@@ -575,7 +575,7 @@ public class Pyramid {
                         "bas-reliefs, interrupted only by the small and narrow passages in " +
                         "the south and east walls. You are fascinated by the story they " +
                         "tell, they talk about a certain “Pdor, son of Kmer from the Instar " +
-                        "tribe! Of the wasteland of the Sknir! One of the last seven essays! " +
+                        "tribe! Of the wasteland of the Sknir! One of the last seven sages! " +
                         "Purvurur, Garen, Pastararin, Giugiar, Taram, Fusciusc and Tarin”. ");
         gamemap[2][1].setRoomDesc(
                 "█████████|██████████████████████████████|█████████"
@@ -736,7 +736,7 @@ public class Pyramid {
                         + "*rustling* After the first few steps, you freeze, you hear a " +
                         "sound, a rustling, you hold your breath, there isn't much in the " +
                         "room where you are, but you glimpse a silhouette in one of the " +
-                        "corners, hidden in the dim light, you scared, but doesn't seem to " +
+                        "corners, hidden in the dim light, you are scared, but it doesn't seem to " +
                         "move. You try to illuminate the walls of the room, the only " +
                         "passage is the one you came from.");
         gamemap[0][2].setRoomDesc(
