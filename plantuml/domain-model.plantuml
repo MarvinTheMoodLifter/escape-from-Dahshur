@@ -5,39 +5,60 @@ skinparam DefaultFontStyle bold
 skinparam ArrowThickness 1
 hide empty members
 
-object "Player" as Main_Character {
-  - equippedItem
-}
-object Entity {
-  - health
+object "Hero" as Main_Character {
+  - inventory
   - power
+  - health
+  - score
+  - name
+  -MaxWeight
 }
-object Attack
-object Talk
+object Game{
+}
+object Storage{
+-save
+}
+object Player{
+}
+object Landmark{
+   -power
+   -description
+   -name
+}
+
 object Item {
   - name
   - damage 
   - weight 
   - score
 }
-object NPC 
-object Pyramid {
-  - rooms
+object NPC {
+  -power
+  -health
+  -score
+  -name
 }
-object Room 
-
-Entity -- "*" Main_Character : is-a <
-Entity -- "*" NPC : is-a <
-Main_Character -- Room : is-in >
-Main_Character -- "*" Item : equips >
-(Main_Character,NPC) .. Attack
-(Main_Character,NPC) .. Talk
-Room -- "*" Item : contains >
-Room .. "1" NPC : could hosts >
-Pyramid "1" -- "9" Room : has >
-
-Main_Character -[hidden]down- Room
-Entity -[hidden]left- Main_Character
-Pyramid -[hidden]up- Room
+object Pyramid {
+   - description
+}
+object Room {
+   - walls
+}
+Room "1"-- "1..*" Item : contains >
+Pyramid "1"*--"1..*" Room: contains >
+Room "1"*-- "1..*" NPC : contains >
+Game "1"--"1" Pyramid: played on
+Main_Character "1"--"*" Item: owns >
+Landmark "*"--*"1" Room: contains <
+Main_Character "1" -- "1" Room: is on
+Player "1"--"1" Main_Character: controls
+Player -- Game: plays
+Main_Character "1"--"1" Pyramid: moves on
+Main_Character "1"--"1" Landmark: interacts >
+Main_Character "1"--"1" NPC: interacts >
+Main_Character "1"--"1" Game: wins/looses >
+NPC "1"--"*" Item: owns >
+Landmark "1"--"*" Item: owns >
+Game "1"--"1" Storage: upload/load >
 
 @enduml
