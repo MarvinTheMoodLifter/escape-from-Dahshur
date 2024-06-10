@@ -1,6 +1,5 @@
 {
-  "save-location": "local-or-cloud",
-  "google-cloud-bucket": {
-    "key-path": "/path/to/key/file.json"
-  }
+  "save_location": "local_or_cloud",
+  "project_id": "your-project-id",
+  "bucket_name": "your-unique-bucket-name"
 }
