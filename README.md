@@ -39,7 +39,8 @@ The project makes extensive use of Java's native functionalities; however, some 
 To learn more about these libraries, please refer to the following links:
 - [Maven](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
 - [JUnit](https://junit.org/junit5/docs/current/user-guide/)
-- [Gson](https://www.baeldung.com/java-gson)
+- [Gson](https://www.baeldung.com/java-json#gson)
+- [Google Cloud Storage](https://cloud.google.com/storage/docs/introduction)
 
 ## 🚀 Team
 
