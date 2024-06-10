@@ -23,7 +23,7 @@ loop Each Turn
              alt subaction availabe
              Game->>Game: attempt subaction
               alt subaction success
-              Game->>User: update data
+              Game->>Game: update data
               Game->>User: subaction completed
               else subaction failure
               Game->>User: subaction failed
