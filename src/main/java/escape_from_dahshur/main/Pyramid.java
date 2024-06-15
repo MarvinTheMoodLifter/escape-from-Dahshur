@@ -41,12 +41,6 @@ public class Pyramid
                         + "\r\n"
                         + "..."
                         + "\r\n"
-                        + "..."
-                        + "\r\n"
-                        + "..."
-                        + "\r\n"
-                        + "..."
-                        + "\r\n"
                         + "vroooom \r\n" + //
                         "For hours now you have seen nothing but sand around you, the " +
                         "journey in the jeep has exhausted you, the heat is unbearable and " +
