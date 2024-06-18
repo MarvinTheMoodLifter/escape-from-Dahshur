@@ -644,7 +644,7 @@ public class Pyramid
                         + "\n"
                         + "███__ ███|██████████        ████████████|███ __███"
                         + "\n"
-                        + "███ \\███|██████████        ████████████|███/  ███"
+                        + "███  \\███|██████████        ████████████|███/  ███"
                         + "\r\n"
                         + "This room has a strange shape, the walls are tapered downwards, " +
                         "and each have a passage, the ceilings are very very high and " +
@@ -803,7 +803,7 @@ public class Pyramid
                         + "\n"
                         + "███__ ███|██████████        ████████████|███ __███"
                         + "\n"
-                        + "███ \\███|██████████        ████████████|███/  ███"
+                        + "███  \\███|██████████        ████████████|███/  ███"
                         + "\r\n"
                         + "When you enter this room you see exactly in the center a huge " +
                         "wooden chest and metal plates, on the walls a series of religious " +
@@ -842,7 +842,7 @@ public class Pyramid
                         + "\n"
                         + "███__ ███|██████████        ████████████|█████████"
                         + "\n"
-                        + "███ \\███|██████████        ████████████|█████████"
+                        + "███  \\███|██████████        ████████████|█████████"
                         + "\r\n"
                         + "a room totally bare of decorations, on the walls a series of " +
                         "niches containing several papyrus rolls, just looking at them you " +
