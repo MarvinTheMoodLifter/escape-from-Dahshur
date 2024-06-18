@@ -56,4 +56,20 @@ class NPCTest {
     npc.attack(hero, 10);
     assertEquals(90, hero.getHealth());
   }
+
+  @Test
+  void testNpcInteraction() {
+    room.removeEntity(npc);
+    NPC lostExplorer = new NPC("lost explorer", 10, 0, 20, 0, 0, "lost explorer", true);
+    String target = "lost explorer";
+    String interaction = "free";
+    Item book = new Item("book of the dead", 10, 0, 0, "book of the dead");
+    hero.setEqItem(book);
+    room.addEntity(lostExplorer);
+    npc.NpcInteraction(target, interaction, hero, room);
+    assertTrue(hero.isAlive());
+    assertEquals(hero.getEqItem().getName(), "mysterious idol");
+    // Assert that the explorer is no longer in the room
+    assertFalse(room.hasEntity());
+  }
 }
